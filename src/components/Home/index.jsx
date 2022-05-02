@@ -12,6 +12,10 @@ import Image11 from "../../assets/products/img11.png"
 import PhoneIcon from "../../assets/products/phone-icon.png"
 import Phone from "../../assets/products/phone.png"
 import Email from "../../assets/products/email.png"
+import Img12 from "../../assets/products/IMG12.png"
+import App_Store from "../../assets/products/app-store_google-play.png"
+import QR from "../../assets/products/qr.png"
+
 
 
 
@@ -433,7 +437,49 @@ const Home = () => {
 
 			</div>
 		</div>
+	</section>
 
+  <section className="margin-top-30">
+		{/* <!-- Container Start --> */}
+		<div className="container">
+			<div className="row " style={{boxShadow: "0px 0px 9px rgb(0 0 0 / 11%)"}}>
+				<div className="col-md-4 padding-top-50">
+					<div className="content-holder">
+          <h2 style={{color:"#14B5DB"}}>Get the Property App</h2>
+						<p>Using our app, You can buy and rent property faster and more efficiently.</p>
+
+					</div>
+				</div>
+				<div className="col-md-4">
+					<div>
+						<img className="card-img-top img-fluid " src={Img12} alt="Card image cap"/>
+
+					</div>
+				</div>
+				<div className="col-lg-4 col-md-7 padding-top-50">
+
+					<div className="download-btn d-flex my-3">
+						<a href="#"><img src="images/products/app-store_google-play-.png" className="img-fluid" alt=""/></a>
+						<a href="#" className=" ml-3"><img src={App_Store} className="img-fluid"
+								alt=""/></a>
+					</div>
+
+					<div className="row margin-top-30">
+						<div className="col-lg-6 col-md-4 margin-top-25">
+							<p>Scan the QR code and get the app.</p>
+
+						</div>
+						<div className="col-md-6">
+							<img className="card-img-top img-fluid " style={{width:"100px"}} src={QR}
+								alt="Card image cap"/>
+
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		{/* <!-- Container End --> */}
 	</section>
 
   <footer className="footer section section-sm">
