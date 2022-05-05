@@ -1,26 +1,33 @@
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap/dist/js/bootstrap.bundle.min';
-import 'bootstrap/dist/js/bootstrap.js';
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.bundle.min";
+import "bootstrap/dist/js/bootstrap.js";
 
-import $ from 'jquery';
-import Popper from 'popper.js';
+import $ from "jquery";
+import Popper from "popper.js";
 
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-
-
-
-
-
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
+import { Provider } from "react-redux";
+import configureStore from "store";
+import { createStore, applyMiddleware } from 'redux'
 
 
+// const store = createStore(
+//   RootReducers, {},
+//    applyMiddleware(ReduxThunk));
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const store = createStore();
+
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <App />
+    <Provider store={store}>
+      <App />
+    </Provider>
+    ,
   </React.StrictMode>
 );
 
