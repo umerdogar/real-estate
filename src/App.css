@@ -38,6 +38,10 @@ h4 {
   font-size: 18px;
 }
 
+h6 {
+  font-size: 16px;
+}
+
 p {
   color: #888;
 }
@@ -46,6 +50,9 @@ label {
   font-size: 13px;
   letter-spacing: 0;
   color: #363636;
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  margin-left: 4px;
 }
 
 .nav-pills .nav-link {

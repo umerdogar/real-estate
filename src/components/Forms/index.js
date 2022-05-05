@@ -1,6 +1,7 @@
 import React from "react";
 import Logo from "../../assets/logo.png";
 import ProfileIcon from "../../assets/profile-icon.png";
+import Footer from "../Footer";
 
 
 
@@ -812,6 +813,7 @@ const Form = () => {
         </div>
       </div>
       {/* <!-- Container End --> */}
+      <Footer/>
     </>
   );
 };
