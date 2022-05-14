@@ -14,11 +14,11 @@ import Routes from "../src/Routes"
 
 
 function App() {
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const store = createStore(RootReducers, composeEnhancers(applyMiddleware()))
+// const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+// const store = createStore(RootReducers, composeEnhancers(applyMiddleware()))
 
 	
-	// const store = createStore(RootReducers, {}, applyMiddleware(ReduxThunk))
+	const store = createStore(RootReducers, {}, applyMiddleware(ReduxThunk))
 	return (
 		<Provider store={store}>
 			<div className="App">

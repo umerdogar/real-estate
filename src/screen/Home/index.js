@@ -20,14 +20,23 @@ import { useForm } from "react-hook-form";
 import Input from "../../components/FromInput/Input";
 import axios from "axios";
 
-import { loginUser , loginUserTWo } from "../../Redux/Actions/actions";
+import { loginUser  } from "../../Redux/Actions/actions";
+// import { loginUserTwo } from "../../Redux/Thunk/User";
 
-const Home = ({ login }) => {
+const Home = ({ post }) => {
   const [selectCity, setSelectCity] = useState("Islamabad");
+  const [popularCity, setPopularCity] = useState()
+
+  // const getUsers = async () => {
+  //   const users = await axios.get('http://192.168.10.9:8000/api/v1/property/popular/city');
+  //   setPopularCity(users?.data);
+  //  };
 
   useEffect(() => {
     console.log("useefefct")
-    login();
+    // getUsers()
+    loginUser();
+
   }, []);
 
   const [searchHome, setSearchHome] = useState({
@@ -47,7 +56,7 @@ const Home = ({ login }) => {
   const handlePost = (e) => {
     e.preventDefault();
     axios
-      .post("http://192.168.10.11:1337/api/property/filter", searchHome)
+      .post("http://192.168.10.11:1337/api/v1/property/filter", searchHome)
       .then((response) => console.log(response))
       .catch((error) => {
         console.error("There was an error!", error);
@@ -473,6 +482,7 @@ const Home = ({ login }) => {
               </div>
             </div>
           </div>
+
         </div>
       </section>
 
@@ -758,11 +768,7 @@ const mapStateToProps = ({ User }) => {
   // let {  } = User
   return {};
 };
-const mapDispatchToProps = dispatch =>{
-  return {
-  login: () => dispatch(loginUserTWo()) 
-  
-} 
-
+const mapDispatchToProps = {
+  loginUser
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Home);
