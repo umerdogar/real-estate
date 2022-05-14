@@ -3114,6 +3114,7 @@ button:focus {
   display: inline-block;
   padding: 8px 21px;
   border-radius: 4px;
+  text-decoration: none !important;
 }
 .btn-default{
   background-color: rgb(177, 175, 175);

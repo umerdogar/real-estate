@@ -2,7 +2,7 @@ import React from 'react'
 import Logo from "../../assets/logo.png";
 import ProfileIcon from "../../assets/profile-icon.png";
 import Image1 from "../../assets/image-1.png";
-import Footer from "../Footer";
+import Footer from "../../components/Footer";
 
 const FormsTwo = () => {
   return (
