@@ -20,8 +20,11 @@ import { useForm } from "react-hook-form"
 import Input from "../../components/FromInput/Input"
 import axios from "axios"
 import {popularCityStat} from "../../Redux/Thunk/homePage"
+import {filterSingleProperty} from "../../Redux/Thunk/Property"
+import { useNavigate } from "react-router-dom";
 
-const Home = ({ popularCity , popularCities }) => {
+const Home = ({ popularCity , popularCities , filterProperty }) => {
+  let navigate = useNavigate();
 	const [selectCity, setSelectCity] = useState("Islamabad")
   console.log("thisi is city" , popularCities && popularCities)
 
@@ -44,15 +47,21 @@ const Home = ({ popularCity , popularCities }) => {
 		setSearchHome({ ...searchHome, [e.target.name]: e.target.value })
 	}
 
+  // const handlePost = (e) => {
+  //   e.preventDefault();
+  //   axios
+  //     .post("http://192.168.10.11:1337/api/v1/property/filter", searchHome)
+  //     .then((response) => console.log(response))
+  //     .catch((error) => {
+  //       console.error("There was an error!", error);
+  //     });
+  // };
+
   const handlePost = (e) => {
     e.preventDefault();
-    axios
-      .post("http://192.168.10.11:1337/api/v1/property/filter", searchHome)
-      .then((response) => console.log(response))
-      .catch((error) => {
-        console.error("There was an error!", error);
-      });
+    filterProperty();
   };
+  
 
 	return (
 		<>
@@ -103,7 +112,7 @@ const Home = ({ popularCity , popularCities }) => {
 									</ul>
 									<ul className="navbar-nav   mt-10">
 										<li className="nav-item">
-											<a className="nav-link text-white add-button" href="">
+											<a className="nav-link text-white add-button" href="" onClick={()=>{navigate('/form')}}>
 												<i className="fa fa-plus-circle"></i>
 												Add Property
 											</a>
@@ -399,81 +408,33 @@ const Home = ({ popularCity , popularCities }) => {
 				</div>
 			</section>
 
+
 			<section className="popular-deals section ">
 				<div className="container">
 					<div className="row">
 						<div className="col-md-12">
 							<div className="section-title">
-								<h2>POPULAR CITIES</h2>
 							</div>
 						</div>
 					</div>
 
+
+
 					<div className="items">
-          {popularCities && popularCities.map((city)=>{
-            {console.log("cpnsoel" , city.items[0].cityImgUrl)}
+          {popularCities && popularCities.map((city)=>(
             <div>
             <img
               className="card-img-top img-fluid "
-              src={city.items[0].cityImgUrl}
+              src={city?.items[0]?.cityImgUrl}
               alt="Card image cap"
             />
             <div className="second-txt">
-              {/* <span>{item.city}</span> */}
+              <span>{city.city}</span>
               <br />
-              <p>70 Properties</p>
+              <p>{city.count} Properties</p>
             </div>
           </div>
-          })}
-						
-						{/* <div>
-							<img
-								className="card-img-top img-fluid "
-								src={Image2}
-								alt="Card image cap"
-							/>
-							<div className="second-txt">
-								<span>Karachi</span>
-								<br />
-								<p>45 Properties</p>
-							</div>
-						</div>
-						<div>
-							<img
-								className="card-img-top img-fluid "
-								src={Image3}
-								alt="Card image cap"
-							/>
-							<div className="second-txt">
-								<span>Lahore</span>
-								<br />
-								<p>90 Properties</p>
-							</div>
-						</div>
-						<div>
-							<img
-								className="card-img-top img-fluid "
-								src={Image4}
-								alt="Card image cap"
-							/>
-							<div className="second-txt">
-								<span>Islamabad</span>
-								<br />
-								<p>70 Properties</p>
-							</div>
-						</div>
-						<div>
-							<img
-								className="card-img-top img-fluid "
-								src={Image4}
-								alt="Card image cap"
-							/>
-							<div className="second-txt">
-								<span>Peshawar</span>
-								<br />
-								<p>10 Properties</p>
-							</div>
-						</div> */}
+          ))}
 					</div>
 				</div>
 			</section>
@@ -766,6 +727,7 @@ const mapStateToProps = (state ) => {
 const mapDispatchToProps = (dispatch) => {
 	return {
 		popularCity: () => dispatch(popularCityStat()),
+    filterProperty: ()=> dispatch(filterSingleProperty())
 	}
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Home)
