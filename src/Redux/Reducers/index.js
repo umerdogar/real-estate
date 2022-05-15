@@ -1,8 +1,10 @@
 import { combineReducers } from "redux"
-import userReducers from "./userReducers"
+import popularCitiesReducers from "./homePageReducer"
+import propertyReducer from "./propertyReducer"
 
 const RootReducers = combineReducers({
-	userReducer: userReducers,
+     popularCitiesReducers,
+	 propertyReducer,
 })
 
 export default RootReducers
