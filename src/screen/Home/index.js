@@ -19,14 +19,19 @@ import { connect } from "react-redux"
 import { useForm } from "react-hook-form"
 import Input from "../../components/FromInput/Input"
 import axios from "axios"
-import {popularCityStat} from "../../Redux/Thunk/homePage"
+import { popularCityStat } from "../../Redux/Thunk/homePage"
 
-const Home = ({ popularCity , popularCities }) => {
+const Home = ({ popularCity, popularCities }) => {
 	const [selectCity, setSelectCity] = useState("Islamabad")
-  console.log("thisi is city" , popularCities && popularCities)
+	const [slidertester, setSlidertester] = useState([
+		"http://img.nowrunning.com/content/movie/2014/Jagga-Jaso/wall_1024x768_01.jpg",
+		"https://alchetron.com/cdn/Cocktail-2012-film-images-6dbd0ec2-2ea4-47aa-88fd-388cabed7f8.jpg",
+		"http://media.glamsham.com/download/wallpaper/movies/images/z/zindagi-na-milegi-dobara-wallpaper-03-12x9.jpg",
+	])
+	console.log("popularCities", popularCities)
 
 	useEffect(() => {
-		console.log("useefefct")
+		// console.log("useefefct")
 		popularCity()
 	}, [])
 
@@ -44,15 +49,15 @@ const Home = ({ popularCity , popularCities }) => {
 		setSearchHome({ ...searchHome, [e.target.name]: e.target.value })
 	}
 
-  const handlePost = (e) => {
-    e.preventDefault();
-    axios
-      .post("http://192.168.10.11:1337/api/v1/property/filter", searchHome)
-      .then((response) => console.log(response))
-      .catch((error) => {
-        console.error("There was an error!", error);
-      });
-  };
+	const handlePost = (e) => {
+		e.preventDefault()
+		axios
+			.post("http://192.168.10.11:1337/api/v1/property/filter", searchHome)
+			.then((response) => console.log(response))
+			.catch((error) => {
+				console.error("There was an error!", error)
+			})
+	}
 
 	return (
 		<>
@@ -410,22 +415,25 @@ const Home = ({ popularCity , popularCities }) => {
 					</div>
 
 					<div className="items">
-          {popularCities && popularCities.map((city)=>{
-            {console.log("cpnsoel" , city.items[0].cityImgUrl)}
-            <div>
-            <img
-              className="card-img-top img-fluid "
-              src={city.items[0].cityImgUrl}
-              alt="Card image cap"
-            />
-            <div className="second-txt">
-              {/* <span>{item.city}</span> */}
-              <br />
-              <p>70 Properties</p>
-            </div>
-          </div>
-          })}
-						
+						{popularCities &&
+							popularCities.map((city, i) => {
+								return (
+									<div key={slidertester}>
+										<img
+											className="card-img-top img-fluid "
+											src={slidertester}
+											alt="Card image cap"
+										/>
+										{console.log(city, "city")}
+										<div className="second-txt">
+											<span>{city.city}</span>
+											<br />
+											<p>{city.count}</p>
+										</div>
+									</div>
+								)
+							})}
+
 						{/* <div>
 							<img
 								className="card-img-top img-fluid "
@@ -756,13 +764,13 @@ const Home = ({ popularCity , popularCities }) => {
 
 // export default Home;
 
-const mapStateToProps = (state ) => {
+const mapStateToProps = (state) => {
 	let { popularCities } = state.popularCitiesReducers
-  console.log("mapstate" , popularCities)
+	// console.log("mapstate" , popularCities)
 	return {
-    popularCities
-  }
-} 
+		popularCities,
+	}
+}
 const mapDispatchToProps = (dispatch) => {
 	return {
 		popularCity: () => dispatch(popularCityStat()),
