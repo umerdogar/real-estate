@@ -27,7 +27,6 @@ const Home = ({ popularCity , popularCities , filterProperty }) => {
   let navigate = useNavigate();
 	const [selectCity, setSelectCity] = useState("Islamabad")
   // console.log("thisi is city" , popularCities && popularCities)
-
 	useEffect(() => {
 		console.log("useefefct")
 		// popularCity()
@@ -46,6 +45,8 @@ const Home = ({ popularCity , popularCities , filterProperty }) => {
 	const handleSearchHome = (e) => {
 		setSearchHome({ ...searchHome, [e.target.name]: e.target.value })
 	}
+	console.log("state", searchHome )
+
 
   // const handlePost = (e) => {
   //   e.preventDefault();

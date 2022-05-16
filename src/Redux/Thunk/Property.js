@@ -20,7 +20,7 @@ export const allPropertiesList = () => {
 };
 
 export const filterSingleProperty = (data, navigate) => {
-  console.log("data input property", data);
+  console.log("data input property thunk", data);
   console.log("navigate property", navigate);
 
   return (dispatch) => {
