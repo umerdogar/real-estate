@@ -27,12 +27,7 @@ const Home = ({ popularCity, popularCities, filterProperty }) => {
 	let navigate = useNavigate()
 	const [selectCity, setSelectCity] = useState("Islamabad")
 	// console.log("thisi is city" , popularCities && popularCities)
-
-	useEffect(() => {
-		console.log("useefefct")
-		// popularCity()
-	}, [])
-
+	// console.log(searchHome, "searchHome")
 	const [searchHome, setSearchHome] = useState({
 		city: "islamabad",
 		society: "",
@@ -43,8 +38,66 @@ const Home = ({ popularCity, popularCities, filterProperty }) => {
 		rooms: 1,
 		type: "home",
 	})
-	const handleSearchHome = (e) => {
-		setSearchHome({ ...searchHome, [e.target.name]: e.target.value })
+	useEffect(() => {
+		console.log("useefefct")
+		console.log(searchHome, "searchHome")
+		// popularCity()
+	}, [searchHome])
+
+	const handleSearchHomeCity = (e) => {
+		setSearchHome({
+			...searchHome,
+			city: e.target.value,
+		})
+	}
+
+	const handleSearchHomesociety = (e) => {
+		setSearchHome({
+			...searchHome,
+			society: e.target.value,
+		})
+	}
+
+	const handleSearchHomeminPrice = (e) => {
+		setSearchHome({
+			...searchHome,
+			minPrice: parseInt(e.target.value),
+		})
+	}
+
+	const handleSearchHomemaxPrice = (e) => {
+		setSearchHome({
+			...searchHome,
+			maxPrice: parseInt(e.target.value),
+		})
+	}
+
+	const handleSearchHomeminArea = (e) => {
+		setSearchHome({
+			...searchHome,
+			minArea: parseInt(e.target.value),
+		})
+	}
+
+	const handleSearchHomemaxArea = (e) => {
+		setSearchHome({
+			...searchHome,
+			maxArea: parseInt(e.target.value),
+		})
+	}
+
+	const handleSearchRooms = (e) => {
+		setSearchHome({
+			...searchHome,
+			rooms: parseInt(e.target.value),
+		})
+	}
+
+	const handleSearchType = (e) => {
+		setSearchHome({
+			...searchHome,
+			type: e.target.value,
+		})
 	}
 
 	// const handlePost = (e) => {
@@ -171,7 +224,7 @@ const Home = ({ popularCity, popularCities, filterProperty }) => {
 																className="w-100 form-control mt-lg-1 mt-md-2 no-border"
 																name="city"
 																value={searchHome.city}
-																onChange={handleSearchHome}
+																onChange={handleSearchHomeCity}
 															>
 																<option value="islamabad">islamabad</option>
 																<option value="rawalpindi">rawalpindi</option>
@@ -186,7 +239,7 @@ const Home = ({ popularCity, popularCities, filterProperty }) => {
 																placeholder=""
 																name="society"
 																value={searchHome.society}
-																onChange={handleSearchHome}
+																onChange={handleSearchHomesociety}
 															/>
 														</div>
 
@@ -206,7 +259,7 @@ const Home = ({ popularCity, popularCities, filterProperty }) => {
 															<select
 																className="w-100 form-control mt-lg-1 mt-md-2 no-border"
 																value={searchHome.type}
-																onChange={handleSearchHome}
+																onChange={handleSearchType}
 																name="type"
 															>
 																<option value="Home">Home</option>
@@ -225,7 +278,7 @@ const Home = ({ popularCity, popularCities, filterProperty }) => {
 																				type="number"
 																				name="minPrice"
 																				value={searchHome.minPrice}
-																				onChange={handleSearchHome}
+																				onChange={handleSearchHomeminPrice}
 																			/>
 																		</label>
 																		<label className="padding-left-15 ">
@@ -237,7 +290,7 @@ const Home = ({ popularCity, popularCities, filterProperty }) => {
 																				type="number"
 																				name="maxPrice"
 																				value={searchHome.maxPrice}
-																				onChange={handleSearchHome}
+																				onChange={handleSearchHomemaxPrice}
 																			/>
 																		</label>
 																	</div>
@@ -255,7 +308,7 @@ const Home = ({ popularCity, popularCities, filterProperty }) => {
 																				type="number"
 																				name="minArea"
 																				value={searchHome.minArea}
-																				onChange={handleSearchHome}
+																				onChange={handleSearchHomeminArea}
 																			/>
 																		</label>
 																		<label className="padding-left-15 ">
@@ -267,7 +320,7 @@ const Home = ({ popularCity, popularCities, filterProperty }) => {
 																				type="number"
 																				name="maxArea"
 																				value={searchHome.maxArea}
-																				onChange={handleSearchHome}
+																				onChange={handleSearchHomemaxArea}
 																			/>
 																		</label>
 																	</div>
@@ -279,7 +332,7 @@ const Home = ({ popularCity, popularCities, filterProperty }) => {
 															<select
 																className="w-100 form-control mt-lg-1 mt-md-2 no-border"
 																value={searchHome.rooms}
-																onChange={handleSearchHome}
+																onChange={handleSearchRooms}
 																name="rooms"
 															>
 																<option value="1">1</option>

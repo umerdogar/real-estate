@@ -4,11 +4,8 @@ import ProfileIcon from "../../assets/profile-icon.png"
 import Footer from "../../components/Footer"
 import { connect } from "react-redux"
 
-
-
-
-const Details = ({propertyDetail}) => {
-	console.log("property detail from comp" , propertyDetail)
+const Details = ({ propertyDetail }) => {
+	console.log("property detail from redux", propertyDetail)
 	return (
 		<>
 			<div className="container">
@@ -1046,14 +1043,13 @@ const Details = ({propertyDetail}) => {
 
 // export default Details
 
-const mapStateToProps = (state ) => {
-
-	let { propertyDetail } = state.propertyReducer;
-  console.log("mapstate" , propertyDetail)
+const mapStateToProps = (state) => {
+	let { propertyDetail } = state.propertyReducer
+	// console.log("mapstatepropertyDetail", propertyDetail)
 	return {
-		propertyDetail
-  }
-} 
+		propertyDetail,
+	}
+}
 const mapDispatchToProps = (dispatch) => {
 	return {
 		// popularCity: () => dispatch(popularCityStat()),
