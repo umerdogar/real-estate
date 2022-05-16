@@ -20,19 +20,17 @@ import { useForm } from "react-hook-form"
 import Input from "../../components/FromInput/Input"
 import axios from "axios"
 import { popularCityStat } from "../../Redux/Thunk/homePage"
+import { filterSingleProperty } from "../../Redux/Thunk/Property"
+import { useNavigate } from "react-router-dom"
 
-const Home = ({ popularCity, popularCities }) => {
+const Home = ({ popularCity, popularCities, filterProperty }) => {
+	let navigate = useNavigate()
 	const [selectCity, setSelectCity] = useState("Islamabad")
-	const [slidertester, setSlidertester] = useState([
-		"http://img.nowrunning.com/content/movie/2014/Jagga-Jaso/wall_1024x768_01.jpg",
-		"https://alchetron.com/cdn/Cocktail-2012-film-images-6dbd0ec2-2ea4-47aa-88fd-388cabed7f8.jpg",
-		"http://media.glamsham.com/download/wallpaper/movies/images/z/zindagi-na-milegi-dobara-wallpaper-03-12x9.jpg",
-	])
-	console.log("popularCities", popularCities)
+	// console.log("thisi is city" , popularCities && popularCities)
 
 	useEffect(() => {
-		// console.log("useefefct")
-		popularCity()
+		console.log("useefefct")
+		// popularCity()
 	}, [])
 
 	const [searchHome, setSearchHome] = useState({
@@ -49,14 +47,20 @@ const Home = ({ popularCity, popularCities }) => {
 		setSearchHome({ ...searchHome, [e.target.name]: e.target.value })
 	}
 
+	// const handlePost = (e) => {
+	//   e.preventDefault();
+	//   axios
+	//     .post("http://192.168.10.11:1337/api/v1/property/filter", searchHome)
+	//     .then((response) => console.log(response))
+	//     .catch((error) => {
+	//       console.error("There was an error!", error);
+	//     });
+	// };
+
 	const handlePost = (e) => {
 		e.preventDefault()
-		axios
-			.post("http://192.168.10.11:1337/api/v1/property/filter", searchHome)
-			.then((response) => console.log(response))
-			.catch((error) => {
-				console.error("There was an error!", error)
-			})
+		console.log("search home ", searchHome)
+		filterProperty(searchHome, navigate)
 	}
 
 	return (
@@ -108,7 +112,13 @@ const Home = ({ popularCity, popularCities }) => {
 									</ul>
 									<ul className="navbar-nav   mt-10">
 										<li className="nav-item">
-											<a className="nav-link text-white add-button" href="">
+											<a
+												className="nav-link text-white add-button"
+												href=""
+												onClick={() => {
+													navigate("/form")
+												}}
+											>
 												<i className="fa fa-plus-circle"></i>
 												Add Property
 											</a>
@@ -408,80 +418,26 @@ const Home = ({ popularCity, popularCities }) => {
 				<div className="container">
 					<div className="row">
 						<div className="col-md-12">
-							<div className="section-title">
-								<h2>POPULAR CITIES</h2>
-							</div>
+							<div className="section-title"></div>
 						</div>
 					</div>
 
 					<div className="items">
 						{popularCities &&
-							popularCities.map((city, i) => {
-								return (
-									<div key={slidertester}>
-										<img
-											className="card-img-top img-fluid "
-											src={slidertester}
-											alt="Card image cap"
-										/>
-										{console.log(city, "city")}
-										<div className="second-txt">
-											<span>{city.city}</span>
-											<br />
-											<p>{city.count}</p>
-										</div>
+							popularCities.map((city) => (
+								<div>
+									<img
+										className="card-img-top img-fluid "
+										src={city?.items[0]?.cityImgUrl}
+										alt="Card image cap"
+									/>
+									<div className="second-txt">
+										<span>{city.city}</span>
+										<br />
+										<p>{city.count} Properties</p>
 									</div>
-								)
-							})}
-
-						{/* <div>
-							<img
-								className="card-img-top img-fluid "
-								src={Image2}
-								alt="Card image cap"
-							/>
-							<div className="second-txt">
-								<span>Karachi</span>
-								<br />
-								<p>45 Properties</p>
-							</div>
-						</div>
-						<div>
-							<img
-								className="card-img-top img-fluid "
-								src={Image3}
-								alt="Card image cap"
-							/>
-							<div className="second-txt">
-								<span>Lahore</span>
-								<br />
-								<p>90 Properties</p>
-							</div>
-						</div>
-						<div>
-							<img
-								className="card-img-top img-fluid "
-								src={Image4}
-								alt="Card image cap"
-							/>
-							<div className="second-txt">
-								<span>Islamabad</span>
-								<br />
-								<p>70 Properties</p>
-							</div>
-						</div>
-						<div>
-							<img
-								className="card-img-top img-fluid "
-								src={Image4}
-								alt="Card image cap"
-							/>
-							<div className="second-txt">
-								<span>Peshawar</span>
-								<br />
-								<p>10 Properties</p>
-							</div>
-						</div> */}
+								</div>
+							))}
 					</div>
 				</div>
 			</section>
@@ -774,6 +730,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
 	return {
 		popularCity: () => dispatch(popularCityStat()),
+		filterProperty: (searchHome, navigate) =>
+			dispatch(filterSingleProperty(searchHome, navigate)),
 	}
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Home)

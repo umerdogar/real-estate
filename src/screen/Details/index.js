@@ -2,7 +2,13 @@ import React from "react"
 import Logo from "../../assets/logo.png"
 import ProfileIcon from "../../assets/profile-icon.png"
 import Footer from "../../components/Footer"
-const Details = () => {
+import { connect } from "react-redux"
+
+
+
+
+const Details = ({propertyDetail}) => {
+	console.log("property detail from comp" , propertyDetail)
 	return (
 		<>
 			<div className="container">
@@ -1038,4 +1044,19 @@ const Details = () => {
 	)
 }
 
-export default Details
+// export default Details
+
+const mapStateToProps = (state ) => {
+
+	let { propertyDetail } = state.propertyReducer;
+  console.log("mapstate" , propertyDetail)
+	return {
+		propertyDetail
+  }
+} 
+const mapDispatchToProps = (dispatch) => {
+	return {
+		// popularCity: () => dispatch(popularCityStat()),
+	}
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Details)
