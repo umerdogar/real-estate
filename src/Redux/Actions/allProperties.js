@@ -6,9 +6,10 @@ export const allProperties = (response) => {
 }
 
 
-export const filterProperty = () => {
+export const filterProperty = (response) => {
+    console.log("action creator" , response)
 	return {
 		type: "FILTER_PROPERTY",
-		// payload: response,
+		payload: response,
 	}
 }

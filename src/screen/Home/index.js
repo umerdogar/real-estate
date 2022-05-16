@@ -26,11 +26,11 @@ import { useNavigate } from "react-router-dom";
 const Home = ({ popularCity , popularCities , filterProperty }) => {
   let navigate = useNavigate();
 	const [selectCity, setSelectCity] = useState("Islamabad")
-  console.log("thisi is city" , popularCities && popularCities)
+  // console.log("thisi is city" , popularCities && popularCities)
 
 	useEffect(() => {
 		console.log("useefefct")
-		popularCity()
+		// popularCity()
 	}, [])
 
 	const [searchHome, setSearchHome] = useState({
@@ -57,9 +57,11 @@ const Home = ({ popularCity , popularCities , filterProperty }) => {
   //     });
   // };
 
+
   const handlePost = (e) => {
     e.preventDefault();
-    filterProperty();
+  console.log("search home " , searchHome)
+    filterProperty(searchHome , navigate);
   };
   
 
@@ -727,7 +729,7 @@ const mapStateToProps = (state ) => {
 const mapDispatchToProps = (dispatch) => {
 	return {
 		popularCity: () => dispatch(popularCityStat()),
-    filterProperty: ()=> dispatch(filterSingleProperty())
+    filterProperty: (searchHome , navigate)=> dispatch(filterSingleProperty(searchHome , navigate))
 	}
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Home)
