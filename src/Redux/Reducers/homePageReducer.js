@@ -9,6 +9,12 @@ export default function popularCitiesReducer(state = INITIAL_STATE, action) {
 				...state,
 				popularCities: action.payload,
 			}
+		case "FILTER_PROPERTY":
+			// console.log("reduccer" , action.payload)
+			return {
+				...state,
+				popularCities: action.payload,
+			}
 		default:
 			return state
 	}

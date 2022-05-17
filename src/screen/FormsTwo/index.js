@@ -4,19 +4,20 @@ import ProfileIcon from "../../assets/profile-icon.png"
 import Image1 from "../../assets/image-1.png"
 import Footer from "../../components/Footer"
 import { allPropertiesList } from "../../Redux/Thunk/Property"
-import { connect } from "react-redux"
+import { connect, createDispatchHook } from "react-redux"
 import propertyReducer from "../../Redux/Reducers/propertyReducer"
-
-const FormsTwo = ({ allProperties, property }) => {
+import { useNavigate } from "react-router-dom"
+const FormsTwo = ({ allProperties, propertyDetail }) => {
+	let navigate = useNavigate()
 	const [allProperty, setAllProperty] = useState()
-	const cardData = property?.property
-	// console.log("card data" , cardData)
+	const cardData = propertyDetail?.data
+	console.log("propertyDetail in FormsTwo", propertyDetail)
 	// console.log("allpropertyyy" , allProperty && allProperty)
 
-	useEffect(() => {
-		// console.log("useefefct")
-		allProperties()
-	}, [])
+	// useEffect(() => {
+	// 	// console.log("useefefct")
+	// 	// allProperties()
+	// }, [])
 	return (
 		<>
 			<div className="container">
@@ -627,7 +628,7 @@ const FormsTwo = ({ allProperties, property }) => {
 																				style={{ display: "inline" }}
 																			>
 																				{" "}
-																				Super Hot
+																				{card?.propertyType?.featured}
 																			</a>
 																		</div>
 																		<div className=" d-flex ">
@@ -637,7 +638,9 @@ const FormsTwo = ({ allProperties, property }) => {
 																				style={{ marginTop: "-33px" }}
 																			>
 																				{" "}
-																				<span className="">4</span>{" "}
+																				<span className="">
+																					{card?.rooms}
+																				</span>{" "}
 																				<i className="ri-camera-line"></i>
 																			</a>
 																		</div>
@@ -649,13 +652,19 @@ const FormsTwo = ({ allProperties, property }) => {
 																				<i className="ri-heart-line"></i>
 																			</a>
 																		</div>
-																		<div className="text-center">
+																		<div
+																			className="text-center"
+																			onClick={() => {
+																				// navigate("/details")
+																				console.log("Hamza")
+																			}}
+																		>
 																			<a
 																				href="#"
 																				className="btn-small btn-primary mt-3"
 																			>
 																				{" "}
-																				Prime Location
+																				Detailss
 																			</a>
 																		</div>
 																		<div className="card-body">
@@ -1039,10 +1048,10 @@ const FormsTwo = ({ allProperties, property }) => {
 }
 
 const mapStateToProps = (state) => {
-	let { property } = state.propertyReducer
-	// console.log("asdfasfa" , state.propertyReducer)
+	let { propertyDetail } = state.propertyReducer
+	console.log("propertyDetail", propertyDetail)
 	return {
-		property,
+		propertyDetail,
 	}
 }
 const mapDispatchToProps = (dispatch) => {

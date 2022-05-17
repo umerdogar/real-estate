@@ -28,8 +28,9 @@ export const filterSingleProperty = (data, navigate) => {
 		axios
 			.post(`http://52.220.87.52:8000/api/v1/property/filter`, data)
 			.then((res) => {
+				console.log(res, " filterSingleProperty")
 				dispatch(filterProperty(res.data))
-				navigate("/details", res.data)
+				navigate("/formsTwo")
 
 				console.log("filter property thunk", res.data)
 			})
