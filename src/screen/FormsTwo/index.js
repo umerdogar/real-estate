@@ -6,18 +6,39 @@ import Footer from "../../components/Footer"
 import { allPropertiesList } from "../../Redux/Thunk/Property"
 import { connect, createDispatchHook } from "react-redux"
 import propertyReducer from "../../Redux/Reducers/propertyReducer"
-import { useNavigate } from "react-router-dom"
-const FormsTwo = ({ allProperties, propertyDetail }) => {
+import { useNavigate , useParams , useLocation } from "react-router-dom"
+import {plotsDataFetch , commercialDataFetch} from "../../Redux/Thunk/homePage"
+
+
+
+const FormsTwo = ({ allProperties, propertyDetail , plotsDataFetch , commercialDataFetch , plotsData , commercialData}) => {
 	let navigate = useNavigate()
 	const [allProperty, setAllProperty] = useState()
 	const cardData = propertyDetail?.data
 	console.log("propertyDetail in FormsTwo", propertyDetail)
-	// console.log("allpropertyyy" , allProperty && allProperty)
 
-	// useEffect(() => {
-	// 	// console.log("useefefct")
-	// 	// allProperties()
-	// }, [])
+
+	let { type } = useParams();
+	const location = useLocation();
+  const productId = location.pathname.split("/")[2];
+  console.log("type" , productId)
+	console.log("plots data from comp" , plotsData && plotsData)
+	console.log("commercial data from comp" , commercialData && commercialData)
+
+	const plot = plotsData?.property
+	const commercial = commercialData?.property
+
+	useEffect(() => {
+		// console.log("useefefct")
+		{type == "plot" && plotsDataFetch()}
+		{type == "commercial" && commercialDataFetch()}
+		// allProperties()
+	}, [])
+
+	const navdetail = () => {
+		navigate('/details')
+		console.log("asdfasdfasds")
+	}
 	return (
 		<>
 			<div className="container">
@@ -44,22 +65,33 @@ const FormsTwo = ({ allProperties, propertyDetail }) => {
 							>
 								<ul className="navbar-nav ml-auto main-nav ">
 									<li className="nav-item active">
-										<a className="nav-link" href="index.html">
+										<a className="nav-link" href="#" 
+										onClick={() => {
+											navigate("/")
+										}}>
 											Home
 										</a>
 									</li>
 									<li className="nav-item ">
-										<a className="nav-link" href="index.html">
+										<a className="nav-link" href="#" 
+										onClick={() => {
+											navigate("/formsTwo")
+										}}>
 											Plot
 										</a>
 									</li>
 									<li className="nav-item ">
-										<a className="nav-link" href="index.html">
+										<a className="nav-link" href="#" onClick={() => {
+													navigate("/formsTwo")
+												}}>
 											Commercial
 										</a>
 									</li>
 									<li className="nav-item ">
-										<a className="nav-link" href="index.html">
+										<a className="nav-link" href="#" 
+										onClick={() => {
+											navigate("/formsTwo")
+										}}>
 											Rent
 										</a>
 									</li>
@@ -609,18 +641,23 @@ const FormsTwo = ({ allProperties, propertyDetail }) => {
 											<div className="row margin-bottom-15">
 												<div className="col-md-8 col-12">
 													<div className="row">
-														{cardData &&
-															cardData.map((card) => (
+													{type =="commercial" &&
+															commercial?.map((card) => (
 																<div className="col-md-4 margin-top-15 margin-bottom-15">
-																	<div className="card">
+																	
+																	<div className="card" 
+																	>
 																		<img
 																			className="card-img"
 																			src={card.image}
 																			alt="Vans"
+
 																		/>
 																		<div
 																			className="card-img-overlay  "
 																			style={{ padding: "0rem" }}
+																			onClick={()=>{alert("asdf")}}
+
 																		>
 																			<a
 																				href="#"
@@ -652,18 +689,17 @@ const FormsTwo = ({ allProperties, propertyDetail }) => {
 																				<i className="ri-heart-line"></i>
 																			</a>
 																		</div>
+																		
 																		<div
 																			className="text-center"
-																			onClick={() => {
-																				// navigate("/details")
-																				console.log("Hamza")
-																			}}
 																		>
 																			<a
-																				href="#"
-																				className="btn-small btn-primary mt-3"
+																				// href=""
+																				// className="btn-small btn-primary mt-3"
+																				className="stretched-link btn-small btn-primary mt-3"
+																				onClick={()=>{navigate('/details')}}
 																			>
-																				{" "}
+																				
 																				Detailss
 																			</a>
 																		</div>
@@ -707,6 +743,251 @@ const FormsTwo = ({ allProperties, propertyDetail }) => {
 																				}}
 																			>
 																				<a
+																				onClick={()=>{navigate('/details')}}
+																					href="#"
+																					className="btn-small btn-primary mt-3"
+																				>
+																					{" "}
+																					Call
+																				</a>
+																				<a
+																					href="#"
+																					className="btn-small btn-primary mt-3"
+																				>
+																					{" "}
+																					Email
+																				</a>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+															))}
+													{type =="plot" &&
+															plot?.map((card) => (
+																<div className="col-md-4 margin-top-15 margin-bottom-15">
+																	
+																	<div className="card" 
+																	>
+																		<img
+																			className="card-img"
+																			src={card.image}
+																			alt="Vans"
+
+																		/>
+																		<div
+																			className="card-img-overlay  "
+																			style={{ padding: "0rem" }}
+																			onClick={()=>{alert("asdf")}}
+
+																		>
+																			<a
+																				href="#"
+																				className="btn-small btn-danger mt-3"
+																				style={{ display: "inline" }}
+																			>
+																				{" "}
+																				{card?.propertyType?.featured}
+																			</a>
+																		</div>
+																		<div className=" d-flex ">
+																			<a
+																				href="#"
+																				className="btn-small btn-danger "
+																				style={{ marginTop: "-33px" }}
+																			>
+																				{" "}
+																				<span className="">
+																					{card?.rooms}
+																				</span>{" "}
+																				<i className="ri-camera-line"></i>
+																			</a>
+																		</div>
+																		<div className="card-img-overlay d-flex justify-content-end">
+																			<a
+																				href="#"
+																				className="card-link text-danger like"
+																			>
+																				<i className="ri-heart-line"></i>
+																			</a>
+																		</div>
+																		
+																		<div
+																			className="text-center"
+																		>
+																			<a
+																				// href=""
+																				// className="btn-small btn-primary mt-3"
+																				className="stretched-link btn-small btn-primary mt-3"
+																				onClick={()=>{navigate('/details')}}
+																			>
+																				
+																				Detailss
+																			</a>
+																		</div>
+																		<div className="card-body">
+																			<h4 className="card-title">
+																				PKR 2.50 Crore
+																			</h4>
+																			<h6 className="card-subtitle mb-2 text-muted">
+																				I-8 Islamabad
+																			</h6>
+																			<ul className="list-inline margin-top-25">
+																				<li className="list-inline-item margin-right-5">
+																					<a>
+																						<i className="ri-hotel-bed-line"></i>
+																						<span className="margin-left-5 ">
+																							4
+																						</span>{" "}
+																					</a>
+																				</li>
+																				<li className="list-inline-item margin-right-5">
+																					<a>
+																						<i className="ri-heavy-showers-line"></i>{" "}
+																						<span className="margin-left-5 ">
+																							3
+																						</span>
+																					</a>
+																				</li>
+																				<li className="list-inline-item margin-right-5">
+																					<a>
+																						<i className="ri-fullscreen-fill"></i>
+																						<span className="margin-left-5 ">
+																							5987 sqft
+																						</span>
+																					</a>
+																				</li>
+																			</ul>
+																			<div
+																				className="buy d-flex  align-items-center"
+																				style={{
+																					justifyContent: "space-evenly",
+																				}}
+																			>
+																				<a
+																				onClick={()=>{navigate('/details')}}
+																					href="#"
+																					className="btn-small btn-primary mt-3"
+																				>
+																					{" "}
+																					Call
+																				</a>
+																				<a
+																					href="#"
+																					className="btn-small btn-primary mt-3"
+																				>
+																					{" "}
+																					Email
+																				</a>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+															))}
+
+
+														{cardData &&
+															cardData.map((card) => (
+																<div className="col-md-4 margin-top-15 margin-bottom-15">
+																	
+																	<div className="card" 
+																	>
+																		<img
+																			className="card-img"
+																			src={card.image}
+																			alt="Vans"
+
+																		/>
+																		<div
+																			className="card-img-overlay  "
+																			style={{ padding: "0rem" }}
+																			onClick={()=>{alert("asdf")}}
+
+																		>
+																			<a
+																				href="#"
+																				className="btn-small btn-danger mt-3"
+																				style={{ display: "inline" }}
+																			>
+																				{" "}
+																				{card?.propertyType?.featured}
+																			</a>
+																		</div>
+																		<div className=" d-flex ">
+																			<a
+																				href="#"
+																				className="btn-small btn-danger "
+																				style={{ marginTop: "-33px" }}
+																			>
+																				{" "}
+																				<span className="">
+																					{card?.rooms}
+																				</span>{" "}
+																				<i className="ri-camera-line"></i>
+																			</a>
+																		</div>
+																		<div className="card-img-overlay d-flex justify-content-end">
+																			<a
+																				href="#"
+																				className="card-link text-danger like"
+																			>
+																				<i className="ri-heart-line"></i>
+																			</a>
+																		</div>
+																		
+																		<div
+																			className="text-center"
+																		>
+																			<a
+																				// href=""
+																				// className="btn-small btn-primary mt-3"
+																				className="stretched-link btn-small btn-primary mt-3"
+																				onClick={()=>{navigate('/details')}}
+																			>
+																				
+																				Detailss
+																			</a>
+																		</div>
+																		<div className="card-body">
+																			<h4 className="card-title">
+																				PKR 2.50 Crore
+																			</h4>
+																			<h6 className="card-subtitle mb-2 text-muted">
+																				I-8 Islamabad
+																			</h6>
+																			<ul className="list-inline margin-top-25">
+																				<li className="list-inline-item margin-right-5">
+																					<a>
+																						<i className="ri-hotel-bed-line"></i>
+																						<span className="margin-left-5 ">
+																							4
+																						</span>{" "}
+																					</a>
+																				</li>
+																				<li className="list-inline-item margin-right-5">
+																					<a>
+																						<i className="ri-heavy-showers-line"></i>{" "}
+																						<span className="margin-left-5 ">
+																							3
+																						</span>
+																					</a>
+																				</li>
+																				<li className="list-inline-item margin-right-5">
+																					<a>
+																						<i className="ri-fullscreen-fill"></i>
+																						<span className="margin-left-5 ">
+																							5987 sqft
+																						</span>
+																					</a>
+																				</li>
+																			</ul>
+																			<div
+																				className="buy d-flex  align-items-center"
+																				style={{
+																					justifyContent: "space-evenly",
+																				}}
+																			>
+																				<a
+																				onClick={()=>{navigate('/details')}}
 																					href="#"
 																					className="btn-small btn-primary mt-3"
 																				>
@@ -1049,14 +1330,22 @@ const FormsTwo = ({ allProperties, propertyDetail }) => {
 
 const mapStateToProps = (state) => {
 	let { propertyDetail } = state.propertyReducer
-	console.log("propertyDetail", propertyDetail)
+	let {plotsData} = state.popularCitiesReducers
+	let {commercialData} = state.popularCitiesReducers
+
+	console.log("full state", state)
 	return {
 		propertyDetail,
+		plotsData,
+		commercialData
 	}
 }
 const mapDispatchToProps = (dispatch) => {
 	return {
 		allProperties: () => dispatch(allPropertiesList()),
+		plotsDataFetch:() => dispatch(plotsDataFetch()),
+		commercialDataFetch:() => dispatch(commercialDataFetch())
+
 	}
 }
 export default connect(mapStateToProps, mapDispatchToProps)(FormsTwo)
