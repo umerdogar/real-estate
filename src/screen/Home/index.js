@@ -482,21 +482,43 @@ const Home = ({ popularCity, popularCities, filterProperty }) => {
           </div>
 
           <div className="items">
-            {popularCities &&
-              popularCities.map((city) => (
+            
                 <div>
                   <img
                     className="card-img-top img-fluid "
-                    src={city?.items[0]?.cityImgUrl}
+                    src={Image1}
                     alt="Card image cap"
                   />
                   <div className="second-txt">
-                    <span>{city.city}</span>
+                    <span>Islamabad</span>
                     <br />
-                    <p>{city.count} Properties</p>
+                    <p>10 Properties</p>
                   </div>
                 </div>
-              ))}
+				<div>
+                  <img
+                    className="card-img-top img-fluid "
+                    src={Image1}
+                    alt="Card image cap"
+                  />
+                  <div className="second-txt">
+                    <span>city</span>
+                    <br />
+                    <p>23 Properties</p>
+                  </div>
+                </div>
+				<div>
+                  <img
+                    className="card-img-top img-fluid "
+                    src={Image1}
+                    alt="Card image cap"
+                  />
+                  <div className="second-txt">
+                    <span>lahore</span>
+                    <br />
+                    <p>12 Properties</p>
+                  </div>
+                </div>
           </div>
         </div>
       </section>
