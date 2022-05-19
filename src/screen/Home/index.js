@@ -45,7 +45,7 @@ const Home = ({ popularCity, popularCities, filterProperty }) => {
 		// centerPadding: "30px",
 	}
 	const [selectCity, setSelectCity] = useState("Islamabad")
-	// console.log("thisi is city" , popularCities && popularCities)
+	console.log("thisi is city", popularCities && popularCities)
 	// console.log(searchHome, "searchHome")
 	const [searchHome, setSearchHome] = useState({
 		city: "islamabad",
@@ -57,7 +57,8 @@ const Home = ({ popularCity, popularCities, filterProperty }) => {
 		rooms: 1,
 		type: "home",
 	})
-	const [slides, setSlides] = useState([1, 2, 3, 4, 5, 6])
+
+	// const [slides, setSlides] = useState([1, 2, 3, 4, 5, 6])
 	const breakPoints = [
 		{ width: 1, itemsToShow: 1 },
 		{ width: 550, itemsToShow: 2 },
@@ -66,8 +67,8 @@ const Home = ({ popularCity, popularCities, filterProperty }) => {
 	useEffect(() => {
 		console.log("useefefct")
 		console.log(searchHome, "searchHome")
-		// popularCity()
-	}, [searchHome])
+		popularCity()
+	}, [])
 
 	const handleSearchHomeCity = (e) => {
 		setSearchHome({
@@ -498,58 +499,29 @@ const Home = ({ popularCity, popularCities, filterProperty }) => {
 				</div>
 			</section>
 			<div>
+				<div className="col-md-12">
+					<div className="section-title">
+						<h2>POPULAR CITIES</h2>
+					</div>
+				</div>
 				<Carousel
 					breakPoints={breakPoints}
 					pagination={false}
 					enableAutoPlay={true}
 				>
-					{slides.map(function (slide) {
+					{popularCities?.map(function (slide) {
 						return (
 							<div className="slickDiver" key={slide}>
 								<div>
 									<img
-										className="card-img-top img-fluid "
-										src={Image1}
+										className="card-img-top img-fluid img-style"
+										src={slide?.items[0]?.cityImgUrl}
 										alt="Card image cap"
 									/>
 								</div>
 							</div>
 						)
 					})}
-
-					{/* <div style={{}}>
-						<img
-							className="card-img-top img-fluid "
-							src={Image1}
-							alt="Card image cap"
-							style={{}}
-						/>
-					</div>
-					<div style={{}}>
-						<img
-							style={{}}
-							className="card-img-top img-fluid "
-							src={Image1}
-							alt="Card image cap"
-						/>
-					</div>
-					<div style={{}}>
-						<img
-							style={{}}
-							className="card-img-top img-fluid "
-							src={Image1}
-							alt="Card image cap"
-						/>
-					</div>
-					<div style={{}}>
-						<img
-							style={{}}
-							className="card-img-top img-fluid "
-							src={Image1}
-							alt="Card image cap"
-							width="50"
-						/>
-					</div> */}
 				</Carousel>
 			</div>
 
@@ -560,45 +532,6 @@ const Home = ({ popularCity, popularCities, filterProperty }) => {
 							<div className="section-title"></div>
 						</div>
 					</div>
-
-					{/* <div className="items">
-						<div>
-							<img
-								className="card-img-top img-fluid "
-								src={Image1}
-								alt="Card image cap"
-							/>
-							<div className="second-txt">
-								<span>Islamabad</span>
-								<br />
-								<p>10 Properties</p>
-							</div>
-						</div>
-						<div>
-							<img
-								className="card-img-top img-fluid "
-								src={Image1}
-								alt="Card image cap"
-							/>
-							<div className="second-txt">
-								<span>city</span>
-								<br />
-								<p>23 Properties</p>
-							</div>
-						</div>
-						<div>
-							<img
-								className="card-img-top img-fluid "
-								src={Image1}
-								alt="Card image cap"
-							/>
-							<div className="second-txt">
-								<span>lahore</span>
-								<br />
-								<p>12 Properties</p>
-							</div>
-						</div>
-					</div> */}
 				</div>
 			</section>
 
@@ -613,23 +546,6 @@ const Home = ({ popularCity, popularCities, filterProperty }) => {
 					</div>
 
 					<div className="items">
-						<div>
-							<img className=" " src={Image11} alt="Card image cap" />
-						</div>
-						<div>
-							<img
-								className="card-img-top img-fluid "
-								src={Image11}
-								alt="Card image cap"
-							/>
-						</div>
-						<div>
-							<img
-								className="card-img-top img-fluid "
-								src={Image11}
-								alt="Card image cap"
-							/>
-						</div>
 						<div>
 							<img
 								className="card-img-top img-fluid "
@@ -883,7 +799,7 @@ const Home = ({ popularCity, popularCities, filterProperty }) => {
 const mapStateToProps = (state) => {
 	let { popularCities } = state.popularCitiesReducers
 
-	// console.log("mapstate" , popularCities)
+	console.log("mapstate", popularCities)
 	return {
 		popularCities,
 	}

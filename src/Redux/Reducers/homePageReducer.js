@@ -4,16 +4,17 @@ const INITIAL_STATE = {
 export default function popularCitiesReducer(state = INITIAL_STATE, action) {
 	switch (action.type) {
 		case "POPULAR_CITY":
-			// console.log("reduccer" , action.payload)
+			console.log("reduccer for popular cities" , action.payload)
 			return {
 				...state,
 				popularCities: action.payload,
 			}
 		case "FILTER_PROPERTY":
-			// console.log("reduccer" , action.payload)
+			// change hai yahan pe
+			console.log("reduccer " , action.payload)
 			return {
 				...state,
-				popularCities: action.payload,
+				propertyFilter: action.payload,
 			}
 			case "PLOTS_DATA":
 				// console.log("reduccer" , action.payload)
