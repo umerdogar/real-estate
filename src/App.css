@@ -3203,3 +3203,6 @@ button:focus {
 	margin: 15px;
 	font-size: 4em;
 }
+.Pagination {
+	border: "2px solid red";
+}

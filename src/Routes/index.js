@@ -5,9 +5,6 @@ import Forms from "../screen/Forms"
 import FormsTwo from "../screen/FormsTwo"
 import Details from "../screen/Details"
 
-
-
-
 const Routing = () => {
 	return (
 		<BrowserRouter>
@@ -16,7 +13,6 @@ const Routing = () => {
 				<Route path="/form" element={<Forms />} />
 				<Route path="/formsTwo/:type" element={<FormsTwo />} />
 				<Route path="/details" element={<Details />} />
-
 			</Routes>
 		</BrowserRouter>
 	)
