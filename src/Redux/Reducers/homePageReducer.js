@@ -15,6 +15,18 @@ export default function popularCitiesReducer(state = INITIAL_STATE, action) {
 				...state,
 				popularCities: action.payload,
 			}
+			case "PLOTS_DATA":
+				// console.log("reduccer" , action.payload)
+				return {
+					...state,
+					plotsData: action.payload,
+				}
+				case "COMMERCIAL_DATA":
+				// console.log("reduccer" , action.payload)
+				return {
+					...state,
+					commercialData: action.payload,
+				}
 		default:
 			return state
 	}

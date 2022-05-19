@@ -7,13 +7,14 @@ import Details from "../screen/Details"
 
 
 
+
 const Routing = () => {
 	return (
 		<BrowserRouter>
 			<Routes>
 				<Route path="/" element={<Home />} />
 				<Route path="/form" element={<Forms />} />
-				<Route path="/formsTwo" element={<FormsTwo />} />
+				<Route path="/formsTwo/:type" element={<FormsTwo />} />
 				<Route path="/details" element={<Details />} />
 
 			</Routes>

@@ -21,10 +21,29 @@ import Input from "../../components/FromInput/Input"
 import axios from "axios"
 import { popularCityStat } from "../../Redux/Thunk/homePage"
 import { filterSingleProperty } from "../../Redux/Thunk/Property"
-import { useNavigate } from "react-router-dom"
-
+import { useNavigate, Link } from "react-router-dom"
+import Slider from "react-slick"
+import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos"
+import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos"
+import Carousel from "react-elastic-carousel"
 const Home = ({ popularCity, popularCities, filterProperty }) => {
 	let navigate = useNavigate()
+	var settings = {
+		// dots: true,
+		// infinite: true,
+		// speed: 100,
+		// slidesToShow: 3,
+		// slidesToScroll: 2,
+		// arrows: true,
+		// className: "slides",
+		dots: true,
+		infinite: true,
+		speed: 500,
+		slidesToShow: 3,
+		slidesToScroll: 1,
+		centerMode: true,
+		// centerPadding: "30px",
+	}
 	const [selectCity, setSelectCity] = useState("Islamabad")
 	// console.log("thisi is city" , popularCities && popularCities)
 	// console.log(searchHome, "searchHome")
@@ -38,6 +57,12 @@ const Home = ({ popularCity, popularCities, filterProperty }) => {
 		rooms: 1,
 		type: "home",
 	})
+	const [slides, setSlides] = useState([1, 2, 3, 4, 5, 6])
+	const breakPoints = [
+		{ width: 1, itemsToShow: 1 },
+		{ width: 550, itemsToShow: 2 },
+		{ width: 768, itemsToShow: 3 },
+	]
 	useEffect(() => {
 		console.log("useefefct")
 		console.log(searchHome, "searchHome")
@@ -100,16 +125,6 @@ const Home = ({ popularCity, popularCities, filterProperty }) => {
 		})
 	}
 
-	// const handlePost = (e) => {
-	//   e.preventDefault();
-	//   axios
-	//     .post("http://192.168.10.11:1337/api/v1/property/filter", searchHome)
-	//     .then((response) => console.log(response))
-	//     .catch((error) => {
-	//       console.error("There was an error!", error);
-	//     });
-	// };
-
 	const handlePost = (e) => {
 		e.preventDefault()
 		console.log("search home ", searchHome)
@@ -143,25 +158,41 @@ const Home = ({ popularCity, popularCities, filterProperty }) => {
 								>
 									<ul className="navbar-nav ml-auto main-nav ">
 										<li className="nav-item active">
-											<a className="nav-link1" href="index.html">
+											<a className="nav-link1" href="">
 												HOMES
 											</a>
 										</li>
-										<li className="nav-item ">
-											<a className="nav-link1" href="index.html">
-												PLOTS
-											</a>
+
+										<li className="nav-item active">
+											<Link to={"/formsTwo/" + "plot"}>
+												<a className="nav-link1" href="">
+													PLOTS
+												</a>
+											</Link>
 										</li>
-										<li className="nav-item ">
-											<a className="nav-link1" href="index.html">
-												COMERCIAL
-											</a>
+
+										<li className="nav-item active">
+											<Link to={"/formsTwo/" + "commercial"}>
+												<a className="nav-link1" href="">
+													COMMERCIAL
+												</a>
+											</Link>
 										</li>
-										<li className="nav-item ">
-											<a className="nav-link1" href="index.html">
+
+										<li className="nav-item active">
+											<Link to={"/formsTwo/" + "rent"}>
+												<a className="nav-link1" href="">
+													RENT
+												</a>
+											</Link>
+										</li>
+										{/* <li className="nav-item ">
+											<a className="nav-link1" href="#" onClick={() => {
+													navigate("/formsTwo")
+												}}>
 												RENT
 											</a>
-										</li>
+										</li> */}
 									</ul>
 									<ul className="navbar-nav   mt-10">
 										<li className="nav-item">
@@ -466,6 +497,61 @@ const Home = ({ popularCity, popularCities, filterProperty }) => {
 					</div>
 				</div>
 			</section>
+			<div>
+				<Carousel
+					breakPoints={breakPoints}
+					pagination={false}
+					enableAutoPlay={true}
+				>
+					{slides.map(function (slide) {
+						return (
+							<div className="slickDiver" key={slide}>
+								<div>
+									<img
+										className="card-img-top img-fluid "
+										src={Image1}
+										alt="Card image cap"
+									/>
+								</div>
+							</div>
+						)
+					})}
+
+					{/* <div style={{}}>
+						<img
+							className="card-img-top img-fluid "
+							src={Image1}
+							alt="Card image cap"
+							style={{}}
+						/>
+					</div>
+					<div style={{}}>
+						<img
+							style={{}}
+							className="card-img-top img-fluid "
+							src={Image1}
+							alt="Card image cap"
+						/>
+					</div>
+					<div style={{}}>
+						<img
+							style={{}}
+							className="card-img-top img-fluid "
+							src={Image1}
+							alt="Card image cap"
+						/>
+					</div>
+					<div style={{}}>
+						<img
+							style={{}}
+							className="card-img-top img-fluid "
+							src={Image1}
+							alt="Card image cap"
+							width="50"
+						/>
+					</div> */}
+				</Carousel>
+			</div>
 
 			<section className="popular-deals section ">
 				<div className="container">
@@ -475,23 +561,44 @@ const Home = ({ popularCity, popularCities, filterProperty }) => {
 						</div>
 					</div>
 
-					<div className="items">
-						{popularCities &&
-							popularCities.map((city) => (
-								<div>
-									<img
-										className="card-img-top img-fluid "
-										src={city?.items[0]?.cityImgUrl}
-										alt="Card image cap"
-									/>
-									<div className="second-txt">
-										<span>{city.city}</span>
-										<br />
-										<p>{city.count} Properties</p>
-									</div>
-								</div>
-							))}
-					</div>
+					{/* <div className="items">
+						<div>
+							<img
+								className="card-img-top img-fluid "
+								src={Image1}
+								alt="Card image cap"
+							/>
+							<div className="second-txt">
+								<span>Islamabad</span>
+								<br />
+								<p>10 Properties</p>
+							</div>
+						</div>
+						<div>
+							<img
+								className="card-img-top img-fluid "
+								src={Image1}
+								alt="Card image cap"
+							/>
+							<div className="second-txt">
+								<span>city</span>
+								<br />
+								<p>23 Properties</p>
+							</div>
+						</div>
+						<div>
+							<img
+								className="card-img-top img-fluid "
+								src={Image1}
+								alt="Card image cap"
+							/>
+							<div className="second-txt">
+								<span>lahore</span>
+								<br />
+								<p>12 Properties</p>
+							</div>
+						</div>
+					</div> */}
 				</div>
 			</section>
 
@@ -775,6 +882,7 @@ const Home = ({ popularCity, popularCities, filterProperty }) => {
 
 const mapStateToProps = (state) => {
 	let { popularCities } = state.popularCitiesReducers
+
 	// console.log("mapstate" , popularCities)
 	return {
 		popularCities,

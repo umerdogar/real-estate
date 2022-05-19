@@ -3,8 +3,16 @@ import Logo from "../../assets/logo.png"
 import ProfileIcon from "../../assets/profile-icon.png"
 import Footer from "../../components/Footer"
 import { connect } from "react-redux"
+import {
+	BrowserRouter as Router,
+	Switch,
+	Route,
+	useParams,
+	useLocation
+  } from "react-router-dom";
 
 const Details = ({ propertyDetail }) => {
+	
 	console.log("property detail from redux", propertyDetail)
 	return (
 		<>
@@ -1045,7 +1053,7 @@ const Details = ({ propertyDetail }) => {
 
 const mapStateToProps = (state) => {
 	let { propertyDetail } = state.propertyReducer
-	// console.log("mapstatepropertyDetail", propertyDetail)
+	console.log("mapstatepropertyDetail", propertyDetail)
 	return {
 		propertyDetail,
 	}

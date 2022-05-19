@@ -13,3 +13,20 @@ export const filterProperty = (response) => {
 		payload: response,
 	}
 }
+
+
+export const plotsData = (response) => {
+    console.log("action creator" , response)
+	return {
+		type: "PLOTS_DATA",
+		payload: response,
+	}
+}
+
+export const commercialData = (response) => {
+    console.log("action creator" , response)
+	return {
+		type: "COMMERCIAL_DATA",
+		payload: response,
+	}
+}
