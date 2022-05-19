@@ -10,7 +10,7 @@ export const popularCityStat = () => {
 			.get(`http://52.220.87.52:8000/api/v1/property/popular/city`)
 			.then((res) => {
 				dispatch(popularCity(res.data))
-				// console.log("Get popular city", res.data)
+				console.log("Get popular city from thunk", res.data)
 			})
 			.catch((error) => {
 				console.log("error")

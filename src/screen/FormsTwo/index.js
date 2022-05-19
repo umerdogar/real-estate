@@ -903,8 +903,8 @@ const FormsTwo = ({
 																</div>
 															))}
 
-														{cardData &&
-															cardData.map((card) => (
+														{type == "allProperties" &&
+															cardData?.map((card) => (
 																<div className="col-md-4 margin-top-15 margin-bottom-15">
 																	<div className="card">
 																		<img

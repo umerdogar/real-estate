@@ -30,9 +30,7 @@ export const filterSingleProperty = (data, navigate) => {
 			.then((res) => {
 				console.log(res, " filterSingleProperty")
 				dispatch(filterProperty(res.data))
-				navigate("/details")
-
-				console.log("filter property thunk", res.data)
+				navigate("/formsTwo/" + "allProperties")
 			})
 			.catch((error) => {
 				console.log("error")

@@ -3203,3 +3203,8 @@ button:focus {
 	margin: 15px;
 	font-size: 4em;
 }
+
+.img-style{
+  height:250px !important;
+  width:380px !important;
+}
