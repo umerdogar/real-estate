@@ -22,9 +22,23 @@ import axios from "axios";
 import { popularCityStat } from "../../Redux/Thunk/homePage";
 import { filterSingleProperty } from "../../Redux/Thunk/Property";
 import { useNavigate, Link } from "react-router-dom";
+import Slider from "react-slick";
+import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
+import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
+
 
 const Home = ({ popularCity, popularCities, filterProperty }) => {
   let navigate = useNavigate();
+  var settings = {
+
+    dots: true,
+    infinite: true,
+    speed: 100,
+    slidesToShow: 2,
+    slidesToScroll: 2 ,
+    arrows:true,
+      className: 'slides'
+  };
   const [selectCity, setSelectCity] = useState("Islamabad");
   // console.log("thisi is city" , popularCities && popularCities)
   // console.log(searchHome, "searchHome")
@@ -472,6 +486,41 @@ const Home = ({ popularCity, popularCities, filterProperty }) => {
           </div>
         </div>
       </section>
+
+
+      <Slider {...settings}>
+      <div>
+      <img
+                    className="card-img-top img-fluid "
+                    src={Image1}
+                    alt="Card image cap"
+                  />
+      </div>
+      <div>
+      <img
+                    className="card-img-top img-fluid "
+                    src={Image1}
+                    alt="Card image cap"
+                  />
+      </div>
+      <div>
+      <img
+                    className="card-img-top img-fluid "
+                    src={Image1}
+                    alt="Card image cap"
+                  />
+      </div>
+      <div>
+      <img
+                    className="card-img-top img-fluid "
+                    src={Image1}
+                    alt="Card image cap"
+                  />
+      </div>
+      </Slider>
+
+
+
 
       <section className="popular-deals section ">
         <div className="container">
