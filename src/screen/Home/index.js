@@ -45,7 +45,7 @@ const Home = ({ popularCity, popularCities, filterProperty }) => {
 		// centerPadding: "30px",
 	}
 	const [selectCity, setSelectCity] = useState("Islamabad")
-	console.log("thisi is city" , popularCities && popularCities)
+	console.log("thisi is city", popularCities && popularCities)
 	// console.log(searchHome, "searchHome")
 	const [searchHome, setSearchHome] = useState({
 		city: "islamabad",
@@ -57,7 +57,7 @@ const Home = ({ popularCity, popularCities, filterProperty }) => {
 		rooms: 1,
 		type: "home",
 	})
-	
+
 	// const [slides, setSlides] = useState([1, 2, 3, 4, 5, 6])
 	const breakPoints = [
 		{ width: 1, itemsToShow: 1 },
@@ -129,7 +129,7 @@ const Home = ({ popularCity, popularCities, filterProperty }) => {
 	const handlePost = (e) => {
 		e.preventDefault()
 		console.log("search home ", searchHome)
-		filterProperty(searchHome, navigate )
+		filterProperty(searchHome, navigate)
 	}
 
 	return (
@@ -499,11 +499,11 @@ const Home = ({ popularCity, popularCities, filterProperty }) => {
 				</div>
 			</section>
 			<div>
-			<div className="col-md-12">
-							<div className="section-title">
-								<h2>POPULAR CITIES</h2>
-							</div>
-						</div>
+				<div className="col-md-12">
+					<div className="section-title">
+						<h2>POPULAR CITIES</h2>
+					</div>
+				</div>
 				<Carousel
 					breakPoints={breakPoints}
 					pagination={false}
@@ -799,7 +799,7 @@ const Home = ({ popularCity, popularCities, filterProperty }) => {
 const mapStateToProps = (state) => {
 	let { popularCities } = state.popularCitiesReducers
 
-	console.log("mapstate" , popularCities)
+	console.log("mapstate", popularCities)
 	return {
 		popularCities,
 	}

@@ -8,9 +8,6 @@ import Commercial from "../screen/Commercial"
 import Plots from "../screen/Plots"
 
 
-
-
-
 const Routing = () => {
 	return (
 		<BrowserRouter>
