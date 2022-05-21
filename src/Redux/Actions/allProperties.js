@@ -7,7 +7,6 @@ export const allProperties = (response) => {
 
 
 export const filterProperty = (response) => {
-    console.log("action creator" , response)
 	return {
 		type: "FILTER_PROPERTY",
 		payload: response,
@@ -16,7 +15,6 @@ export const filterProperty = (response) => {
 
 
 export const plotsData = (response) => {
-    console.log("action creator" , response)
 	return {
 		type: "PLOTS_DATA",
 		payload: response,
@@ -24,9 +22,15 @@ export const plotsData = (response) => {
 }
 
 export const commercialData = (response) => {
-    console.log("action creator" , response)
 	return {
 		type: "COMMERCIAL_DATA",
+		payload: response,
+	}
+}
+
+export const propertyDetail = (response) => {
+	return {
+		type: "PROPERTY_DETAIL",
 		payload: response,
 	}
 }

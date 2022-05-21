@@ -11,9 +11,14 @@ import {
 	useLocation
   } from "react-router-dom";
 
-const Details = ({ propertyDetail }) => {
+const Details = ({ propertyDetail , 
+    singleProperty
+ }) => {
 	
-	console.log("property detail from redux", propertyDetail)
+	console.log("property detail from detail comp", singleProperty && singleProperty)
+	console.log("property detail from detail com atitle 	p", singleProperty && singleProperty?.agent)
+
+	
 	return (
 		<>
 			<div className="container">
@@ -82,13 +87,15 @@ const Details = ({ propertyDetail }) => {
 						{/* <!-- Left sidebar --> */}
 						<div className="col-md-8">
 							<div className="product-details">
-								<h1 className="product-title">New Upper Portion For Sale</h1>
-
+							
+								<h1 className="product-title">{singleProperty && singleProperty.propertyTitle}</h1>
+								
 								{/* <!-- product slider --> */}
 								<div className="margin-top-30">
 									<img
 										className="img-fluid w-100"
-										src={require("../../assets/no-image.jpg")}
+										// src={require("../../assets/no-image.jpg")}
+										src={singleProperty && singleProperty.cityImgUrl}
 										alt="product-img"
 									/>
 									<ul className="list-inline margin-top-25">
@@ -116,6 +123,7 @@ const Details = ({ propertyDetail }) => {
 										</li>
 									</ul>
 								</div>
+								
 								{/* <!-- product slider --> */}
 
 								<div className="">
@@ -216,6 +224,22 @@ const Details = ({ propertyDetail }) => {
 														>
 															<tbody>
 																<tr>
+																{/* {singleProperty && singleProperty?.propertyType?.Features?.map(()=>(
+																		<td>
+																		<div
+																			className="checkbox-custom checkbox-inline1 checkbox-warning"
+																			style={{ fontSize: "2.5em" }}
+																		>
+																			<input
+																				type="checkbox"
+																				id="444"
+																				name="checkbox"
+																				checked=""
+																			/>
+																			<label for="444">Gass</label>
+																		</div>
+																	</td>
+																	))} */}
 																	<td>
 																		<div
 																			className="checkbox-custom checkbox-inline1 checkbox-warning"
@@ -381,7 +405,7 @@ const Details = ({ propertyDetail }) => {
 											</div>
 											<div className="bg-blue padding-15">
 												<h6 style={{ color: "white", margin: "0px" }}>
-													Details
+													Agent Details
 												</h6>
 											</div>
 											<div className="padding-15">
@@ -394,15 +418,15 @@ const Details = ({ propertyDetail }) => {
 															<tbody>
 																<tr>
 																	<td> Agent Name</td>
-																	<td> Sandeep Mishra</td>
+																	<td>{singleProperty && singleProperty?.agent?.name}</td>
 																</tr>
 																<tr>
 																	<td> Agent Phone No</td>
-																	<td> +926372548521</td>
+																	<td> {singleProperty && singleProperty?.agent?.phone}</td>
 																</tr>
 																<tr>
-																	<td> Estate Name</td>
-																	<td> Niyeoald Aieor</td>
+																	<td> Email</td>
+																	<td>{singleProperty && singleProperty?.agent?.email}</td>
 																</tr>
 															</tbody>
 														</table>
@@ -1052,10 +1076,10 @@ const Details = ({ propertyDetail }) => {
 // export default Details
 
 const mapStateToProps = (state) => {
-	let { propertyDetail } = state.propertyReducer
-	console.log("mapstatepropertyDetail", propertyDetail)
+	let { propertyDetail , singleProperty } = state.propertyReducer
 	return {
 		propertyDetail,
+		singleProperty
 	}
 }
 const mapDispatchToProps = (dispatch) => {

@@ -3,7 +3,7 @@ import Logo from "../../assets/logo.png"
 import ProfileIcon from "../../assets/profile-icon.png"
 import Image1 from "../../assets/image-1.png"
 import Footer from "../../components/Footer"
-import { allPropertiesList } from "../../Redux/Thunk/Property"
+import { allPropertiesList , singlePropertyDetail} from "../../Redux/Thunk/Property"
 import { connect, createDispatchHook } from "react-redux"
 import propertyReducer from "../../Redux/Reducers/propertyReducer"
 import { useNavigate, useParams, useLocation } from "react-router-dom"
@@ -16,29 +16,25 @@ const FormsTwo = ({
 	commercialDataFetch,
 	plotsData,
 	commercialData,
+    singlePropertyDetail,
 }) => {
 	let navigate = useNavigate()
 	const [allProperty, setAllProperty] = useState()
 	const cardData = propertyDetail?.data
-	console.log("propertyDetail in FormsTwo", propertyDetail)
 
-	let { type } = useParams()
-	const location = useLocation()
-	const productId = location.pathname.split("/")[2]
-	console.log("type", productId)
-	console.log("plots data from comp", plotsData && plotsData)
-	console.log("commercial data from comp", commercialData && commercialData)
 
-	const plot = plotsData?.property
 	const commercial = commercialData?.property
 
 	useEffect(() => {
-		// allProperties()
+console.log("commercial componoent api")
+	 commercialDataFetch()
 	}, [])
 
-	const navdetail = () => {
-		navigate("/details")
-		console.log("asdfasdfasds")
+
+	const getPropertyDetail = (id) => {
+        console.log("id from func" , id)
+		singlePropertyDetail(id , navigate)
+		console.log("func caleeeed")
 	}
 	return (
 		<>
@@ -655,7 +651,7 @@ const FormsTwo = ({
 											<div className="row margin-bottom-15">
 												<div className="col-md-8 col-12">
 													<div className="row">
-														{type == "commercial" &&
+														{commercial &&
 															commercial?.map((card) => (
 																<div className="col-md-4 margin-top-15 margin-bottom-15">
 																	<div className="card">
@@ -708,7 +704,8 @@ const FormsTwo = ({
 																				// className="btn-small btn-primary mt-3"
 																				className="stretched-link btn-small btn-primary mt-3"
 																				onClick={() => {
-																					navigate("/details")
+                                                                                    getPropertyDetail(card?._id)
+
 																				}}
 																			>
 																				Detailss
@@ -775,559 +772,7 @@ const FormsTwo = ({
 																	</div>
 																</div>
 															))}
-														{type == "plot" &&
-															plot?.map((card) => (
-																<div className="col-md-4 margin-top-15 margin-bottom-15">
-																	<div className="card">
-																		<img
-																			className="card-img"
-																			src={card.image}
-																			alt="Vans"
-																		/>
-																		<div
-																			className="card-img-overlay  "
-																			style={{ padding: "0rem" }}
-																			onClick={() => {
-																				alert("asdf")
-																			}}
-																		>
-																			<a
-																				href="#"
-																				className="btn-small btn-danger mt-3"
-																				style={{ display: "inline" }}
-																			>
-																				{" "}
-																				{card?.propertyType?.featured}
-																			</a>
-																		</div>
-																		<div className=" d-flex ">
-																			<a
-																				href="#"
-																				className="btn-small btn-danger "
-																				style={{ marginTop: "-33px" }}
-																			>
-																				{" "}
-																				<span className="">
-																					{card?.rooms}
-																				</span>{" "}
-																				<i className="ri-camera-line"></i>
-																			</a>
-																		</div>
-																		<div className="card-img-overlay d-flex justify-content-end">
-																			<a
-																				href="#"
-																				className="card-link text-danger like"
-																			>
-																				<i className="ri-heart-line"></i>
-																			</a>
-																		</div>
-
-																		<div className="text-center">
-																			<a
-																				// href=""
-																				// className="btn-small btn-primary mt-3"
-																				className="stretched-link btn-small btn-primary mt-3"
-																				onClick={() => {
-																					navigate("/details")
-																				}}
-																			>
-																				Detailss
-																			</a>
-																		</div>
-																		<div className="card-body">
-																			<h4 className="card-title">
-																				PKR 2.50 Crore
-																			</h4>
-																			<h6 className="card-subtitle mb-2 text-muted">
-																				I-8 Islamabad
-																			</h6>
-																			<ul className="list-inline margin-top-25">
-																				<li className="list-inline-item margin-right-5">
-																					<a>
-																						<i className="ri-hotel-bed-line"></i>
-																						<span className="margin-left-5 ">
-																							4
-																						</span>{" "}
-																					</a>
-																				</li>
-																				<li className="list-inline-item margin-right-5">
-																					<a>
-																						<i className="ri-heavy-showers-line"></i>{" "}
-																						<span className="margin-left-5 ">
-																							3
-																						</span>
-																					</a>
-																				</li>
-																				<li className="list-inline-item margin-right-5">
-																					<a>
-																						<i className="ri-fullscreen-fill"></i>
-																						<span className="margin-left-5 ">
-																							5987 sqft
-																						</span>
-																					</a>
-																				</li>
-																			</ul>
-																			<div
-																				className="buy d-flex  align-items-center"
-																				style={{
-																					justifyContent: "space-evenly",
-																				}}
-																			>
-																				<a
-																					onClick={() => {
-																						navigate("/details")
-																					}}
-																					href="#"
-																					className="btn-small btn-primary mt-3"
-																				>
-																					{" "}
-																					Call
-																				</a>
-																				<a
-																					href="#"
-																					className="btn-small btn-primary mt-3"
-																				>
-																					{" "}
-																					Email
-																				</a>
-																			</div>
-																		</div>
-																	</div>
-																</div>
-															))}
-
-														{type == "allProperties" &&
-															cardData?.map((card) => (
-																<div className="col-md-4 margin-top-15 margin-bottom-15">
-																	<div className="card">
-																		<img
-																			className="card-img"
-																			src={card.image}
-																			alt="Vans"
-																		/>
-																		<div
-																			className="card-img-overlay  "
-																			style={{ padding: "0rem" }}
-																			onClick={() => {
-																				alert("asdf")
-																			}}
-																		>
-																			<a
-																				href="#"
-																				className="btn-small btn-danger mt-3"
-																				style={{ display: "inline" }}
-																			>
-																				{" "}
-																				{card?.propertyType?.featured}
-																			</a>
-																		</div>
-																		<div className=" d-flex ">
-																			<a
-																				href="#"
-																				className="btn-small btn-danger "
-																				style={{ marginTop: "-33px" }}
-																			>
-																				{" "}
-																				<span className="">
-																					{card?.rooms}
-																				</span>{" "}
-																				<i className="ri-camera-line"></i>
-																			</a>
-																		</div>
-																		<div className="card-img-overlay d-flex justify-content-end">
-																			<a
-																				href="#"
-																				className="card-link text-danger like"
-																			>
-																				<i className="ri-heart-line"></i>
-																			</a>
-																		</div>
-
-																		<div className="text-center">
-																			<a
-																				// href=""
-																				// className="btn-small btn-primary mt-3"
-																				className="stretched-link btn-small btn-primary mt-3"
-																				onClick={() => {
-																					navigate("/details")
-																				}}
-																			>
-																				Detailss
-																			</a>
-																		</div>
-																		<div className="card-body">
-																			<h4 className="card-title">
-																				PKR 2.50 Crore
-																			</h4>
-																			<h6 className="card-subtitle mb-2 text-muted">
-																				I-8 Islamabad
-																			</h6>
-																			<ul className="list-inline margin-top-25">
-																				<li className="list-inline-item margin-right-5">
-																					<a>
-																						<i className="ri-hotel-bed-line"></i>
-																						<span className="margin-left-5 ">
-																							4
-																						</span>{" "}
-																					</a>
-																				</li>
-																				<li className="list-inline-item margin-right-5">
-																					<a>
-																						<i className="ri-heavy-showers-line"></i>{" "}
-																						<span className="margin-left-5 ">
-																							3
-																						</span>
-																					</a>
-																				</li>
-																				<li className="list-inline-item margin-right-5">
-																					<a>
-																						<i className="ri-fullscreen-fill"></i>
-																						<span className="margin-left-5 ">
-																							5987 sqft
-																						</span>
-																					</a>
-																				</li>
-																			</ul>
-																			<div
-																				className="buy d-flex  align-items-center"
-																				style={{
-																					justifyContent: "space-evenly",
-																				}}
-																			>
-																				<a
-																					onClick={() => {
-																						navigate("/details")
-																					}}
-																					href="#"
-																					className="btn-small btn-danger mt-3"
-																					style={{
-																						display: "inline",
-																					}}
-																				>
-																					{" "}
-																					{card?.propertyType?.featured}
-																				</a>
-																			</div>
-																			<div className=" d-flex ">
-																				<a
-																					href="#"
-																					className="btn-small btn-danger "
-																					style={{
-																						marginTop: "-33px",
-																					}}
-																				>
-																					{" "}
-																					<span className="">
-																						{card?.rooms}
-																					</span>{" "}
-																					<i className="ri-camera-line"></i>
-																				</a>
-																			</div>
-																			<div className="card-img-overlay d-flex justify-content-end">
-																				<a
-																					href="#"
-																					className="card-link text-danger like"
-																				>
-																					<i className="ri-heart-line"></i>
-																				</a>
-																			</div>
-																			<div
-																				onClick={(e) => {
-																					console.log("Hamza")
-																				}}
-																			>
-																				<p> Detailss</p>
-																			</div>
-																			<div className="card-body">
-																				<h4 className="card-title">
-																					PKR 2.50 Crore
-																				</h4>
-																				<h6 className="card-subtitle mb-2 text-muted">
-																					I-8 Islamabad
-																				</h6>
-																				<ul className="list-inline margin-top-25">
-																					<li className="list-inline-item margin-right-5">
-																						<a>
-																							<i className="ri-hotel-bed-line"></i>
-																							<span className="margin-left-5 ">
-																								4
-																							</span>{" "}
-																						</a>
-																					</li>
-																					<li className="list-inline-item margin-right-5">
-																						<a>
-																							<i className="ri-heavy-showers-line"></i>{" "}
-																							<span className="margin-left-5 ">
-																								3
-																							</span>
-																						</a>
-																					</li>
-																					<li className="list-inline-item margin-right-5">
-																						<a>
-																							<i className="ri-fullscreen-fill"></i>
-																							<span className="margin-left-5 ">
-																								5987 sqft
-																							</span>
-																						</a>
-																					</li>
-																				</ul>
-																				<div
-																					className="buy d-flex  align-items-center"
-																					style={{
-																						justifyContent: "space-evenly",
-																					}}
-																				>
-																					<a
-																						href="#"
-																						className="btn-small btn-primary mt-3"
-																					>
-																						{" "}
-																						Call
-																					</a>
-																					<a
-																						href="#"
-																						className="btn-small btn-primary mt-3"
-																					>
-																						{" "}
-																						Email
-																					</a>
-																				</div>
-																			</div>
-																		</div>
-																	</div>
-																</div>
-															))}
-
-														{/* <div className="col-md-4 margin-top-15 margin-bottom-15">
-
-												<div className="card">
-													<img className="card-img" src="https://i.imgur.com/gazoShk.jpg" alt="Vans"/>
-													<div className="card-img-overlay  " style={{padding: "0rem"}}>
-														<a href="#" className="btn-small btn-danger mt-3" style={{display: "inline"}}> Super Hot</a>
-													</div>
-													<div className=" d-flex ">
-														<a href="#" className="btn-small btn-danger " style={{marginTop: "-33px"}}> <span
-															className="">4</span> <i className="ri-camera-line"></i></a>
-													</div>
-													<div className="card-img-overlay d-flex justify-content-end">
-														<a href="#" className="card-link text-danger like">
-															<i className="ri-heart-line"></i>
-														</a>
-													</div>
-													<div className="text-center"><a href="#" className="btn-small btn-primary mt-3"> Prime Location</a>
-													</div>
-													<div className="card-body">
-							
-														<h4 className="card-title">PKR 2.50 Crore</h4>
-														<h6 className="card-subtitle mb-2 text-muted">I-8 Islamabad</h6>
-														<ul className="list-inline margin-top-25">
-															<li className="list-inline-item margin-right-5">
-																<a><i className="ri-hotel-bed-line"></i><span
-																		className="margin-left-5 ">4</span> </a>
-															</li>
-															<li className="list-inline-item margin-right-5">
-																<a><i className="ri-heavy-showers-line"></i> <span
-																		className="margin-left-5 ">3</span></a>
-															</li>
-															<li className="list-inline-item margin-right-5">
-																<a><i className="ri-fullscreen-fill"></i><span
-																		className="margin-left-5 ">5987 sqft</span></a>
-															</li>
-							
-														</ul>
-														<div className="buy d-flex  align-items-center" style={{justifyContent: "space-evenly"}}>
-							
-															<a href="#" className="btn-small btn-primary mt-3"> Call</a>
-															<a href="#" className="btn-small btn-primary mt-3"> Email</a>
-														</div>
-													</div>
-												</div>
-							
-											</div>
-											<div className="col-md-4 margin-top-15 margin-bottom-15">
-
-												<div className="card">
-													<img className="card-img" src="https://i.imgur.com/gazoShk.jpg" alt="Vans"/>
-													<div className="card-img-overlay  " style={{padding: "0rem"}}>
-														<a href="#" className="btn-small btn-danger mt-3" style={{display: "inline"}}> Super Hot</a>
-													</div>
-													<div className=" d-flex ">
-														<a href="#" className="btn-small btn-danger " style={{marginTop: "-33px"}}> <span
-															className="">4</span> <i className="ri-camera-line"></i></a>
-													</div>
-													<div className="card-img-overlay d-flex justify-content-end">
-														<a href="#" className="card-link text-danger like">
-															<i className="ri-heart-line"></i>
-														</a>
-													</div>
-													<div className="text-center"><a href="#" className="btn-small btn-primary mt-3"> Prime Location</a>
-													</div>
-													<div className="card-body">
-							
-														<h4 className="card-title">PKR 2.50 Crore</h4>
-														<h6 className="card-subtitle mb-2 text-muted">I-8 Islamabad</h6>
-														<ul className="list-inline margin-top-25">
-															<li className="list-inline-item margin-right-5">
-																<a><i className="ri-hotel-bed-line"></i><span
-																		className="margin-left-5 ">4</span> </a>
-															</li>
-															<li className="list-inline-item margin-right-5">
-																<a><i className="ri-heavy-showers-line"></i> <span
-																		className="margin-left-5 ">3</span></a>
-															</li>
-															<li className="list-inline-item margin-right-5">
-																<a><i className="ri-fullscreen-fill"></i><span
-																		className="margin-left-5 ">5987 sqft</span></a>
-															</li>
-							
-														</ul>
-														<div className="buy d-flex  align-items-center" style={{justifyContent: "space-evenly"}}>
-							
-															<a href="#" className="btn-small btn-primary mt-3"> Call</a>
-															<a href="#" className="btn-small btn-primary mt-3"> Email</a>
-														</div>
-													</div>
-												</div>
-							
-											</div>
-											<div className="col-md-4 margin-top-15 margin-bottom-15">
-
-												<div className="card">
-													<img className="card-img" src="https://i.imgur.com/gazoShk.jpg" alt="Vans"/>
-													<div className="card-img-overlay  " style={{padding: "0rem"}}>
-														<a href="#" className="btn-small btn-danger mt-3" style={{display: "inline"}}> Super Hot</a>
-													</div>
-													<div className=" d-flex ">
-														<a href="#" className="btn-small btn-danger " style={{marginTop: "-33px"}}> <span
-															className="">4</span> <i className="ri-camera-line"></i></a>
-													</div>
-													<div className="card-img-overlay d-flex justify-content-end">
-														<a href="#" className="card-link text-danger like">
-															<i className="ri-heart-line"></i>
-														</a>
-													</div>
-													<div className="text-center"><a href="#" className="btn-small btn-primary mt-3"> Prime Location</a>
-													</div>
-													<div className="card-body">
-							
-														<h4 className="card-title">PKR 2.50 Crore</h4>
-														<h6 className="card-subtitle mb-2 text-muted">I-8 Islamabad</h6>
-														<ul className="list-inline margin-top-25">
-															<li className="list-inline-item margin-right-5">
-																<a><i className="ri-hotel-bed-line"></i><span
-																		className="margin-left-5 ">4</span> </a>
-															</li>
-															<li className="list-inline-item margin-right-5">
-																<a><i className="ri-heavy-showers-line"></i> <span
-																		className="margin-left-5 ">3</span></a>
-															</li>
-															<li className="list-inline-item margin-right-5">
-																<a><i className="ri-fullscreen-fill"></i><span
-																		className="margin-left-5 ">5987 sqft</span></a>
-															</li>
-							
-														</ul>
-														<div className="buy d-flex  align-items-center" style={{justifyContent: "space-evenly"}}>
-							
-															<a href="#" className="btn-small btn-primary mt-3"> Call</a>
-															<a href="#" className="btn-small btn-primary mt-3"> Email</a>
-														</div>
-													</div>
-												</div>
-							
-											</div>
-											<div className="col-md-4 margin-top-15 margin-bottom-15">
-
-												<div className="card">
-													<img className="card-img" src="https://i.imgur.com/gazoShk.jpg" alt="Vans"/>
-													<div className="card-img-overlay  " style={{padding: "0rem"}}>
-														<a href="#" className="btn-small btn-danger mt-3" style={{display: "inline"}}> Super Hot</a>
-													</div>
-													<div className=" d-flex ">
-														<a href="#" className="btn-small btn-danger " style={{marginTop: "-33px"}}> <span
-															className="">4</span> <i className="ri-camera-line"></i></a>
-													</div>
-													<div className="card-img-overlay d-flex justify-content-end">
-														<a href="#" className="card-link text-danger like">
-															<i className="ri-heart-line"></i>
-														</a>
-													</div>
-													<div className="text-center"><a href="#" className="btn-small btn-primary mt-3"> Prime Location</a>
-													</div>
-													<div className="card-body">
-							
-														<h4 className="card-title">PKR 2.50 Crore</h4>
-														<h6 className="card-subtitle mb-2 text-muted">I-8 Islamabad</h6>
-														<ul className="list-inline margin-top-25">
-															<li className="list-inline-item margin-right-5">
-																<a><i className="ri-hotel-bed-line"></i><span
-																		className="margin-left-5 ">4</span> </a>
-															</li>
-															<li className="list-inline-item margin-right-5">
-																<a><i className="ri-heavy-showers-line"></i> <span
-																		className="margin-left-5 ">3</span></a>
-															</li>
-															<li className="list-inline-item margin-right-5">
-																<a><i className="ri-fullscreen-fill"></i><span
-																		className="margin-left-5 ">5987 sqft</span></a>
-															</li>
-							
-														</ul>
-														<div className="buy d-flex  align-items-center" style={{justifyContent: "space-evenly"}}>
-							
-															<a href="#" className="btn-small btn-primary mt-3"> Call</a>
-															<a href="#" className="btn-small btn-primary mt-3"> Email</a>
-														</div>
-													</div>
-												</div>
-							
-											</div>
-											<div className="col-md-4 margin-top-15 margin-bottom-15">
-
-												<div className="card">
-													<img className="card-img" src="https://i.imgur.com/gazoShk.jpg" alt="Vans"/>
-													<div className="card-img-overlay  " style={{padding: "0rem"}}>
-														<a href="#" className="btn-small btn-danger mt-3" style={{display: "inline"}}> Super Hot</a>
-													</div>
-													<div className=" d-flex ">
-														<a href="#" className="btn-small btn-danger " style={{marginTop: "-33px"}}> <span
-															className="">4</span> <i className="ri-camera-line"></i></a>
-													</div>
-													<div className="card-img-overlay d-flex justify-content-end">
-														<a href="#" className="card-link text-danger like">
-															<i className="ri-heart-line"></i>
-														</a>
-													</div>
-													<div className="text-center"><a href="#" className="btn-small btn-primary mt-3"> Prime Location</a>
-													</div>
-													<div className="card-body">
-							
-														<h4 className="card-title">PKR 2.50 Crore</h4>
-														<h6 className="card-subtitle mb-2 text-muted">I-8 Islamabad</h6>
-														<ul className="list-inline margin-top-25">
-															<li className="list-inline-item margin-right-5">
-																<a><i className="ri-hotel-bed-line"></i><span
-																		className="margin-left-5 ">4</span> </a>
-															</li>
-															<li className="list-inline-item margin-right-5">
-																<a><i className="ri-heavy-showers-line"></i> <span
-																		className="margin-left-5 ">3</span></a>
-															</li>
-															<li className="list-inline-item margin-right-5">
-																<a><i className="ri-fullscreen-fill"></i><span
-																		className="margin-left-5 ">5987 sqft</span></a>
-															</li>
-							
-														</ul>
-														<div className="buy d-flex  align-items-center" style={{justifyContent: "space-evenly"}}>
-							
-															<a href="#" className="btn-small btn-primary mt-3"> Call</a>
-															<a href="#" className="btn-small btn-primary mt-3"> Email</a>
-														</div>
-													</div>
-												</div>
-							
-											</div> */}
+														
 
 														<div className="col-md-12 margin-top-30">
 															<nav aria-label="Page navigation example ">
@@ -1420,9 +865,9 @@ const FormsTwo = ({
 }
 
 const mapStateToProps = (state) => {
-	let { propertyDetail } = state.propertyReducer
-	let { plotsData } = state.popularCitiesReducers
-	let { commercialData } = state.popularCitiesReducers
+	let { propertyDetail  } = state.propertyReducer
+	let { plotsData , commercialData } = state.popularCitiesReducers
+
 
 	console.log("full state", state)
 	return {
@@ -1433,6 +878,7 @@ const mapStateToProps = (state) => {
 }
 const mapDispatchToProps = (dispatch) => {
 	return {
+        singlePropertyDetail : (id , navigate) => dispatch(singlePropertyDetail(id , navigate)),
 		allProperties: () => dispatch(allPropertiesList()),
 		plotsDataFetch: () => dispatch(plotsDataFetch()),
 		commercialDataFetch: () => dispatch(commercialDataFetch()),
