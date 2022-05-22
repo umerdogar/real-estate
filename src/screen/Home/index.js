@@ -45,6 +45,8 @@ const Home = ({ popularCity, popularCities, filterProperty }) => {
 		// centerPadding: "30px",
 	}
 	const [selectCity, setSelectCity] = useState("Islamabad")
+	const [query, setQurey] = useState("Hamza")
+	const [rerenderPage, setRerenderPage] = useState(2)
 	console.log("thisi is city", popularCities && popularCities)
 	// console.log(searchHome, "searchHome")
 	const [searchHome, setSearchHome] = useState({
@@ -126,10 +128,16 @@ const Home = ({ popularCity, popularCities, filterProperty }) => {
 		})
 	}
 
+	const PageRerender = () => {
+		console.log("PageRerender")
+		setRerenderPage("H")
+		window.location.reload()
+	}
+
 	const handlePost = (e) => {
 		e.preventDefault()
 		console.log("search home ", searchHome)
-		filterProperty(searchHome, navigate)
+		filterProperty(searchHome, navigate, PageRerender)
 	}
 
 	return (
@@ -165,7 +173,12 @@ const Home = ({ popularCity, popularCities, filterProperty }) => {
 										</li>
 
 										<li className="nav-item active">
-											<Link to={"/formsTwo/" + "plot"}>
+											<Link
+												to={{
+													pathname: "/formsTwo/plot",
+													quer: query,
+												}}
+											>
 												<a className="nav-link1" href="">
 													PLOTS
 												</a>
@@ -807,8 +820,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
 	return {
 		popularCity: () => dispatch(popularCityStat()),
-		filterProperty: (searchHome, navigate) =>
-			dispatch(filterSingleProperty(searchHome, navigate)),
+		filterProperty: (searchHome, navigate, PageRerender) =>
+			dispatch(filterSingleProperty(searchHome, navigate, PageRerender)),
 	}
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Home)

@@ -1,6 +1,6 @@
 import axios from "axios"
 import { popularCity } from "../Actions/popularCity"
-import { plotsData , commercialData } from "../Actions/allProperties"
+import { plotsData, commercialData } from "../Actions/allProperties"
 
 export const popularCityStat = () => {
 	// console.log("loginUserTWo")

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useRouter } from "react"
 import Logo from "../../assets/logo.png"
 import ProfileIcon from "../../assets/profile-icon.png"
 import Image1 from "../../assets/image-1.png"
@@ -6,8 +6,14 @@ import Footer from "../../components/Footer"
 import { allPropertiesList } from "../../Redux/Thunk/Property"
 import { connect, createDispatchHook } from "react-redux"
 import propertyReducer from "../../Redux/Reducers/propertyReducer"
-import { useNavigate, useParams, useLocation } from "react-router-dom"
+import {
+	useNavigate,
+	useParams,
+	useLocation,
+	useHistory,
+} from "react-router-dom"
 import { plotsDataFetch, commercialDataFetch } from "../../Redux/Thunk/homePage"
+// import { useHistory } from "react-router-dom"
 
 const FormsTwo = ({
 	allProperties,
@@ -16,7 +22,13 @@ const FormsTwo = ({
 	commercialDataFetch,
 	plotsData,
 	commercialData,
+	props,
+	route,
+	navigation,
+	onDone,
 }) => {
+	// const history = useHistory()
+	// console.log(onDone, "props.route.params")
 	let navigate = useNavigate()
 	const [allProperty, setAllProperty] = useState()
 	const cardData = propertyDetail?.data
@@ -31,9 +43,15 @@ const FormsTwo = ({
 
 	const plot = plotsData?.property
 	const commercial = commercialData?.property
+	window.onpopstate = () => {
+		console.log("On pop stae")
+		console.log("Hamza")
+		onDone.onDone()
+	}
 
 	useEffect(() => {
 		// allProperties()
+		// navigate("/path")
 	}, [])
 
 	const navdetail = () => {
@@ -71,6 +89,7 @@ const FormsTwo = ({
 											href="#"
 											onClick={() => {
 												navigate("/")
+												onDone.onDone()
 											}}
 										>
 											Home
@@ -1420,7 +1439,9 @@ const FormsTwo = ({
 }
 
 const mapStateToProps = (state) => {
-	let { propertyDetail } = state.propertyReducer
+	let propertyDetail = state.propertyReducer.propertyDetail[0]
+	let onDone = state.propertyReducer.propertyDetail[1]
+	console.log(onDone, "propertyDetailmapStateToProps")
 	let { plotsData } = state.popularCitiesReducers
 	let { commercialData } = state.popularCitiesReducers
 
@@ -1429,6 +1450,7 @@ const mapStateToProps = (state) => {
 		propertyDetail,
 		plotsData,
 		commercialData,
+		onDone,
 	}
 }
 const mapDispatchToProps = (dispatch) => {

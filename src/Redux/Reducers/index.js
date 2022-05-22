@@ -3,8 +3,8 @@ import popularCitiesReducers from "./homePageReducer"
 import propertyReducer from "./propertyReducer"
 
 const RootReducers = combineReducers({
-     popularCitiesReducers,
-	 propertyReducer,
+	popularCitiesReducers,
+	propertyReducer,
 })
 
 export default RootReducers

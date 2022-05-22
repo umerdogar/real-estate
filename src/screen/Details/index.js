@@ -9,17 +9,10 @@ import {
 	Switch,
 	Route,
 	useParams,
-	useLocation
-  } from "react-router-dom";
+	useLocation,
+} from "react-router-dom"
 
-const Details = ({ propertyDetail , 
-    singleProperty
- }) => {
-	
-	console.log("property detail from detail comp", singleProperty && singleProperty)
-	console.log("property detail from detail com atitle 	p", singleProperty && singleProperty?.agent)
-
-	
+const Details = ({ propertyDetail, singleProperty }) => {
 	return (
 		<>
 			<div className="container">
@@ -88,9 +81,10 @@ const Details = ({ propertyDetail ,
 						{/* <!-- Left sidebar --> */}
 						<div className="col-md-8">
 							<div className="product-details">
-							
-								<h1 className="product-title">{singleProperty && singleProperty.propertyTitle}</h1>
-								
+								<h1 className="product-title">
+									{singleProperty && singleProperty.propertyTitle}
+								</h1>
+
 								{/* <!-- product slider --> */}
 								<div className="margin-top-30">
 									<img
@@ -124,7 +118,7 @@ const Details = ({ propertyDetail ,
 										</li>
 									</ul>
 								</div>
-								
+
 								{/* <!-- product slider --> */}
 
 								<div className="">
@@ -225,7 +219,7 @@ const Details = ({ propertyDetail ,
 														>
 															<tbody>
 																<tr>
-																{/* {singleProperty && singleProperty?.propertyType?.Features?.map(()=>(
+																	{/* {singleProperty && singleProperty?.propertyType?.Features?.map(()=>(
 																		<td>
 																		<div
 																			className="checkbox-custom checkbox-inline1 checkbox-warning"
@@ -419,15 +413,25 @@ const Details = ({ propertyDetail ,
 															<tbody>
 																<tr>
 																	<td> Agent Name</td>
-																	<td>{singleProperty && singleProperty?.agent?.name}</td>
+																	<td>
+																		{singleProperty &&
+																			singleProperty?.agent?.name}
+																	</td>
 																</tr>
 																<tr>
 																	<td> Agent Phone No</td>
-																	<td> {singleProperty && singleProperty?.agent?.phone}</td>
+																	<td>
+																		{" "}
+																		{singleProperty &&
+																			singleProperty?.agent?.phone}
+																	</td>
 																</tr>
 																<tr>
 																	<td> Email</td>
-																	<td>{singleProperty && singleProperty?.agent?.email}</td>
+																	<td>
+																		{singleProperty &&
+																			singleProperty?.agent?.email}
+																	</td>
 																</tr>
 															</tbody>
 														</table>
@@ -575,10 +579,10 @@ const Details = ({ propertyDetail ,
 // export default Details
 
 const mapStateToProps = (state) => {
-	let { propertyDetail , singleProperty } = state.propertyReducer
+	let { propertyDetail, singleProperty } = state.propertyReducer
 	return {
 		propertyDetail,
-		singleProperty
+		singleProperty,
 	}
 }
 const mapDispatchToProps = (dispatch) => {

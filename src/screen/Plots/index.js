@@ -3,12 +3,15 @@ import Logo from "../../assets/logo.png"
 import ProfileIcon from "../../assets/profile-icon.png"
 import Image1 from "../../assets/image-1.png"
 import Footer from "../../components/Footer"
-import { allPropertiesList , singlePropertyDetail } from "../../Redux/Thunk/Property"
+import {
+	allPropertiesList,
+	singlePropertyDetail,
+} from "../../Redux/Thunk/Property"
 import { connect, createDispatchHook } from "react-redux"
 import propertyReducer from "../../Redux/Reducers/propertyReducer"
 import { useNavigate, useParams, useLocation } from "react-router-dom"
 import { plotsDataFetch, commercialDataFetch } from "../../Redux/Thunk/homePage"
-
+// import { useLocation } from "react-router-dom"
 const FormsTwo = ({
 	allProperties,
 	propertyDetail,
@@ -16,12 +19,15 @@ const FormsTwo = ({
 	commercialDataFetch,
 	plotsData,
 	commercialData,
-    singlePropertyDetail
+	singlePropertyDetail,
+	data,
 }) => {
 	let navigate = useNavigate()
+	const { quer } = useLocation()
+	console.log(quer)
 	const [allProperty, setAllProperty] = useState()
 	const cardData = propertyDetail?.data
-	console.log("propertyDetail in FormsTwo", propertyDetail)
+	console.log("propertyDetail in FormsTwo", data && data)
 
 	// let { type } = useParams()
 	// const location = useLocation()
@@ -31,18 +37,16 @@ const FormsTwo = ({
 	// console.log("commercial data from comp", commercialData && commercialData)
 
 	const plot = plotsData?.property
-	
 
 	useEffect(() => {
 		console.log("useefefct from plots seprte comp")
-	 plotsDataFetch()
-
+		console.log("propertyDetail in FormsTwo", data)
+		plotsDataFetch()
 	}, [])
 
-
-    const getPropertyDetail = (id) => {
-        console.log("id from func plots" , id)
-		singlePropertyDetail(id , navigate)
+	const getPropertyDetail = (id) => {
+		console.log("id from func plots", id)
+		singlePropertyDetail(id, navigate)
 		console.log("func caleeeed plots")
 	}
 	return (
@@ -660,7 +664,6 @@ const FormsTwo = ({
 											<div className="row margin-bottom-15">
 												<div className="col-md-8 col-12">
 													<div className="row">
-													
 														{plot &&
 															plot.map((card) => (
 																<div className="col-md-4 margin-top-15 margin-bottom-15">
@@ -713,9 +716,8 @@ const FormsTwo = ({
 																				// href=""
 																				// className="btn-small btn-primary mt-3"
 																				className="stretched-link btn-small btn-primary mt-3"
-                                                                                onClick={() => {
-                                                                                    getPropertyDetail(card?._id)
-
+																				onClick={() => {
+																					getPropertyDetail(card?._id)
 																				}}
 																			>
 																				Detailss
@@ -782,9 +784,6 @@ const FormsTwo = ({
 																	</div>
 																</div>
 															))}
-
-														
-
 
 														<div className="col-md-12 margin-top-30">
 															<nav aria-label="Page navigation example ">
@@ -877,7 +876,10 @@ const FormsTwo = ({
 }
 
 const mapStateToProps = (state) => {
-	let { propertyDetail } = state.propertyReducer
+	let propertyDetail = state.propertyReducer.propertyDetail[0]
+	let onDone = state.propertyReducer.propertyDetail[1]
+	console.log(onDone, "propertyDetailmapStateToPropsonDone")
+	// let { propertyDetail } = state.propertyReducer
 	let { plotsData } = state.popularCitiesReducers
 	let { commercialData } = state.popularCitiesReducers
 
@@ -893,8 +895,8 @@ const mapDispatchToProps = (dispatch) => {
 		allProperties: () => dispatch(allPropertiesList()),
 		plotsDataFetch: () => dispatch(plotsDataFetch()),
 		commercialDataFetch: () => dispatch(commercialDataFetch()),
-        singlePropertyDetail : (id , navigate) => dispatch(singlePropertyDetail(id , navigate)),
-
+		singlePropertyDetail: (id, navigate) =>
+			dispatch(singlePropertyDetail(id, navigate)),
 	}
 }
 export default connect(mapStateToProps, mapDispatchToProps)(FormsTwo)

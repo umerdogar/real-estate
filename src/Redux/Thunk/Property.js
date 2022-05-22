@@ -1,6 +1,10 @@
 import axios from "axios"
 import { Navigate, NavigationType } from "react-router-dom"
-import { allProperties, filterProperty ,propertyDetail } from "../Actions/allProperties"
+import {
+	allProperties,
+	filterProperty,
+	propertyDetail,
+} from "../Actions/allProperties"
 // import { useNavigate } from "react-router-dom";
 
 export const allPropertiesList = () => {
@@ -19,7 +23,7 @@ export const allPropertiesList = () => {
 	}
 }
 
-export const filterSingleProperty = (data, navigate) => {
+export const filterSingleProperty = (data, navigate, PageRerender) => {
 	console.log("data input property", data)
 	console.log("navigate property", navigate)
 
@@ -29,7 +33,13 @@ export const filterSingleProperty = (data, navigate) => {
 			.post(`http://52.220.87.52:8000/api/v1/property/filter`, data)
 			.then((res) => {
 				console.log(res, " filterSingleProperty")
-				dispatch(filterProperty(res.data))
+				dispatch(
+					filterProperty(res.data, {
+						onDone: () => {
+							PageRerender()
+						},
+					})
+				)
 				navigate("/formsTwo")
 			})
 			.catch((error) => {
@@ -45,7 +55,7 @@ export const singlePropertyDetail = (id, navigate) => {
 		axios
 			.get(`http://52.220.87.52:8000/api/v1/property/${id}`)
 			.then((res) => {
-				console.log("property detail of single property" , res)
+				console.log("property detail of single property", res)
 
 				dispatch(propertyDetail(res.data))
 				navigate("/details")
