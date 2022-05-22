@@ -1,75 +1,88 @@
 import React, { useEffect, useState } from "react";
 import "font-awesome/css/font-awesome.min.css";
 // import "../../App.css";
-import Logo from "../../assets/logo.png";
-import ProfileIcon from "../../assets/profile-icon.png";
-import building from "../../assets/building.png";
-import Image1 from "../../assets/products/img-1.png";
-import Image2 from "../../assets/products/img-2.png";
-import Image3 from "../../assets/products/img-3.png";
-import Image4 from "../../assets/products/img-4.png";
-import Image11 from "../../assets/products/img11.png";
-import PhoneIcon from "../../assets/products/phone-icon.png";
-import Phone from "../../assets/products/phone.png";
-import Email from "../../assets/products/email.png";
-import Img12 from "../../assets/products/IMG12.png";
-import App_Store from "../../assets/products/app-store_google-play.png";
-import QR from "../../assets/products/qr.png";
-import { connect } from "react-redux";
-import { useForm } from "react-hook-form";
-import Input from "../../components/FromInput/Input";
-import axios from "axios";
-import { popularCityStat } from "../../Redux/Thunk/homePage";
-import { filterSingleProperty } from "../../Redux/Thunk/Property";
-import { useNavigate, Link } from "react-router-dom";
-import Slider from "react-slick";
-import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
-import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
-import Carousel from "react-elastic-carousel";
+import Logo from "../../assets/logo.png"
+import ProfileIcon from "../../assets/profile-icon.png"
+import building from "../../assets/building.png"
+import Image1 from "../../assets/products/img-1.png"
+import Image2 from "../../assets/products/img-2.png"
+import Image3 from "../../assets/products/img-3.png"
+import Image4 from "../../assets/products/img-4.png"
+import Image11 from "../../assets/products/img11.png"
+import PhoneIcon from "../../assets/products/phone-icon.png"
+import Phone from "../../assets/products/phone.png"
+import Email from "../../assets/products/email.png"
+import Img12 from "../../assets/products/IMG12.png"
+import App_Store from "../../assets/products/app-store_google-play.png"
+import QR from "../../assets/products/qr.png"
+import { connect } from "react-redux"
+import { useForm } from "react-hook-form"
+import Input from "../../components/FromInput/Input"
+import axios from "axios"
+import { popularCityStat } from "../../Redux/Thunk/homePage"
+import { filterSingleProperty } from "../../Redux/Thunk/Property"
+import { PageRefresherAction } from "../../Redux/Actions/PageRefreshAction"
+import { useNavigate, Link } from "react-router-dom"
+import Slider from "react-slick"
+import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos"
+import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos"
+import Carousel from "react-elastic-carousel"
+import { CarouselData } from "../../Redux/Thunk/homePage"
+const Home = ({
+	popularCity,
+	popularCities,
+	filterProperty,
+	PageRefresher,
+	CarouselDataMaping,
+	Carousel_Data,
+}) => {
+	let navigate = useNavigate()
+	var settings = {
+		// dots: true,
+		// infinite: true,
+		// speed: 100,
+		// slidesToShow: 3,
+		// slidesToScroll: 2,
+		// arrows: true,
+		// className: "slides",
+		dots: true,
+		infinite: true,
+		speed: 500,
+		slidesToShow: 3,
+		slidesToScroll: 1,
+		centerMode: true,
+		// centerPadding: "30px",
+	}
+	const [selectCity, setSelectCity] = useState("Islamabad")
+	const [query, setQurey] = useState("Hamza")
+	const [rerenderPage, setRerenderPage] = useState(2)
+	console.log("thisi is city", popularCities && popularCities)
+	// console.log(searchHome, "searchHome")
+	const [searchHome, setSearchHome] = useState({
+		city: "islamabad",
+		society: "",
+		minPrice: null,
+		maxPrice: null,
+		minArea: null,
+		maxArea: null,
+		rooms: 1,
+		type: "home",
+	})
 
-const Home = ({ popularCity, popularCities, filterProperty }) => {
-  let navigate = useNavigate();
-  var settings = {
-    // dots: true,
-    // infinite: true,
-    // speed: 100,
-    // slidesToShow: 3,
-    // slidesToScroll: 2,
-    // arrows: true,
-    // className: "slides",
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 3,
-    slidesToScroll: 1,
-    centerMode: true,
-    // centerPadding: "30px",
-  };
-  const [selectCity, setSelectCity] = useState("Islamabad");
-  console.log("thisi is city", popularCities && popularCities);
-  // console.log(searchHome, "searchHome")
-  const [searchHome, setSearchHome] = useState({
-    city: "islamabad",
-    society: "",
-    minPrice: null,
-    maxPrice: null,
-    minArea: null,
-    maxArea: null,
-    rooms: 1,
-    type: "home",
-  });
-
-  // const [slides, setSlides] = useState([1, 2, 3, 4, 5, 6])
-  const breakPoints = [
-    { width: 1, itemsToShow: 1 },
-    { width: 550, itemsToShow: 2 },
-    { width: 768, itemsToShow: 3 },
-  ];
-  useEffect(() => {
-    console.log("useefefct");
-    console.log(searchHome, "searchHome");
-    popularCity();
-  }, []);
+	// const [slides, setSlides] = useState([1, 2, 3, 4, 5, 6])
+	const breakPoints = [
+		{ width: 1, itemsToShow: 1 },
+		{ width: 550, itemsToShow: 2 },
+		{ width: 768, itemsToShow: 3 },
+	]
+	useEffect(() => {
+		console.log("useefefct")
+		console.log(searchHome, "searchHome")
+		popularCity()
+		PageRefresher(PageRerender)
+		CarouselDataMaping()
+		console.log(Carousel_Data, "Carousel_Data")
+	}, [])
 
   const handleSearchHomeCity = (e) => {
     setSearchHome({
@@ -127,11 +140,17 @@ const Home = ({ popularCity, popularCities, filterProperty }) => {
     });
   };
 
-  const handlePost = (e) => {
-    e.preventDefault();
-    console.log("search home ", searchHome);
-    filterProperty(searchHome, navigate);
-  };
+	const PageRerender = () => {
+		console.log("PageRerender")
+		setRerenderPage("H")
+		window.location.reload()
+	}
+
+	const handlePost = (e) => {
+		e.preventDefault()
+		console.log("search home ", searchHome)
+		filterProperty(searchHome, navigate, PageRerender)
+	}
 
   return (
     <>
@@ -165,13 +184,18 @@ const Home = ({ popularCity, popularCities, filterProperty }) => {
                       </a>
                     </li>
 
-                    <li className="nav-item active">
-                      <Link to={"/formsTwo/" + "plot"}>
-                        <a className="nav-link1" href="">
-                          PLOTS
-                        </a>
-                      </Link>
-                    </li>
+										<li className="nav-item active">
+											<Link
+												to={{
+													pathname: "/formsTwo/plot",
+													quer: query,
+												}}
+											>
+												<a className="nav-link1" href="">
+													PLOTS
+												</a>
+											</Link>
+										</li>
 
                     <li className="nav-item active">
                       <Link to={"/formsTwo/" + "commercial"}>
@@ -806,18 +830,25 @@ const Home = ({ popularCity, popularCities, filterProperty }) => {
 // export default Home;
 
 const mapStateToProps = (state) => {
-  let { popularCities } = state.popularCitiesReducers;
-
-  console.log("mapstate", popularCities);
-  return {
-    popularCities,
-  };
-};
+	let { popularCities } = state.popularCitiesReducers
+	let { Carousel_Data } = state.popularCitiesReducers
+	console.log("mapstate", popularCities)
+	return {
+		popularCities,
+		Carousel_Data,
+	}
+}
 const mapDispatchToProps = (dispatch) => {
-  return {
-    popularCity: () => dispatch(popularCityStat()),
-    filterProperty: (searchHome, navigate) =>
-      dispatch(filterSingleProperty(searchHome, navigate)),
-  };
-};
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+	return {
+		popularCity: () => dispatch(popularCityStat()),
+		filterProperty: (searchHome, navigate, PageRerender) =>
+			dispatch(filterSingleProperty(searchHome, navigate, PageRerender)),
+		PageRefresher: (response) => {
+			dispatch(PageRefresherAction(response))
+		},
+		CarouselDataMaping: () => {
+			dispatch(CarouselData())
+		},
+	}
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Home)

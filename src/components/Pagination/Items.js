@@ -254,7 +254,7 @@ console.log("type..... " , type)
 					<div className="col-md-4 margin-top-15 margin-bottom-15">
 						<div className="card">
 							<img
-								className="card-img"
+								className="card-sizing card-img"
 								src={card?.images.length !== 0 ? card?.images[0] : "https://thumbor.forbes.com/thumbor/fit-in/900x510/https://www.forbes.com/advisor/wp-content/uploads/2021/08/download-23.jpg"}
 								alt="Vans"
 							/>

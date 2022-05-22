@@ -5,14 +5,12 @@ export const allProperties = (response) => {
 	}
 }
 
-
-export const filterProperty = (response) => {
+export const filterProperty = (response, onDone) => {
 	return {
 		type: "FILTER_PROPERTY",
-		payload: response,
+		payload: [response, onDone],
 	}
 }
-
 
 export const plotsData = (response) => {
 	return {

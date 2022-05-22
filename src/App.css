@@ -3210,3 +3210,12 @@ button:focus {
 	height: 250px !important;
 	width: 380px !important;
 }
+
+.card-sizing{
+	height:200px !important;
+	width:236px !important;
+}
+.card-img{
+	height:200px !important;
+	width:236px !important;
+}

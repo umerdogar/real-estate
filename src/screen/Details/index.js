@@ -145,7 +145,7 @@ const Details = ({ propertyDetail , allPropertiesList ,singleProperty , allPrope
 										</li>
 									</ul>
 								</div>
-								
+
 								{/* <!-- product slider --> */}
 
 								<div className="">
@@ -246,7 +246,7 @@ const Details = ({ propertyDetail , allPropertiesList ,singleProperty , allPrope
 														>
 															<tbody>
 																<tr>
-																{/* {singleProperty && singleProperty?.propertyType?.Features?.map(()=>(
+																	{/* {singleProperty && singleProperty?.propertyType?.Features?.map(()=>(
 																		<td>
 																		<div
 																			className="checkbox-custom checkbox-inline1 checkbox-warning"

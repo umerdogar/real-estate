@@ -3,7 +3,10 @@ import Logo from "../../assets/logo.png"
 import ProfileIcon from "../../assets/profile-icon.png"
 import Image1 from "../../assets/image-1.png"
 import Footer from "../../components/Footer"
-import { allPropertiesList , singlePropertyDetail } from "../../Redux/Thunk/Property"
+import {
+	allPropertiesList,
+	singlePropertyDetail,
+} from "../../Redux/Thunk/Property"
 import { connect, createDispatchHook } from "react-redux"
 import propertyReducer from "../../Redux/Reducers/propertyReducer"
 import { useNavigate, useParams, useLocation } from "react-router-dom"
@@ -11,6 +14,7 @@ import { plotsDataFetch, commercialDataFetch } from "../../Redux/Thunk/homePage"
 import PaginatedItems from "../../components/Pagination/PaginatedItems"
 
 
+// import { useLocation } from "react-router-dom"
 const FormsTwo = ({
 	allProperties,
 	propertyDetail,
@@ -18,12 +22,16 @@ const FormsTwo = ({
 	commercialDataFetch,
 	plotsData,
 	commercialData,
-    singlePropertyDetail
+	singlePropertyDetail,
+	data,
+	PageRefresh,
 }) => {
 	let navigate = useNavigate()
+	const { quer } = useLocation()
+	console.log(quer)
 	const [allProperty, setAllProperty] = useState()
 	const cardData = propertyDetail?.data
-	console.log("propertyDetail in FormsTwo", propertyDetail)
+	console.log("propertyDetail in FormsTwo", data && data)
 
 	// let { type } = useParams()
 	// const location = useLocation()
@@ -33,18 +41,22 @@ const FormsTwo = ({
 	// console.log("commercial data from comp", commercialData && commercialData)
 
 	const plot = plotsData?.property
-	
 
 	useEffect(() => {
 		console.log("useefefct from plots seprte comp")
-	 plotsDataFetch()
-
+		console.log("propertyDetail in FormsTwo", data)
+		plotsDataFetch()
 	}, [])
 
+	window.onpopstate = () => {
+		console.log("On pop stae")
 
-    const getPropertyDetail = (id) => {
-        console.log("id from func plots" , id)
-		singlePropertyDetail(id , navigate)
+		PageRefresh()
+	}
+
+	const getPropertyDetail = (id) => {
+		console.log("id from func plots", id)
+		singlePropertyDetail(id, navigate)
 		console.log("func caleeeed plots")
 	}
 	return (
@@ -78,6 +90,7 @@ const FormsTwo = ({
 											href=""
 											onClick={() => {
 												navigate("/")
+												PageRefresh()
 											}}
 										>
 											Home
@@ -716,9 +729,8 @@ const FormsTwo = ({
 																				// href=""
 																				// className="btn-small btn-primary mt-3"
 																				className="stretched-link btn-small btn-primary mt-3"
-                                                                                onClick={() => {
-                                                                                    getPropertyDetail(card?._id)
-
+																				onClick={() => {
+																					getPropertyDetail(card?._id)
 																				}}
 																			>
 																				Detailss
@@ -880,6 +892,8 @@ const FormsTwo = ({
 }
 
 const mapStateToProps = (state) => {
+	let PageRefresh = state.PageRefresherReducer.PageRefresher
+	console.log(PageRefresh, "PageRefresh in Plots")
 	let { propertyDetail } = state.propertyReducer
 	let { plotsData } = state.popularCitiesReducers
 	let { commercialData } = state.popularCitiesReducers
@@ -889,6 +903,7 @@ const mapStateToProps = (state) => {
 		propertyDetail,
 		plotsData,
 		commercialData,
+		PageRefresh,
 	}
 }
 const mapDispatchToProps = (dispatch) => {
@@ -896,8 +911,8 @@ const mapDispatchToProps = (dispatch) => {
 		allProperties: () => dispatch(allPropertiesList()),
 		plotsDataFetch: () => dispatch(plotsDataFetch()),
 		commercialDataFetch: () => dispatch(commercialDataFetch()),
-        singlePropertyDetail : (id , navigate) => dispatch(singlePropertyDetail(id , navigate)),
-
+		singlePropertyDetail: (id, navigate) =>
+			dispatch(singlePropertyDetail(id, navigate)),
 	}
 }
 export default connect(mapStateToProps, mapDispatchToProps)(FormsTwo)
