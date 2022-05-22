@@ -27,11 +27,14 @@ import Slider from "react-slick"
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos"
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos"
 import Carousel from "react-elastic-carousel"
+import { CarouselData } from "../../Redux/Thunk/homePage"
 const Home = ({
 	popularCity,
 	popularCities,
 	filterProperty,
 	PageRefresher,
+	CarouselDataMaping,
+	Carousel_Data,
 }) => {
 	let navigate = useNavigate()
 	var settings = {
@@ -77,6 +80,8 @@ const Home = ({
 		console.log(searchHome, "searchHome")
 		popularCity()
 		PageRefresher(PageRerender)
+		CarouselDataMaping()
+		console.log(Carousel_Data, "Carousel_Data")
 	}, [])
 
 	const handleSearchHomeCity = (e) => {
@@ -818,10 +823,11 @@ const Home = ({
 
 const mapStateToProps = (state) => {
 	let { popularCities } = state.popularCitiesReducers
-
+	let { Carousel_Data } = state.popularCitiesReducers
 	console.log("mapstate", popularCities)
 	return {
 		popularCities,
+		Carousel_Data,
 	}
 }
 const mapDispatchToProps = (dispatch) => {
@@ -831,6 +837,9 @@ const mapDispatchToProps = (dispatch) => {
 			dispatch(filterSingleProperty(searchHome, navigate, PageRerender)),
 		PageRefresher: (response) => {
 			dispatch(PageRefresherAction(response))
+		},
+		CarouselDataMaping: () => {
+			dispatch(CarouselData())
 		},
 	}
 }

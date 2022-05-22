@@ -6,3 +6,10 @@ export const popularCity = (response) => {
 		payload: response,
 	}
 }
+
+export const CarouselDataAction = (response) => {
+	return {
+		type: "Carousel_Data",
+		payload: response,
+	}
+}
