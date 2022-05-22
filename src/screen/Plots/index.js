@@ -21,6 +21,7 @@ const FormsTwo = ({
 	commercialData,
 	singlePropertyDetail,
 	data,
+	PageRefresh,
 }) => {
 	let navigate = useNavigate()
 	const { quer } = useLocation()
@@ -43,6 +44,12 @@ const FormsTwo = ({
 		console.log("propertyDetail in FormsTwo", data)
 		plotsDataFetch()
 	}, [])
+
+	window.onpopstate = () => {
+		console.log("On pop stae")
+
+		PageRefresh()
+	}
 
 	const getPropertyDetail = (id) => {
 		console.log("id from func plots", id)
@@ -80,6 +87,7 @@ const FormsTwo = ({
 											href="#"
 											onClick={() => {
 												navigate("/")
+												PageRefresh()
 											}}
 										>
 											Home
@@ -876,10 +884,9 @@ const FormsTwo = ({
 }
 
 const mapStateToProps = (state) => {
-	let propertyDetail = state.propertyReducer.propertyDetail[0]
-	let onDone = state.propertyReducer.propertyDetail[1]
-	console.log(onDone, "propertyDetailmapStateToPropsonDone")
-	// let { propertyDetail } = state.propertyReducer
+	let PageRefresh = state.PageRefresherReducer.PageRefresher
+	console.log(PageRefresh, "PageRefresh in Plots")
+	let { propertyDetail } = state.propertyReducer
 	let { plotsData } = state.popularCitiesReducers
 	let { commercialData } = state.popularCitiesReducers
 
@@ -888,6 +895,7 @@ const mapStateToProps = (state) => {
 		propertyDetail,
 		plotsData,
 		commercialData,
+		PageRefresh,
 	}
 }
 const mapDispatchToProps = (dispatch) => {

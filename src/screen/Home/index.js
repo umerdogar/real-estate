@@ -21,12 +21,18 @@ import Input from "../../components/FromInput/Input"
 import axios from "axios"
 import { popularCityStat } from "../../Redux/Thunk/homePage"
 import { filterSingleProperty } from "../../Redux/Thunk/Property"
+import { PageRefresherAction } from "../../Redux/Actions/PageRefreshAction"
 import { useNavigate, Link } from "react-router-dom"
 import Slider from "react-slick"
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos"
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos"
 import Carousel from "react-elastic-carousel"
-const Home = ({ popularCity, popularCities, filterProperty }) => {
+const Home = ({
+	popularCity,
+	popularCities,
+	filterProperty,
+	PageRefresher,
+}) => {
 	let navigate = useNavigate()
 	var settings = {
 		// dots: true,
@@ -70,6 +76,7 @@ const Home = ({ popularCity, popularCities, filterProperty }) => {
 		console.log("useefefct")
 		console.log(searchHome, "searchHome")
 		popularCity()
+		PageRefresher(PageRerender)
 	}, [])
 
 	const handleSearchHomeCity = (e) => {
@@ -822,6 +829,9 @@ const mapDispatchToProps = (dispatch) => {
 		popularCity: () => dispatch(popularCityStat()),
 		filterProperty: (searchHome, navigate, PageRerender) =>
 			dispatch(filterSingleProperty(searchHome, navigate, PageRerender)),
+		PageRefresher: (response) => {
+			dispatch(PageRefresherAction(response))
+		},
 	}
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Home)

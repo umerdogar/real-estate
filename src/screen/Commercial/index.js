@@ -3,7 +3,10 @@ import Logo from "../../assets/logo.png"
 import ProfileIcon from "../../assets/profile-icon.png"
 import Image1 from "../../assets/image-1.png"
 import Footer from "../../components/Footer"
-import { allPropertiesList , singlePropertyDetail} from "../../Redux/Thunk/Property"
+import {
+	allPropertiesList,
+	singlePropertyDetail,
+} from "../../Redux/Thunk/Property"
 import { connect, createDispatchHook } from "react-redux"
 import propertyReducer from "../../Redux/Reducers/propertyReducer"
 import { useNavigate, useParams, useLocation } from "react-router-dom"
@@ -16,24 +19,28 @@ const FormsTwo = ({
 	commercialDataFetch,
 	plotsData,
 	commercialData,
-    singlePropertyDetail,
+	singlePropertyDetail,
+	PageRefresh,
 }) => {
 	let navigate = useNavigate()
 	const [allProperty, setAllProperty] = useState()
 	const cardData = propertyDetail?.data
 
-
 	const commercial = commercialData?.property
 
+	window.onpopstate = () => {
+		console.log("On pop stae")
+		PageRefresh()
+	}
+
 	useEffect(() => {
-console.log("commercial componoent api")
-	 commercialDataFetch()
+		console.log("commercial componoent api")
+		commercialDataFetch()
 	}, [])
 
-
 	const getPropertyDetail = (id) => {
-        console.log("id from func" , id)
-		singlePropertyDetail(id , navigate)
+		console.log("id from func", id)
+		singlePropertyDetail(id, navigate)
 		console.log("func caleeeed")
 	}
 	return (
@@ -67,6 +74,7 @@ console.log("commercial componoent api")
 											href="#"
 											onClick={() => {
 												navigate("/")
+												PageRefresh()
 											}}
 										>
 											Home
@@ -704,8 +712,7 @@ console.log("commercial componoent api")
 																				// className="btn-small btn-primary mt-3"
 																				className="stretched-link btn-small btn-primary mt-3"
 																				onClick={() => {
-                                                                                    getPropertyDetail(card?._id)
-
+																					getPropertyDetail(card?._id)
 																				}}
 																			>
 																				Detailss
@@ -772,7 +779,6 @@ console.log("commercial componoent api")
 																	</div>
 																</div>
 															))}
-														
 
 														<div className="col-md-12 margin-top-30">
 															<nav aria-label="Page navigation example ">
@@ -865,20 +871,22 @@ console.log("commercial componoent api")
 }
 
 const mapStateToProps = (state) => {
-	let { propertyDetail  } = state.propertyReducer
-	let { plotsData , commercialData } = state.popularCitiesReducers
-
+	let { propertyDetail } = state.propertyReducer
+	let { plotsData, commercialData } = state.popularCitiesReducers
+	let PageRefresh = state.PageRefresherReducer.PageRefresher
 
 	console.log("full state", state)
 	return {
 		propertyDetail,
 		plotsData,
 		commercialData,
+		PageRefresh,
 	}
 }
 const mapDispatchToProps = (dispatch) => {
 	return {
-        singlePropertyDetail : (id , navigate) => dispatch(singlePropertyDetail(id , navigate)),
+		singlePropertyDetail: (id, navigate) =>
+			dispatch(singlePropertyDetail(id, navigate)),
 		allProperties: () => dispatch(allPropertiesList()),
 		plotsDataFetch: () => dispatch(plotsDataFetch()),
 		commercialDataFetch: () => dispatch(commercialDataFetch()),
