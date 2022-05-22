@@ -38,14 +38,16 @@ export const filterSingleProperty = (data, navigate) => {
 	}
 }
 export const singlePropertyDetail = (id, navigate) => {
-	console.log("data input property singel prop", id)
-	console.log("navigate property songle prop", navigate)
+	console.log("data input property singel prop thunk ", id)
+
 
 	return (dispatch) => {
+		console.log("datak{{{{{{{}}}}}}} ")
+
 		axios
 			.get(`http://52.220.87.52:8000/api/v1/property/${id}`)
 			.then((res) => {
-				console.log("property detail of single property" , res)
+				console.log("property;;;;;;;;;;;;;;;;;;;;" , res)
 
 				dispatch(propertyDetail(res.data))
 				navigate("/details")

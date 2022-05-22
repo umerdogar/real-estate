@@ -39,7 +39,7 @@ export const commercialDataFetch = () => {
 	return (dispatch) => {
 		// console.log("GetUsers dispatch");
 		axios
-			.get(`http://52.220.87.52:8000/api/v1/property/commercial`)
+			.get(`http://52.220.87.52:8000/api/v1/property/home`)
 			.then((res) => {
 				dispatch(commercialData(res.data))
 				console.log("Get commercial data", res.data)

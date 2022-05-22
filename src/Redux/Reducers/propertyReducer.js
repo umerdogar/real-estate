@@ -9,7 +9,7 @@ export default function propertyReducer(state = INITIAL_STATE, action) {
 			// console.log("property reducer  property" , action.payload)
 			return {
 				...state,
-				property: action.payload,
+				allProperties: action.payload,
 			}
             case "FILTER_PROPERTY":
 			console.log("property detaillll reducer property" , action.payload)

@@ -8,6 +8,8 @@ import { connect, createDispatchHook } from "react-redux"
 import propertyReducer from "../../Redux/Reducers/propertyReducer"
 import { useNavigate, useParams, useLocation } from "react-router-dom"
 import { plotsDataFetch, commercialDataFetch } from "../../Redux/Thunk/homePage"
+import PaginatedItems from "../../components/Pagination/PaginatedItems"
+
 
 const FormsTwo = ({
 	allProperties,
@@ -73,7 +75,7 @@ const FormsTwo = ({
 									<li className="nav-item active">
 										<a
 											className="nav-link"
-											href="#"
+											href=""
 											onClick={() => {
 												navigate("/")
 											}}
@@ -84,7 +86,7 @@ const FormsTwo = ({
 									<li className="nav-item ">
 										<a
 											className="nav-link"
-											href="#"
+											href=""
 											onClick={() => {
 												navigate("/formsTwo/plot")
 											}}
@@ -95,7 +97,7 @@ const FormsTwo = ({
 									<li className="nav-item ">
 										<a
 											className="nav-link"
-											href="#"
+											href=""
 											onClick={() => {
 												navigate("/formsTwo/commercial")
 											}}
@@ -660,8 +662,9 @@ const FormsTwo = ({
 											<div className="row margin-bottom-15">
 												<div className="col-md-8 col-12">
 													<div className="row">
+						<PaginatedItems itemsPerPage={6} cardDetail={plot} type={"plot"} func = {getPropertyDetail}/>
 													
-														{plot &&
+														{/* {plot &&
 															plot.map((card) => (
 																<div className="col-md-4 margin-top-15 margin-bottom-15">
 																	<div className="card">
@@ -781,12 +784,12 @@ const FormsTwo = ({
 																		</div>
 																	</div>
 																</div>
-															))}
+															))} */}
 
 														
 
 
-														<div className="col-md-12 margin-top-30">
+														{/* <div className="col-md-12 margin-top-30">
 															<nav aria-label="Page navigation example ">
 																<ul className="pagination justify-content-center">
 																	<li className="page-item active">
@@ -821,7 +824,7 @@ const FormsTwo = ({
 																	</li>
 																</ul>
 															</nav>
-														</div>
+														</div> */}
 													</div>
 												</div>
 												<div className="col-md-4 col-12">

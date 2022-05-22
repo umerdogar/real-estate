@@ -2943,12 +2943,15 @@ input {
 }
 
 .second-txt {
-	margin-top: -90px;
+	margin-top: -60px;
 	bottom: 20px;
 	left: 75px;
 	color: white !important;
 	text-align: center;
 	font-size: 20px;
+}
+.second-txt-detail{
+	color:#fff6f7
 }
 .padding-0 {
 	padding: 0px;
@@ -3198,7 +3201,6 @@ button:focus {
 	align-items: center;
 	height: 250px;
 	width: 100%;
-	background-color: #683bb7;
 	color: #fff;
 	margin: 15px;
 	font-size: 4em;

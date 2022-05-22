@@ -8,6 +8,8 @@ import { connect, createDispatchHook } from "react-redux"
 import propertyReducer from "../../Redux/Reducers/propertyReducer"
 import { useNavigate, useParams, useLocation } from "react-router-dom"
 import { plotsDataFetch, commercialDataFetch } from "../../Redux/Thunk/homePage"
+import PaginatedItems from "../../components/Pagination/PaginatedItems"
+
 
 const FormsTwo = ({
 	allProperties,
@@ -26,7 +28,7 @@ const FormsTwo = ({
 	const commercial = commercialData?.property
 
 	useEffect(() => {
-console.log("commercial componoent api")
+
 	 commercialDataFetch()
 	}, [])
 
@@ -64,7 +66,7 @@ console.log("commercial componoent api")
 									<li className="nav-item active">
 										<a
 											className="nav-link"
-											href="#"
+											href=""
 											onClick={() => {
 												navigate("/")
 											}}
@@ -75,7 +77,7 @@ console.log("commercial componoent api")
 									<li className="nav-item ">
 										<a
 											className="nav-link"
-											href="#"
+											href=""
 											onClick={() => {
 												navigate("/formsTwo/plot")
 											}}
@@ -86,7 +88,7 @@ console.log("commercial componoent api")
 									<li className="nav-item ">
 										<a
 											className="nav-link"
-											href="#"
+											href=""
 											onClick={() => {
 												navigate("/formsTwo/commercial")
 											}}
@@ -651,7 +653,9 @@ console.log("commercial componoent api")
 											<div className="row margin-bottom-15">
 												<div className="col-md-8 col-12">
 													<div className="row">
-														{commercial &&
+						<PaginatedItems itemsPerPage={6} cardDetail={commercial} type={"commercial"} func={getPropertyDetail}/>
+
+														{/* {commercial &&
 															commercial?.map((card) => (
 																<div className="col-md-4 margin-top-15 margin-bottom-15">
 																	<div className="card">
@@ -771,9 +775,9 @@ console.log("commercial componoent api")
 																		</div>
 																	</div>
 																</div>
-															))}
+															))} */}
 														
-
+{/* 
 														<div className="col-md-12 margin-top-30">
 															<nav aria-label="Page navigation example ">
 																<ul className="pagination justify-content-center">
@@ -809,7 +813,7 @@ console.log("commercial componoent api")
 																	</li>
 																</ul>
 															</nav>
-														</div>
+														</div> */}
 													</div>
 												</div>
 												<div className="col-md-4 col-12">

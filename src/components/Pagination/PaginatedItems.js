@@ -17,23 +17,24 @@ const StyledPaginateContainer = styled.div`
 	}
 `
 
-function PaginatedItems({ itemsPerPage, propertyDetail }) {
+function PaginatedItems({ itemsPerPage, cardDetail , type ,func }) {
+	console.log("pagination dataa" , cardDetail)
 	// We start with an empty list of items.
 	const [currentItems, setCurrentItems] = useState(null)
 	const [pageCount, setPageCount] = useState(0)
-	const [items, setItems] = useState([])
+	const [items, setItems] = useState(cardDetail)
 	// Here we use item offsets; we could also use page offsets
 	// following the API or data you're working with.
 	const [itemOffset, setItemOffset] = useState(0)
 
 	useEffect(() => {
 		// Fetch items from another resources.
-		setItems([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14])
+		// setItems([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14])
 		const endOffset = itemOffset + itemsPerPage
 		console.log(`Loading items from ${itemOffset} to ${endOffset}`)
 		setCurrentItems(items.slice(itemOffset, endOffset))
 		setPageCount(Math.ceil(items.length / itemsPerPage))
-	}, [itemOffset, itemsPerPage, items])
+	}, [itemOffset, itemsPerPage])
 
 	// Invoke when user click to request another page.
 	const handlePageClick = (event) => {
@@ -46,15 +47,15 @@ function PaginatedItems({ itemsPerPage, propertyDetail }) {
 
 	return (
 		<>
-			<Items currentItems={currentItems} />
+			<Items currentItems={currentItems} type={type} func={func}/>
 			<nav aria-label="Page navigation example">
 				<ReactPaginate
 					breakLabel="..."
-					nextLabel="next >"
+					nextLabel=">>"
 					onPageChange={handlePageClick}
 					pageRangeDisplayed={5}
 					pageCount={pageCount}
-					previousLabel="< previous"
+					previousLabel="<<"
 					renderOnZeroPageCount={null}
 					containerClassName="pagination justify-content-center"
 					pageClassName="page-item"

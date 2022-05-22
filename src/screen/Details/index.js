@@ -4,20 +4,33 @@ import ProfileIcon from "../../assets/profile-icon.png"
 import Footer from "../../components/Footer"
 import { connect } from "react-redux"
 import PaginatedItems from "../../components/Pagination/PaginatedItems"
+import {allPropertiesList} from "../../Redux/Thunk/Property"
+
+
+
 import {
 	BrowserRouter as Router,
 	Switch,
 	Route,
 	useParams,
-	useLocation
+	useLocation,useNavigate
   } from "react-router-dom";
+import { useEffect } from "react"
 
-const Details = ({ propertyDetail , 
-    singleProperty
- }) => {
+
+const Details = ({ propertyDetail , allPropertiesList ,singleProperty , allProperties}) => {
 	
-	console.log("property detail from detail comp", singleProperty && singleProperty)
-	console.log("property detail from detail com atitle 	p", singleProperty && singleProperty?.agent)
+	const navigate = useNavigate()
+	console.log("property detail from detail comp", allProperties && allProperties.property)
+	console.log("property detail from detail com atitleppp", singleProperty && singleProperty)
+
+	const paginationData = allProperties && allProperties?.property
+
+	useEffect(()=>{
+		allPropertiesList()
+	}, [])
+ 
+
 
 	
 	return (
@@ -46,17 +59,23 @@ const Details = ({ propertyDetail ,
 							>
 								<ul className="navbar-nav ml-auto main-nav ">
 									<li className="nav-item active">
-										<a className="nav-link" href="index.html">
+										<a className="nav-link" href="" onClick={() => {
+												navigate("/")
+											}}>
 											Home
 										</a>
 									</li>
 									<li className="nav-item ">
-										<a className="nav-link" href="index.html">
+										<a className="nav-link" href="" onClick={() => {
+												navigate("/formsTwo/plot")
+											}}>
 											Plot
 										</a>
 									</li>
 									<li className="nav-item ">
-										<a className="nav-link" href="index.html">
+										<a className="nav-link" href="" onClick={() => {
+												navigate("/formsTwo/commercial")
+											}}>
 											Commercial
 										</a>
 									</li>
@@ -89,14 +108,16 @@ const Details = ({ propertyDetail ,
 						<div className="col-md-8">
 							<div className="product-details">
 							
-								<h1 className="product-title">{singleProperty && singleProperty.propertyTitle}</h1>
+								<h1 className="product-title">{singleProperty && singleProperty.property_title}</h1>
 								
 								{/* <!-- product slider --> */}
 								<div className="margin-top-30">
 									<img
 										className="img-fluid w-100"
-										// src={require("../../assets/no-image.jpg")}
-										src={singleProperty && singleProperty.cityImgUrl}
+										
+				src={singleProperty?.images.length !== 0 ? singleProperty?.images[0] : "https://thumbor.forbes.com/thumbor/fit-in/900x510/https://www.forbes.com/advisor/wp-content/uploads/2021/08/download-23.jpg"}
+
+										
 										alt="product-img"
 									/>
 									<ul className="list-inline margin-top-25">
@@ -419,15 +440,21 @@ const Details = ({ propertyDetail ,
 															<tbody>
 																<tr>
 																	<td> Agent Name</td>
-																	<td>{singleProperty && singleProperty?.agent?.name}</td>
+																	{/* <td>{singleProperty && singleProperty?.agent?.name}</td> */}
+																	<td>Jack Aniston</td>
+
 																</tr>
 																<tr>
 																	<td> Agent Phone No</td>
-																	<td> {singleProperty && singleProperty?.agent?.phone}</td>
+																	{/* <td> {singleProperty && singleProperty?.agent?.phone}</td> */}
+																	<td> +92 989 898 7</td>
+
 																</tr>
 																<tr>
 																	<td> Email</td>
-																	<td>{singleProperty && singleProperty?.agent?.email}</td>
+																	{/* <td>{singleProperty && singleProperty?.agent?.email}</td> */}
+																	<td>zack@gmail.com</td>
+
 																</tr>
 															</tbody>
 														</table>
@@ -561,7 +588,7 @@ const Details = ({ propertyDetail ,
 					</div>
 					<hr />
 					<div className="row">
-						<PaginatedItems itemsPerPage={6} propertyDetail={propertyDetail} />
+						<PaginatedItems itemsPerPage={6} cardDetail={paginationData} type={"details"}/>
 					</div>
 				</div>
 				{/* <!-- Container End --> */}
@@ -575,15 +602,18 @@ const Details = ({ propertyDetail ,
 // export default Details
 
 const mapStateToProps = (state) => {
-	let { propertyDetail , singleProperty } = state.propertyReducer
+	let { propertyDetail , singleProperty , allProperties } = state.propertyReducer
+
 	return {
 		propertyDetail,
-		singleProperty
+		singleProperty,
+		allProperties
 	}
 }
 const mapDispatchToProps = (dispatch) => {
 	return {
 		// popularCity: () => dispatch(popularCityStat()),
+		allPropertiesList : () => dispatch(allPropertiesList())
 	}
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Details)
