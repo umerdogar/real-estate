@@ -187,8 +187,7 @@ const Home = ({
 										<li className="nav-item active">
 											<Link
 												to={{
-													pathname: "/formsTwo/plot",
-													quer: query,
+													pathname: "/formsTwo/plot"
 												}}
 											>
 												<a className="nav-link1" href="">

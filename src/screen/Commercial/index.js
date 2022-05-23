@@ -28,7 +28,7 @@ const FormsTwo = ({
 	const [allProperty, setAllProperty] = useState()
 	const cardData = propertyDetail?.data
 
-	const commercial = commercialData?.property
+	const commercial = commercialData?.property && commercialData?.property
 
 	window.onpopstate = () => {
 		console.log("On pop stae")

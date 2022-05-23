@@ -29,9 +29,8 @@ const FormsTwo = ({
 	let navigate = useNavigate()
 	const { quer } = useLocation()
 	console.log(quer)
-	const [allProperty, setAllProperty] = useState()
-	const cardData = propertyDetail?.data
-	console.log("propertyDetail in FormsTwo", data && data)
+	// const [allProperty, setAllProperty] = useState()
+	// const cardData = propertyDetail?.data
 
 	// let { type } = useParams()
 	// const location = useLocation()
@@ -40,7 +39,6 @@ const FormsTwo = ({
 	// console.log("plots data from comp", plotsData && plotsData)
 	// console.log("commercial data from comp", commercialData && commercialData)
 
-	const plot = plotsData?.property
 
 	useEffect(() => {
 		console.log("useefefct from plots seprte comp")
@@ -59,6 +57,10 @@ const FormsTwo = ({
 		singlePropertyDetail(id, navigate)
 		console.log("func caleeeed plots")
 	}
+	const plot = plotsData && plotsData.property
+	console.log("propertyDetail in FormsTwo data===", plot && plot)
+
+
 	return (
 		<>
 			<div className="container">
