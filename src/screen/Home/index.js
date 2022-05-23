@@ -179,29 +179,27 @@ const Home = ({
                 >
                   <ul className="navbar-nav ml-auto main-nav ">
                     <li className="nav-item active">
-                      <a className="nav-link1" href="">
+                      <a className="nav-link1" href="" >
                         HOMES
                       </a>
                     </li>
 
 										<li className="nav-item active">
-											<Link
-												to={{
-													pathname: "/formsTwo/plot"
-												}}
-											>
-												<a className="nav-link1" href="">
+										
+												<a className="nav-link1" href="" onClick={() => {
+                          navigate("/formsTwo/plot");
+                        }}>
 													PLOTS
 												</a>
-											</Link>
+											
 										</li>
 
                     <li className="nav-item active">
-                      <Link to={"/formsTwo/" + "commercial"}>
-                        <a className="nav-link1" href="">
+                        <a className="nav-link1" href="" onClick={() => {
+                          navigate("/formsTwo/commercial");
+                        }}>
                           COMMERCIAL
                         </a>
-                      </Link>
                     </li>
 
                     <li className="nav-item active">
