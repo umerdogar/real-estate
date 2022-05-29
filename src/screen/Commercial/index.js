@@ -35,6 +35,11 @@ const FormsTwo = ({
 		PageRefresh()
 	}
 
+	window.onpopstate = () => {
+		console.log("On pop stae")
+		PageRefresh()
+	}
+
 	useEffect(() => {
 		console.log("commercial componoent api")
 		commercialDataFetch()

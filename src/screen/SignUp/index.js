@@ -14,7 +14,6 @@ const Login = ({login , signUpUser}) => {
 
 
 
-	let navigate = useNavigate()
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -27,8 +26,10 @@ const Login = ({login , signUpUser}) => {
     formState: { errors },
   } = useForm();
 
+	let navigate = useNavigate()
+
   const onSubmit = (data , navigate) => {
-    console.log("data", data)
+    console.log("data", navigate)
     signUpUser(data , navigate)
   };
 

@@ -25,6 +25,7 @@ const FormsTwo = ({
 	singlePropertyDetail,
 	data,
 	PageRefresh,
+	props,
 }) => {
 	let navigate = useNavigate()
 	const { quer } = useLocation()
@@ -33,7 +34,8 @@ const FormsTwo = ({
 	// const cardData = propertyDetail?.data
 
 	// let { type } = useParams()
-	// const location = useLocation()
+	const location = useLocation()
+	console.log(location, "Location state")
 	// const productId = location.pathname.split("/")[2]
 	// console.log("type", productId)
 	// console.log("plots data from comp", plotsData && plotsData)
