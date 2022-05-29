@@ -3,6 +3,8 @@ import Logo from "../../assets/logo.png"
 import ProfileIcon from "../../assets/profile-icon.png"
 import Input from "../../components/FromInput/Input"
 import { useForm } from "react-hook-form";
+import { useNavigate, Link } from "react-router-dom"
+
 
 const Form = () => {
 	const {
@@ -12,7 +14,7 @@ const Form = () => {
 		formState: { errors },
 	  } = useForm();
 
-
+const navigate = useNavigate()
 const [check , setCheck] = useState();
 
 	  const onSubmit = (data) => {
@@ -45,23 +47,32 @@ const [check , setCheck] = useState();
 								>
 									<ul className="navbar-nav ml-auto main-nav ">
 										<li className="nav-item active">
-											<a className="nav-link" href="index.html">
+											<a className="nav-link" href="" onClick={() => {
+                          navigate("/home");
+                        }}>
 												Home
 											</a>
 										</li>
 										<li className="nav-item ">
-											<a className="nav-link" href="index.html">
+											<a className="nav-link" href="" onClick={() => {
+                          navigate("/formsTwo/plot");
+                        }}>
 												Plot
 											</a>
 										</li>
 										<li className="nav-item ">
-											<a className="nav-link" href="index.html">
+											<a className="nav-link" href=""
+											onClick={() => {
+												navigate("/formsTwo/commercial");
+											  }}>
 												Commercial
 											</a>
 										</li>
 										<li className="nav-item ">
-											<a className="nav-link" href="index.html">
-												Rent
+											<a className="nav-link" href="" onClick={() => {
+                          navigate("/dealerProperties");
+                        }}>
+												All Properties
 											</a>
 										</li>
 

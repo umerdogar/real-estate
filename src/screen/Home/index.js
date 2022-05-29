@@ -4,10 +4,6 @@ import "font-awesome/css/font-awesome.min.css";
 import Logo from "../../assets/logo.png"
 import ProfileIcon from "../../assets/profile-icon.png"
 import building from "../../assets/building.png"
-import Image1 from "../../assets/products/img-1.png"
-import Image2 from "../../assets/products/img-2.png"
-import Image3 from "../../assets/products/img-3.png"
-import Image4 from "../../assets/products/img-4.png"
 import Image11 from "../../assets/products/img11.png"
 import PhoneIcon from "../../assets/products/phone-icon.png"
 import Phone from "../../assets/products/phone.png"
@@ -17,15 +13,10 @@ import App_Store from "../../assets/products/app-store_google-play.png"
 import QR from "../../assets/products/qr.png"
 import { connect } from "react-redux"
 import { useForm } from "react-hook-form"
-import Input from "../../components/FromInput/Input"
-import axios from "axios"
 import { popularCityStat } from "../../Redux/Thunk/homePage"
 import { filterSingleProperty } from "../../Redux/Thunk/Property"
 import { PageRefresherAction } from "../../Redux/Actions/PageRefreshAction"
 import { useNavigate, Link } from "react-router-dom"
-import Slider from "react-slick"
-import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos"
-import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos"
 import Carousel from "react-elastic-carousel"
 import { CarouselData } from "../../Redux/Thunk/homePage"
 import Loader from "../../components/Loader"
@@ -45,13 +36,6 @@ const Home = ({
 }) => {
 	let navigate = useNavigate()
 	var settings = {
-		// dots: true,
-		// infinite: true,
-		// speed: 100,
-		// slidesToShow: 3,
-		// slidesToScroll: 2,
-		// arrows: true,
-		// className: "slides",
 		dots: true,
 		infinite: true,
 		speed: 500,
