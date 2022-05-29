@@ -29,6 +29,7 @@ import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos"
 import Carousel from "react-elastic-carousel"
 import { CarouselData } from "../../Redux/Thunk/homePage"
 import Loader from "../../components/Loader"
+import {myProfileData} from "../../Redux/Thunk/auth"
 
 
 
@@ -39,6 +40,8 @@ const Home = ({
 	PageRefresher,
 	CarouselDataMaping,
 	Carousel_Data,
+  myProfileData,
+  user
 }) => {
 	let navigate = useNavigate()
 	var settings = {
@@ -83,7 +86,7 @@ const Home = ({
 		popularCity()
 		PageRefresher(PageRerender)
 		CarouselDataMaping()
-		console.log(Carousel_Data, "Carousel_Data")
+    myProfileData()
 	}, [])
 
   const handleSearchHomeCity = (e) => {
@@ -155,6 +158,11 @@ const Home = ({
 		filterProperty(searchHome, navigate, PageRerender)
 	}
 
+
+const role = user?.role;
+console.log( "myprofile from comp roleeeee" , role)
+
+
   return (
     <>
       <section className=" bg-1  overly">
@@ -213,7 +221,7 @@ const Home = ({
                       </Link>
                     </li>
                   </ul>
-                  <ul className="navbar-nav   mt-10">
+                  {role == "Dealer" && <ul className="navbar-nav   mt-10">
                     <li className="nav-item">
                       <a
                         className="nav-link text-white add-button"
@@ -233,7 +241,7 @@ const Home = ({
                         alt="product-img"
                       />
                     </li>
-                  </ul>
+                  </ul>}
                 </div>
               </nav>
             </div>
@@ -551,32 +559,7 @@ const Home = ({
 					</div>
 				</div>
 			</section>
-			<div>
-				<div className="col-md-12">
-					<div className="section-title">
-						<h2>POPULAR CITIES</h2>
-					</div>
-				</div>
-				<Carousel
-					breakPoints={breakPoints}
-					pagination={false}
-					enableAutoPlay={true}
-				>
-					{popularCities?.map(function (slide) {
-						return (
-							<div className="slickDiver" key={slide}>
-								<div>
-									<img
-										className="card-img-top img-fluid img-style"
-										src={slide?.items[0]?.cityImgUrl}
-										alt="Card image cap"
-									/>
-								</div>
-							</div>
-						)
-					})}
-				</Carousel>
-			</div>
+		
 
       <div>
         <div className="col-md-12">
@@ -890,10 +873,12 @@ const Home = ({
 const mapStateToProps = (state) => {
 	let { popularCities } = state.popularCitiesReducers
 	let { Carousel_Data } = state.popularCitiesReducers
-	console.log("mapstate", popularCities)
+  let {user} = state.authReducer.user
+	console.log("mapstate.....", state)
 	return {
 		popularCities,
 		Carousel_Data,
+    user
 	}
 }
 const mapDispatchToProps = (dispatch) => {
@@ -907,6 +892,9 @@ const mapDispatchToProps = (dispatch) => {
 		CarouselDataMaping: () => {
 			dispatch(CarouselData())
 		},
+    myProfileData: () => {
+      dispatch(myProfileData())
+    }
 	}
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Home)

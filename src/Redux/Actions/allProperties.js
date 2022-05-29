@@ -32,3 +32,11 @@ export const propertyDetail = (response) => {
 		payload: response,
 	}
 }
+
+
+export const allPropertiesOfDealer = (response) => {
+	return {
+		type: "ALL_PROPERTIES_OF_DEALER",
+		payload: response,
+	}
+}

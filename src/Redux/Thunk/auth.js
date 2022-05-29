@@ -1,11 +1,8 @@
 import axios from "axios"
-import { login , signUp} from "../Actions/auth"
+import { login , signUp , myProfile} from "../Actions/auth"
 
 
 export const loginUser = (data, navigate) => {
-	console.log("data input property", data)
-	console.log("data input property", navigate)
-
 	
 
 	return (dispatch) => {
@@ -31,8 +28,6 @@ export const loginUser = (data, navigate) => {
 
 export const signUpUser = (data, navigate) => {
 	console.log("data input signup", data)
-	
-
 	return (dispatch) => {
 		console.log("property filter")
 		axios
@@ -43,6 +38,26 @@ export const signUpUser = (data, navigate) => {
 					signUp(res.data)
 				)
 				navigate("/login")
+			})
+			.catch((error) => {
+				console.log("error" , error)
+			})
+	}
+}
+
+export const myProfileData = () => {
+	
+	let token = localStorage.getItem("token");
+console.log("asd" , token)
+	
+	return (dispatch) => {
+		axios
+			.get(`http://52.220.87.52:8000/api/v1/user/profile` , { headers: {"Authorization" : `Bearer ${token}`} })
+			.then((res) => {
+				console.log(" myProfile" , res)
+				dispatch(
+					myProfile(res.data)
+				)	
 			})
 			.catch((error) => {
 				console.log("error" , error)

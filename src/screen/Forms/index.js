@@ -1,8 +1,23 @@
-import React from "react"
+import React , {useState} from "react"
 import Logo from "../../assets/logo.png"
 import ProfileIcon from "../../assets/profile-icon.png"
+import Input from "../../components/FromInput/Input"
+import { useForm } from "react-hook-form";
 
 const Form = () => {
+	const {
+		register,
+		handleSubmit,
+		watch,
+		formState: { errors },
+	  } = useForm();
+
+
+const [check , setCheck] = useState();
+
+	  const onSubmit = (data) => {
+		console.log("data", data)
+	  };
 	return (
 		<>
 			<div>
@@ -71,6 +86,7 @@ const Form = () => {
 				<div className="container">
 					<div className="row">
 						{/* <!-- Left sidebar --> */}
+						<form onSubmit={handleSubmit(onSubmit)}>
 						<div className="col-md-12">
 							<div className="product-details">
 								<div className="">
@@ -802,14 +818,15 @@ const Form = () => {
 										className="buy d-flex  align-items-center margin-top-15 margin-bottom-15"
 										style={{ justifyContent: "space-evenly" }}
 									>
-										<a href="#" className="btn btn-primary mt-3 ">
+										<button className="btn btn-primary mt-3 ">
 											{" "}
 											Add Property
-										</a>
+										</button>
 									</div>
 								</div>
 							</div>
 						</div>
+						</form>
 					</div>
 				</div>
 			</div>

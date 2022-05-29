@@ -28,7 +28,7 @@ const Login = ({login , signUpUser}) => {
 
 	let navigate = useNavigate()
 
-  const onSubmit = (data , navigate) => {
+  const onSubmit = (data) => {
     console.log("data", navigate)
     signUpUser(data , navigate)
   };

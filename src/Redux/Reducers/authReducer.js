@@ -26,6 +26,12 @@ export default function authReducer(state = INITIAL_STATE, action) {
                   loadingMessage: '',
                 }
 
+                case 'MY_PROFILE':
+                  return {
+                    ...state,
+                    myProfileData:action.payload
+                  }
+
 		default:
 			return state
 	}

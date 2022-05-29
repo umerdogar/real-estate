@@ -23,6 +23,11 @@ export default function propertyReducer(state = INITIAL_STATE, action) {
 				...state,
 				singleProperty: action.payload,
 			}
+			case "ALL_PROPERTIES_OF_DEALER" : 
+			return {
+				...state,
+				dealerPropertyDetail : action.payload,
+			}
 
 		default:
 			return state

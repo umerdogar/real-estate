@@ -4,14 +4,13 @@ import { useNavigate} from "react-router-dom"
 function Items({ currentItems , type , func}) {
 
 	const navigate = useNavigate();
-console.log("plots current items" , func)
 console.log("type..... " , type)
 
 
 	return (
 		<>
 {type == "plot" && 
-	currentItems?.map((card) => (
+	currentItems && currentItems?.map((card) => (
 	<div className="col-md-4 margin-top-15 margin-bottom-15">
 		<div className="card">
 			<img
@@ -130,7 +129,7 @@ console.log("type..... " , type)
 	</div>
 	))}
 
-	{type == "commercial" &&  currentItems?.map((card) => (
+	{type == "commercial" && currentItems && currentItems?.map((card) => (
 																<div className="col-md-4 margin-top-15 margin-bottom-15">
 																	<div className="card">
 			<img

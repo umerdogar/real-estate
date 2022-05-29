@@ -19,7 +19,6 @@ const StyledPaginateContainer = styled.div`
 
 function PaginatedItems({ itemsPerPage, cardDetail , type ,func }) {
 	console.log("pagination dataa" , cardDetail)
-	// We start with an empty list of items.
 	const [currentItems, setCurrentItems] = useState(null)
 	const [pageCount, setPageCount] = useState(0)
 	const [items, setItems] = useState(cardDetail)
@@ -33,7 +32,7 @@ function PaginatedItems({ itemsPerPage, cardDetail , type ,func }) {
 		const endOffset = itemOffset + itemsPerPage
 		console.log(`Loading items from ${itemOffset} to ${endOffset}`)
 		setCurrentItems(items?.slice(itemOffset, endOffset))
-		setPageCount(Math.ceil(items.length / itemsPerPage))
+		setPageCount(Math.ceil(items?.length / itemsPerPage))
 	}, [itemOffset, itemsPerPage])
 
 	// Invoke when user click to request another page.

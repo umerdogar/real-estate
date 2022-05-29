@@ -4,6 +4,7 @@ import {
 	allProperties,
 	filterProperty,
 	propertyDetail,
+	allPropertiesOfDealer,
 } from "../Actions/allProperties"
 import { startLoader , stopLoader } from "../Actions/auth"
 // import { useNavigate } from "react-router-dom";
@@ -24,11 +25,8 @@ export const allPropertiesList = () => {
 	}
 }
 
-export const filterSingleProperty = (data, navigate, PageRerender) => {
-	console.log("data input property", data)
-	console.log("navigate property", navigate)
-
-	return (dispatch) => {
+export const filterSingleProperty = (data, navigate, PageRerender) => {	
+return (dispatch) => {
 		console.log("property filter")
 		axios
 			.post(`http://52.220.87.52:8000/api/v1/property/filter`, data)
@@ -53,12 +51,8 @@ export const filterSingleProperty = (data, navigate, PageRerender) => {
 	}
 }
 export const singlePropertyDetail = (id, navigate) => {
-	console.log("data input property singel prop thunk ", id)
-
 
 	return (dispatch) => {
-		
-
 		axios
 			.get(`http://52.220.87.52:8000/api/v1/property/${id}`)
 			.then((res) => {
@@ -69,6 +63,20 @@ export const singlePropertyDetail = (id, navigate) => {
 			})
 			.catch((error) => {
 				console.log("error")
+			})
+	}
+}
+
+
+export const allPropertiesDealerList = () => {
+	return (dispatch) => {
+		axios
+			.get(`http://52.220.87.52:8000/api/v1/dealer/property`)
+			.then((res) => {
+				dispatch(allPropertiesOfDealer(res.data))
+			})
+			.catch((error) => {
+				console.log("error" , error)
 			})
 	}
 }

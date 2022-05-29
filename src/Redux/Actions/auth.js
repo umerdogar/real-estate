@@ -24,3 +24,9 @@ export const startLoader = (data) => {
 	  type: 'STOP_LOADER'
 	}
   };
+
+  export const myProfile = () => {
+	return {
+	  type: 'MY_PROFILE'
+	}
+  };
