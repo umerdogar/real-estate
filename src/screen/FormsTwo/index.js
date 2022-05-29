@@ -29,6 +29,7 @@ const FormsTwo = ({
 }) => {
 	// const history = useHistory()
 	// console.log(onDone, "props.route.params")
+	console.log(props, "Props from Home")
 	let navigate = useNavigate()
 	const [allProperty, setAllProperty] = useState()
 	const cardData = propertyDetail?.data

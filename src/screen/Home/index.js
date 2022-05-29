@@ -185,12 +185,7 @@ const Home = ({
 										</li>
 
 										<li className="nav-item active">
-											<Link
-												to={{
-													pathname: "/formsTwo/plot",
-													quer: query,
-												}}
-											>
+											<Link to="/formsTwo/plot" state={{ quer: "Name" }}>
 												<a className="nav-link1" href="">
 													PLOTS
 												</a>
@@ -425,99 +420,132 @@ const Home = ({
 					<div className="row">
 						<div className="container-fluid px-3 px-sm-5 my-5 text-center">
 							<div className="owl-carousel owl-theme">
-								<div className="item first prev">
-									<div className="">
-										<div className="row justify-content-center">
-											{" "}
-											<img
-												src="https://i.imgur.com/gazoShk.jpg"
-												className="img-fluid profile-pic mb-4 mt-3"
-											/>{" "}
-										</div>
-										<h4 className="mb-3 mt-2">Marielle Haag</h4>
-										<div className="row active">
-											<div className="col-md-6 center ">
-												<img className="icon-size" src={building} />
+								{/*  .map {if id==current classname jo mrze} if id=current -1 id = current +1 wrna class name default */}
+								{Carousel_Data?.map((obj, index) => {
+									return (
+										<>
+											<div className="item first prev">
+												<div className="">
+													<div className="row justify-content-center">
+														<img
+															src={
+																Carousel_Data[index - 1]?.imgUrl ||
+																Carousel_Data[0]?.imgUrl
+															}
+															className="img-fluid profile-pic mb-4 mt-3"
+														/>
+													</div>
+													<h4 className="mb-3 mt-2">
+														{Carousel_Data[index - 1]?.name ||
+															Carousel_Data[0]?.name}
+													</h4>
+													<div className="row active">
+														<div className="col-md-6 center ">
+															<img className="icon-size" src={building} />
 
-												<h6 className="mb-3 mt-2">Miller Real Estate</h6>
+															<h6 className="mb-3 mt-2">Miller Real Estate</h6>
+														</div>
+														<div className="col-md-6 ">
+															<h6 className="mb-3 mt-2 padding-top-70">
+																{Carousel_Data[index - 1]?.phone ||
+																	Carousel_Data[0]?.phone}
+															</h6>
+														</div>
+													</div>
+												</div>
 											</div>
-											<div className="col-md-6 ">
-												<h6 className="mb-3 mt-2 padding-top-70">
-													+092-33842353
-												</h6>
+											<div className="item show">
+												<div className="">
+													<div className="row justify-content-center">
+														<img
+															src={
+																Carousel_Data[index + 1]?.imgUrl || obj?.imgUrl
+															}
+															className="img-fluid profile-pic mb-4 mt-3"
+														/>
+													</div>
+													<h4 className="mb-3 mt-2">
+														{Carousel_Data[index + 1]?.name || obj?.name}
+													</h4>
+													<div className="row diactive">
+														<div className="col-md-6 center ">
+															<img className="icon-size" src={building} />
+															<h6 className="mb-3 mt-2">Miller Real Estate</h6>
+														</div>
+														<div className="col-md-6">
+															<h6 className="mb-3 mt-2 padding-top-70">
+																{Carousel_Data[index + 1]?.phone || obj.phone}
+															</h6>
+														</div>
+													</div>
+												</div>
 											</div>
-										</div>
-									</div>
-								</div>
-								<div className="item show">
-									<div className="">
-										<div className="row justify-content-center">
-											{" "}
-											<img
-												src="https://i.imgur.com/oW8Wpwi.jpg"
-												className="img-fluid profile-pic mb-4 mt-3"
-											/>{" "}
-										</div>
-										<h4 className="mb-3 mt-2">Ximena Vegara</h4>
-										<div className="row diactive">
-											<div className="col-md-6 center ">
-												<img className="icon-size" src={building} />
-												<h6 className="mb-3 mt-2">Miller Real Estate</h6>
+											<div className="item next">
+												<div className="">
+													<div className="row justify-content-center">
+														<img
+															src={
+																Carousel_Data[index + 2]?.imgUrl ||
+																Carousel_Data[Carousel_Data.length - 1]?.imgUrl
+															}
+															className="img-fluid profile-pic mb-4 mt-3"
+														/>
+													</div>
+													<h4 className="mb-3 mt-2">
+														{Carousel_Data[index + 2]?.name ||
+															Carousel_Data[Carousel_Data.length - 1]?.name}
+													</h4>
+													<div className="row">
+														<div className="col-md-6 center">
+															<img className="icon-size" src={building} />
+															<h6 className="mb-3 mt-2">Miller Real Estate</h6>
+														</div>
+														<div className="col-md-6">
+															<h6 className="mb-3 mt-2 padding-top-70">
+																{Carousel_Data[index + 2]?.phone ||
+																	Carousel_Data[Carousel_Data.length - 1]
+																		?.phone}
+															</h6>
+														</div>
+													</div>
+												</div>
 											</div>
-											<div className="col-md-6">
-												<h6 className="mb-3 mt-2 padding-top-70">
-													+092-33842353
-												</h6>
+											<div className="item last">
+												<div className="">
+													<div className="row justify-content-center">
+														<img
+															src={
+																Carousel_Data[index + 3]?.imgUrl ||
+																Carousel_Data[Carousel_Data.length - 1]?.imgUrl
+															}
+															className="img-fluid profile-pic mb-4 mt-3"
+														/>
+													</div>
+													<h4 className="mb-3 mt-2">
+														{Carousel_Data[index + 3]?.name ||
+															Carousel_Data[Carousel_Data.length - 1]?.name}
+													</h4>
+													<div className="row">
+														<div className="col-md-6 center">
+															<img
+																className="icon-size"
+																src="images/building.png"
+															/>
+															<h6 className="mb-3 mt-2">Miller Real Estate</h6>
+														</div>
+														<div className="col-md-6">
+															<h6 className="mb-3 mt-2 padding-top-70">
+																{Carousel_Data[index + 3]?.phone ||
+																	Carousel_Data[Carousel_Data.length - 1]
+																		?.phone}
+															</h6>
+														</div>
+													</div>
+												</div>
 											</div>
-										</div>
-									</div>
-								</div>
-								<div className="item next">
-									<div className="">
-										<div className="row justify-content-center">
-											{" "}
-											<img
-												src="https://i.imgur.com/ndQx2Rg.jpg"
-												className="img-fluid profile-pic mb-4 mt-3"
-											/>{" "}
-										</div>
-										<h4 className="mb-3 mt-2">John Paul</h4>
-										<div className="row">
-											<div className="col-md-6 center">
-												<img className="icon-size" src={building} />
-												<h6 className="mb-3 mt-2">Miller Real Estate</h6>
-											</div>
-											<div className="col-md-6">
-												<h6 className="mb-3 mt-2 padding-top-70">
-													+092-33842353
-												</h6>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div className="item last">
-									<div className="">
-										<div className="row justify-content-center">
-											{" "}
-											<img
-												src="https://i.imgur.com/T5aOhwh.jpg"
-												className="img-fluid profile-pic mb-4 mt-3"
-											/>{" "}
-										</div>
-										<h4 className="mb-3 mt-2">William Doe</h4>
-										<div className="row">
-											<div className="col-md-6 center">
-												<img className="icon-size" src="images/building.png" />
-												<h6 className="mb-3 mt-2">Miller Real Estate</h6>
-											</div>
-											<div className="col-md-6">
-												<h6 className="mb-3 mt-2 padding-top-70">
-													+092-33842353
-												</h6>
-											</div>
-										</div>
-									</div>
-								</div>
+										</>
+									)
+								})}
 							</div>
 						</div>
 					</div>

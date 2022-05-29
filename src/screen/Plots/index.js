@@ -22,16 +22,17 @@ const FormsTwo = ({
 	singlePropertyDetail,
 	data,
 	PageRefresh,
+	props,
 }) => {
 	let navigate = useNavigate()
 	const { quer } = useLocation()
 	console.log(quer)
 	const [allProperty, setAllProperty] = useState()
 	const cardData = propertyDetail?.data
-	console.log("propertyDetail in FormsTwo", data && data)
 
 	// let { type } = useParams()
-	// const location = useLocation()
+	const location = useLocation()
+	console.log(location, "Location state")
 	// const productId = location.pathname.split("/")[2]
 	// console.log("type", productId)
 	// console.log("plots data from comp", plotsData && plotsData)
@@ -39,9 +40,15 @@ const FormsTwo = ({
 
 	const plot = plotsData?.property
 
+	// useEffect(() => {
+	// 	console.log("props in Plots in useEffect", props)
+	// 	// plotsDataFetch()
+	// }, [props])
+
 	useEffect(() => {
 		console.log("useefefct from plots seprte comp")
 		console.log("propertyDetail in FormsTwo", data)
+		// console.log("props in Plots", props)
 		plotsDataFetch()
 	}, [])
 

@@ -40,7 +40,7 @@ export const filterSingleProperty = (data, navigate, PageRerender) => {
 						},
 					})
 				)
-				navigate("/formsTwo")
+				navigate("/formsTwo", { Name: "Ham" })
 			})
 			.catch((error) => {
 				console.log("error")
