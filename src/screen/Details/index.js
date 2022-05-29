@@ -60,7 +60,7 @@ const Details = ({ propertyDetail , allPropertiesList ,singleProperty , allPrope
 								<ul className="navbar-nav ml-auto main-nav ">
 									<li className="nav-item active">
 										<a className="nav-link" href="" onClick={() => {
-												navigate("/")
+												navigate("/home")
 											}}>
 											Home
 										</a>

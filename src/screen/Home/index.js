@@ -28,6 +28,10 @@ import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos"
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos"
 import Carousel from "react-elastic-carousel"
 import { CarouselData } from "../../Redux/Thunk/homePage"
+import Loader from "../../components/Loader"
+
+
+
 const Home = ({
 	popularCity,
 	popularCities,
@@ -76,12 +80,9 @@ const Home = ({
 		{ width: 768, itemsToShow: 3 },
 	]
 	useEffect(() => {
-		console.log("useefefct")
-		console.log(searchHome, "searchHome")
 		popularCity()
-		PageRefresher(PageRerender)
+		PageRefresher(PageRerender) 
 		CarouselDataMaping()
-		console.log(Carousel_Data, "Carousel_Data")
 	}, [])
 
   const handleSearchHomeCity = (e) => {
@@ -527,9 +528,9 @@ const Home = ({
           pagination={false}
           enableAutoPlay={true}
         >
-          {popularCities?.map(function (slide) {
+          {popularCities?.map((slide) => {
             return (
-              <div className="slickDiver" key={slide}>
+              <div className="slickDiver">
                 <div>
                   <img
                     className="card-img-top img-fluid img-style"
@@ -824,7 +825,6 @@ const Home = ({
   );
 };
 
-// export default Home;
 
 const mapStateToProps = (state) => {
 	let { popularCities } = state.popularCitiesReducers

@@ -92,7 +92,7 @@ const FormsTwo = ({
 											className="nav-link"
 											href="#"
 											onClick={() => {
-												navigate("/")
+												navigate("/home")
 												onDone.onDone()
 											}}
 										>

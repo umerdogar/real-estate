@@ -32,7 +32,7 @@ function PaginatedItems({ itemsPerPage, cardDetail , type ,func }) {
 		// setItems([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14])
 		const endOffset = itemOffset + itemsPerPage
 		console.log(`Loading items from ${itemOffset} to ${endOffset}`)
-		setCurrentItems(items.slice(itemOffset, endOffset))
+		setCurrentItems(items?.slice(itemOffset, endOffset))
 		setPageCount(Math.ceil(items.length / itemsPerPage))
 	}, [itemOffset, itemsPerPage])
 

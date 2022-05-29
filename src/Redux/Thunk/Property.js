@@ -5,6 +5,7 @@ import {
 	filterProperty,
 	propertyDetail,
 } from "../Actions/allProperties"
+import { startLoader , stopLoader } from "../Actions/auth"
 // import { useNavigate } from "react-router-dom";
 
 export const allPropertiesList = () => {
@@ -33,6 +34,9 @@ export const filterSingleProperty = (data, navigate, PageRerender) => {
 			.post(`http://52.220.87.52:8000/api/v1/property/filter`, data)
 			.then((res) => {
 				console.log(res, " filterSingleProperty")
+				// dispatch(startLoader("hello"))
+
+				
 				dispatch(
 					filterProperty(res.data, {
 						onDone: () => {
@@ -40,10 +44,11 @@ export const filterSingleProperty = (data, navigate, PageRerender) => {
 						},
 					})
 				)
+				// dispatch(stopLoader())
 				navigate("/formsTwo")
 			})
 			.catch((error) => {
-				console.log("error")
+				console.log("error" , error)
 			})
 	}
 }
@@ -52,7 +57,7 @@ export const singlePropertyDetail = (id, navigate) => {
 
 
 	return (dispatch) => {
-		console.log("datak{{{{{{{}}}}}}} ")
+		
 
 		axios
 			.get(`http://52.220.87.52:8000/api/v1/property/${id}`)
