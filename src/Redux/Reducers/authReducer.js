@@ -7,12 +7,13 @@ const INITIAL_STATE = {
 export default function authReducer(state = INITIAL_STATE, action) {
 	switch (action.type) {
 		case "LOGIN":
-			console.log("LOGIN USER FROM REDUCERs", action.payload)
 			return {
 				...state,
 				user: action.payload,
 			}
             case 'START_LOADER':
+			console.log("loader from reducer", action.payload)
+
                 return {
                   ...state,
                   loading: true,

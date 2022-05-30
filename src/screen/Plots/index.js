@@ -28,29 +28,12 @@ const FormsTwo = ({
 	props,
 }) => {
 	let navigate = useNavigate()
-	const { quer } = useLocation()
-	console.log(quer)
-	// const [allProperty, setAllProperty] = useState()
-	// const cardData = propertyDetail?.data
-
-	// let { type } = useParams()
-	const location = useLocation()
-	console.log(location, "Location state")
-	// const productId = location.pathname.split("/")[2]
-	// console.log("type", productId)
-	// console.log("plots data from comp", plotsData && plotsData)
-	// console.log("commercial data from comp", commercialData && commercialData)
-
-
 	useEffect(() => {
-		console.log("useefefct from plots seprte comp")
-		console.log("propertyDetail in FormsTwo", data)
 		plotsDataFetch()
 	}, [])
 
 	window.onpopstate = () => {
 		console.log("On pop stae")
-
 		PageRefresh()
 	}
 
@@ -106,6 +89,8 @@ const FormsTwo = ({
 											href=""
 											onClick={() => {
 												navigate("/formsTwo/plot")
+												PageRefresh()
+
 											}}
 										>
 											Plot
@@ -117,6 +102,8 @@ const FormsTwo = ({
 											href=""
 											onClick={() => {
 												navigate("/formsTwo/commercial")
+												PageRefresh()
+
 											}}
 										>
 											Commercial

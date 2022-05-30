@@ -12,17 +12,17 @@ import {
   } from "react-router-dom";
 
 
-function PrivateRoute( {token,children} ) {
-    let navigate = useNavigate();
-  return token ||localStorage.getItem("token") ? children : (navigate("/") );
-}
+// function PrivateRoute( {token,children} ) {
+//     let navigate = useNavigate();
+//   return token ||localStorage.getItem("token") ? children : (navigate("/") );
+// }
 
-// const PrivateRoute = ({children }) => {
-//     if (!localStorage.getItem("token")) {
-//       return <Navigate to="/" replace />;
-//     }
-//     return children;
-//   };
+const PrivateRoute = ({children }) => {
+    if (!localStorage.getItem("token")) {
+      return <Navigate to="/" replace />;
+    }
+    return children;
+  };
 
 
 const mapStateToProps = (state) => {

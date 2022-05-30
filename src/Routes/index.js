@@ -30,6 +30,14 @@ const Routing = () => {
             </PrivateRoute>
           }
         />
+           <Route
+          path="/details"
+          element={
+            <PrivateRoute>
+              <Details />
+            </PrivateRoute>
+          }
+        />
         <Route
           path="/form"
           element={

@@ -1,9 +1,9 @@
 import React from 'react'
 import { connect } from "react-redux";
-import authReducer from '../../Redux/Reducers/authReducer';
 import "./loader.css"
 
 const AppLoader = ({loadingMessage, loader}) => {
+  console.log("---------" , loader)
   return (
     <div hidden={!loader} className="loader-container">
     <div className="loader-content">
@@ -22,11 +22,13 @@ const AppLoader = ({loadingMessage, loader}) => {
 }
 
 const mapStateToProps = (state) => {
-    console.log("loader" , state.authReducer.loading)
-    const {loading} = state.authReducer.loading
+    const {loading} = state.authReducer
+    const {loadingMessage} = state.authReducer
+    console.log("loader///" , loading)
+
     return {
         loader: loading,
-        // loadingMessage: authReducer.loadingMessage,
+        loadingMessage
     }
   }
 

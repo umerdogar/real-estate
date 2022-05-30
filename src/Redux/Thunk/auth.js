@@ -1,5 +1,6 @@
 import axios from "axios"
 import { login , signUp , myProfile} from "../Actions/auth"
+import Notification from "../../components/notification"
 
 
 export const loginUser = (data, navigate) => {
@@ -16,12 +17,16 @@ export const loginUser = (data, navigate) => {
 					localStorage.setItem("token" , res.data.token)
 				)
 				navigate("/home")
+				Notification("success" , "Login Successfull")
+
 			})
 			.catch((error) => {
 				console.log(" errorr response" , error.message)
 				dispatch(
 					login("error")
 				)
+				Notification("error" , "Login Failed")
+
 			})
 	}
 }
@@ -38,9 +43,13 @@ export const signUpUser = (data, navigate) => {
 					signUp(res.data)
 				)
 				navigate("/login")
+				Notification("success" , "SignUp Successfull")
+
 			})
 			.catch((error) => {
 				console.log("error" , error)
+				Notification("error" , "SignUp Failed")
+
 			})
 	}
 }

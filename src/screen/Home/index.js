@@ -32,7 +32,8 @@ const Home = ({
 	CarouselDataMaping,
 	Carousel_Data,
   myProfileData,
-  user
+  user,
+  PageRefresh
 }) => {
 	let navigate = useNavigate()
 	var settings = {
@@ -183,6 +184,8 @@ console.log( "myprofile from comp roleeeee" , role)
 										
 												<a className="nav-link1" href="" onClick={() => {
                           navigate("/formsTwo/plot");
+                          PageRerender()
+
                         }}>
 													PLOTS
 												</a>
@@ -192,6 +195,8 @@ console.log( "myprofile from comp roleeeee" , role)
                     <li className="nav-item active">
                         <a className="nav-link1" href="" onClick={() => {
                           navigate("/formsTwo/commercial");
+												PageRerender()
+
                         }}>
                           COMMERCIAL
                         </a>
@@ -855,6 +860,7 @@ console.log( "myprofile from comp roleeeee" , role)
 
 
 const mapStateToProps = (state) => {
+	let PageRefresh = state.PageRefresherReducer.PageRefresher
 	let { popularCities } = state.popularCitiesReducers
 	let { Carousel_Data } = state.popularCitiesReducers
   let {user} = state.authReducer.user
@@ -862,7 +868,8 @@ const mapStateToProps = (state) => {
 	return {
 		popularCities,
 		Carousel_Data,
-    user
+    user,
+    PageRefresh
 	}
 }
 const mapDispatchToProps = (dispatch) => {
