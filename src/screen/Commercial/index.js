@@ -13,7 +13,6 @@ import { useNavigate, useParams, useLocation } from "react-router-dom"
 import { plotsDataFetch, commercialDataFetch } from "../../Redux/Thunk/homePage"
 import PaginatedItems from "../../components/Pagination/PaginatedItems"
 
-
 const FormsTwo = ({
 	allProperties,
 	propertyDetail,
@@ -666,7 +665,12 @@ const FormsTwo = ({
 											<div className="row margin-bottom-15">
 												<div className="col-md-8 col-12">
 													<div className="row">
-						<PaginatedItems itemsPerPage={6} cardDetail={commercial} type={"commercial"} func={getPropertyDetail}/>
+														<PaginatedItems
+															itemsPerPage={6}
+															cardDetail={commercial}
+															type={"commercial"}
+															func={getPropertyDetail}
+														/>
 
 														{/* {commercial &&
 															commercial?.map((card) => (
@@ -788,8 +792,8 @@ const FormsTwo = ({
 																	</div>
 																</div>
 															))} */}
-														
-{/* 
+
+														{/* 
 														<div className="col-md-12 margin-top-30">
 															<nav aria-label="Page navigation example ">
 																<ul className="pagination justify-content-center">
@@ -884,7 +888,7 @@ const mapStateToProps = (state) => {
 	let { propertyDetail } = state.propertyReducer
 	let { plotsData, commercialData } = state.popularCitiesReducers
 	let PageRefresh = state.PageRefresherReducer.PageRefresher
-
+	console.log(PageRefresh, "PageRefresh commerical")
 	console.log("full state", state)
 	return {
 		propertyDetail,

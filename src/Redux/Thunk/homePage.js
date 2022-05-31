@@ -3,7 +3,6 @@ import { popularCity } from "../Actions/popularCity"
 import { plotsData, commercialData } from "../Actions/allProperties"
 import { CarouselDataAction } from "../Actions/popularCity"
 
-
 export const popularCityStat = () => {
 	// console.log("loginUserTWo")
 	return (dispatch) => {
@@ -21,12 +20,14 @@ export const popularCityStat = () => {
 }
 
 export const plotsDataFetch = () => {
+	// console.log("plotsDataFetch Thunk")
 	return (dispatch) => {
 		axios
 			.get(`http://52.220.87.52:8000/api/v1/property/plot`)
 			.then((res) => {
+				// console.log("plotsDataFetch Thunk")
 				dispatch(plotsData(res.data))
-				console.log("Get plots city", res.data)
+				// console.log("Get plots city", res.data)
 			})
 			.catch((error) => {
 				console.log("error")

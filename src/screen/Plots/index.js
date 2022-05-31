@@ -13,56 +13,64 @@ import { useNavigate, useParams, useLocation } from "react-router-dom"
 import { plotsDataFetch, commercialDataFetch } from "../../Redux/Thunk/homePage"
 import PaginatedItems from "../../components/Pagination/PaginatedItems"
 
-
 // import { useLocation } from "react-router-dom"
 const FormsTwo = ({
-	allProperties,
-	propertyDetail,
-	plotsDataFetch,
-	commercialDataFetch,
+	// allProperties,
+	// propertyDetail,
+	plotsDataFetch_,
+	// commercialDataFetch,
 	plotsData,
-	commercialData,
+	// commercialData,
 	singlePropertyDetail,
-	data,
+	// data,
 	PageRefresh,
-	props,
 }) => {
 	let navigate = useNavigate()
-	const { quer } = useLocation()
-	console.log(quer)
+	// const { quer } = useLocation()
+	// console.log(quer)
+	// const [boolen, setBoolen] = useState(false)
+
 	// const [allProperty, setAllProperty] = useState()
 	// const cardData = propertyDetail?.data
 
 	// let { type } = useParams()
-	const location = useLocation()
-	console.log(location, "Location state")
+	// const location = useLocation()
+	// console.log(location, "Location state")
 	// const productId = location.pathname.split("/")[2]
 	// console.log("type", productId)
 	// console.log("plots data from comp", plotsData && plotsData)
 	// console.log("commercial data from comp", commercialData && commercialData)
-
+	// console.log("upside of useEffect")
+	// console.log(
+	// 	plotsData,
+	// 	"plotsData from map state to props upside of useEffect"
+	// )
+	// console.log(plotsData, "useEffect plotsData")
 
 	useEffect(() => {
-		console.log("useefefct from plots seprte comp")
-		console.log("propertyDetail in FormsTwo", data)
-		plotsDataFetch()
+		// console.log("useefefct from plots seprte comp")
+		// console.log(PlotsData, "PlotsData in useEffect")
+		// console.log(plotsData, "useEffect plotsData")
+
+		plotsDataFetch_()
 	}, [])
 
-	window.onpopstate = () => {
-		console.log("On pop stae")
-
-		PageRefresh()
-	}
+	// window.onpopstate = () => {
+	// 	console.log("On pop stae")
+	// 	PageRefresh()
+	// }
 
 	const getPropertyDetail = (id) => {
 		console.log("id from func plots", id)
 		singlePropertyDetail(id, navigate)
 		console.log("func caleeeed plots")
 	}
-	const plot = plotsData && plotsData.property
-	console.log("propertyDetail in FormsTwo data===", plot && plot)
-
-
+	// const plot = plotsData?.property
+	// console.log("plotsData?.property", plot)
+	// if (plotsData !== undefined) {
+	// 	setBoolen(true)
+	// 	console.log(plotsData.property, "useEffect inside check")
+	// }
 	return (
 		<>
 			<div className="container">
@@ -679,8 +687,14 @@ const FormsTwo = ({
 											<div className="row margin-bottom-15">
 												<div className="col-md-8 col-12">
 													<div className="row">
-						<PaginatedItems itemsPerPage={6} cardDetail={plot} type={"plot"} func = {getPropertyDetail}/>
-
+														{plotsData !== undefined && (
+															<PaginatedItems
+																itemsPerPage={6}
+																cardDetail={plotsData.property}
+																type={"plot"}
+																func={getPropertyDetail}
+															/>
+														)}
 													</div>
 												</div>
 												<div className="col-md-4 col-12">
@@ -736,27 +750,32 @@ const FormsTwo = ({
 }
 
 const mapStateToProps = (state) => {
-	let PageRefresh = state.PageRefresherReducer.PageRefresher
-	console.log(PageRefresh, "PageRefresh in Plots")
-	let { propertyDetail } = state.propertyReducer
-	let { plotsData } = state.popularCitiesReducers
-	let { commercialData } = state.popularCitiesReducers
-
-	console.log("full state", state)
+	// console.log(state, "State in mapStateToProps")
+	// let { PageRefresher } = state.PageRefresherReducer
+	console.log(state, "store states in Plots")
+	// console.log(PageRefresh, "PageRefresh in Plots")
+	// let { propertyDetail } = state.propertyReducer
+	// let { plotsData } = state.popularCitiesReducers
+	// let { commercialData } = state.popularCitiesReducers
+	// console.log(plotsData, " plotsData mapStateToProps")
+	// console.log("full state", state)
 	return {
-		propertyDetail,
-		plotsData,
-		commercialData,
-		PageRefresh,
+		// propertyDetail,
+		// plotsData,
+		// commercialData,
+		// PageRefresher,
 	}
 }
 const mapDispatchToProps = (dispatch) => {
+	console.log("mapDispatchToProps")
+
 	return {
-		allProperties: () => dispatch(allPropertiesList()),
-		plotsDataFetch: () => dispatch(plotsDataFetch()),
-		commercialDataFetch: () => dispatch(commercialDataFetch()),
+		// allProperties: () => dispatch(allPropertiesList()),
+		plotsDataFetch_: () => dispatch(plotsDataFetch()),
+		// commercialDataFetch: () => dispatch(commercialDataFetch()),
 		singlePropertyDetail: (id, navigate) =>
 			dispatch(singlePropertyDetail(id, navigate)),
+		//  dispatch(plotsDataFetch())
 	}
 }
 export default connect(mapStateToProps, mapDispatchToProps)(FormsTwo)

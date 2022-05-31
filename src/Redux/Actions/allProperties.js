@@ -13,6 +13,7 @@ export const filterProperty = (response, onDone) => {
 }
 
 export const plotsData = (response) => {
+	// console.log(response, "plotsData action Creator")
 	return {
 		type: "PLOTS_DATA",
 		payload: response,
@@ -32,7 +33,6 @@ export const propertyDetail = (response) => {
 		payload: response,
 	}
 }
-
 
 export const allPropertiesOfDealer = (response) => {
 	return {

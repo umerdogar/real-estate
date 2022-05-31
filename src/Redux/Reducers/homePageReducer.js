@@ -18,8 +18,9 @@ export default function popularCitiesReducer(state = INITIAL_STATE, action) {
 			}
 		case "PLOTS_DATA":
 			// console.log("reduccer" , action.payload)
+			// console.log(action.payload, "Reducer of PLOTS_DATA")
 			return {
-				...state,
+				// ...state,
 				plotsData: action.payload,
 			}
 		case "Carousel_Data":

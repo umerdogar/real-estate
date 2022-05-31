@@ -6,7 +6,7 @@ import {
 	propertyDetail,
 	allPropertiesOfDealer,
 } from "../Actions/allProperties"
-import { startLoader , stopLoader } from "../Actions/auth"
+import { startLoader, stopLoader } from "../Actions/auth"
 // import { useNavigate } from "react-router-dom";
 
 export const allPropertiesList = () => {
@@ -25,8 +25,8 @@ export const allPropertiesList = () => {
 	}
 }
 
-export const filterSingleProperty = (data, navigate, PageRerender) => {	
-return (dispatch) => {
+export const filterSingleProperty = (data, navigate, PageRerender) => {
+	return (dispatch) => {
 		console.log("property filter")
 		axios
 			.post(`http://52.220.87.52:8000/api/v1/property/filter`, data)
@@ -34,7 +34,6 @@ return (dispatch) => {
 				console.log(res, " filterSingleProperty")
 				// dispatch(startLoader("hello"))
 
-				
 				dispatch(
 					filterProperty(res.data, {
 						onDone: () => {
@@ -46,12 +45,11 @@ return (dispatch) => {
 				navigate("/formsTwo")
 			})
 			.catch((error) => {
-				console.log("error" , error)
+				console.log("error", error)
 			})
 	}
 }
 export const singlePropertyDetail = (id, navigate) => {
-
 	return (dispatch) => {
 		axios
 			.get(`http://52.220.87.52:8000/api/v1/property/${id}`)
@@ -67,7 +65,6 @@ export const singlePropertyDetail = (id, navigate) => {
 	}
 }
 
-
 export const allPropertiesDealerList = () => {
 	return (dispatch) => {
 		axios
@@ -76,7 +73,7 @@ export const allPropertiesDealerList = () => {
 				dispatch(allPropertiesOfDealer(res.data))
 			})
 			.catch((error) => {
-				console.log("error" , error)
+				console.log("error", error)
 			})
 	}
 }
