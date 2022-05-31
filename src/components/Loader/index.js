@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import "./loader.css"
 
 const AppLoader = ({loadingMessage, loader}) => {
-  console.log("---------" , loader)
+  // console.log("---------" , loader)
   return (
     <div hidden={!loader} className="loader-container">
     <div className="loader-content">
@@ -24,7 +24,7 @@ const AppLoader = ({loadingMessage, loader}) => {
 const mapStateToProps = (state) => {
     const {loading} = state.authReducer
     const {loadingMessage} = state.authReducer
-    console.log("loader///" , loading)
+    // console.log("loader///" , loading)
 
     return {
         loader: loading,

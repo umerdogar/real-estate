@@ -4,6 +4,7 @@ import ProfileIcon from "../../assets/profile-icon.png"
 import Input from "../../components/FromInput/Input"
 import { useForm } from "react-hook-form";
 import { useNavigate, Link } from "react-router-dom"
+import PropertyInput from "../../components/FromInput/PropertyInput"
 
 
 const Form = () => {
@@ -15,9 +16,20 @@ const Form = () => {
 	  } = useForm();
 
 const navigate = useNavigate()
-const [check , setCheck] = useState();
+const [check , setCheck] = useState(false);
+const [feature , setFeature] = useState("");
+
+const handleCheck = (e) => {
+	setCheck(!check)
+	setFeature(e.target.value)
+	console.log("handlecheck" )
+}
+
+
+console.log("vallll" , feature )
 
 	  const onSubmit = (data) => {
+		  data["purpose"] = feature
 		console.log("data", data)
 	  };
 	return (
@@ -116,27 +128,37 @@ const [check , setCheck] = useState();
 												<div className="col-md-5 col-3  text-right">
 													<p style={{ marginTop: "7px" }}>Property Purpose</p>
 												</div>
+											
 												<div className="col-md-2 col-4 margin-bottom-5">
 													<div className="checkbox-custom checkbox-inline1 checkbox-warning box-color">
+													<label for="buy" className="containerCheckBox" >
 														<input
-															className="checkbox-styling"
-															type="checkbox"
-															id="444"
-															name="checkbox"
-															checked=""
+														
+															type="radio"
+															id="buy"
+															name="propertyPurpose"
+															value="buy"
+															onChange={handleCheck}
 														/>
-														<label for="444">Buy</label>
+														 Buy
+														 <span class="checkmark"></span>
+														</label>
 													</div>
 												</div>
 												<div className="col-md-2 col-4">
 													<div className="checkbox-custom checkbox-inline1 checkbox-warning box-color">
+													<label for="sell" className="containerCheckBox" >
 														<input
-															type="checkbox"
-															id="444"
-															name="checkbox"
-															checked=""
+														
+															type="radio"
+															id="sell"
+															name="propertyPurpose"
+															value="sell"
+															onChange={handleCheck}
 														/>
-														<label for="444">Sell </label>
+														 Buy
+														 <span class="checkmark"></span>
+														</label>
 													</div>
 												</div>
 											</div>
@@ -279,7 +301,7 @@ const [check , setCheck] = useState();
 													Property Location
 												</h6>
 											</div>
-											<div
+											{/* <div
 												className="row"
 												style={{ marginTop: "10px", marginBottom: "10px" }}
 											>
@@ -297,7 +319,18 @@ const [check , setCheck] = useState();
 														}}
 													/>
 												</div>
-											</div>
+											</div> */}
+											   <PropertyInput
+                          label={"Society"}
+                          type="text"
+                        //   placeholder={"password"}
+                          name="passsocietyword"
+                          validation={{ required: true }}
+                          error={errors.password}
+                          register={register}
+                          errorMessage={"Society Field is Empty"}
+            
+                        />
 											<div
 												className="row"
 												style={{ marginTop: "10px", marginBottom: "10px" }}

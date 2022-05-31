@@ -13,7 +13,7 @@ import { connect } from "react-redux";
 
 const Routing = () => {
   let token = localStorage.getItem("token");
-  console.log(" from route=====", token);
+  
 
   return (
     <BrowserRouter>
@@ -25,9 +25,9 @@ const Routing = () => {
         <Route
           path="/home"
           element={
-            <PrivateRoute>
+            // <PrivateRoute>
               <Home />
-            </PrivateRoute>
+            // </PrivateRoute>
           }
         />
            <Route
@@ -41,25 +41,25 @@ const Routing = () => {
         <Route
           path="/form"
           element={
-            <PrivateRoute>
+            // <PrivateRoute>
               <Forms />
-            </PrivateRoute>
+            // </PrivateRoute>
           }
         />
         <Route
           path="/formsTwo"
           element={
-            <PrivateRoute>
+            // <PrivateRoute>
               <FormsTwo />
-            </PrivateRoute>
+            // </PrivateRoute>
           }
         />
         <Route
           path="/formsTwo/plot"
           element={
-            <PrivateRoute>
+            // <PrivateRoute>
               <Plots />
-            </PrivateRoute>
+            // </PrivateRoute>
           }
         />
         <Route
