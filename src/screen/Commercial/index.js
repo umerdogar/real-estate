@@ -80,7 +80,7 @@ const FormsTwo = ({
 											className="nav-link"
 											href=""
 											onClick={() => {
-												navigate("/home")
+												navigate("/")
 												PageRefresh()
 											}}
 										>
@@ -666,8 +666,10 @@ const FormsTwo = ({
 											<div className="row margin-bottom-15">
 												<div className="col-md-8 col-12">
 													<div className="row">
-						<PaginatedItems itemsPerPage={6} cardDetail={commercial} type={"commercial"} func={getPropertyDetail}/>
+													{commercial !== undefined && 
 
+						<PaginatedItems itemsPerPage={6} cardDetail={commercial} type={"commercial"} func={getPropertyDetail}/>
+													}
 														{/* {commercial &&
 															commercial?.map((card) => (
 																<div className="col-md-4 margin-top-15 margin-bottom-15">

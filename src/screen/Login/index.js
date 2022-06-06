@@ -8,10 +8,62 @@ import { loginUser } from '../../Redux/Thunk/auth';
 import { useNavigate, Link } from "react-router-dom"
 import { InputAdornment } from '@material-ui/core';
 
+import Modal from '@material-ui/core/Modal';
+// import Box from "@material/material/Box";
+import Box from '@material-ui/core/Box';
+import SignUp from '../SignUp';
+import { makeStyles } from '@material-ui/core/styles';
+
+
+
+const useStyles = makeStyles((theme) => ({
+  paper: {
+    position: 'absolute',
+    width: 600,
+    backgroundColor: theme.palette.background.paper,
+    // border: '2px solid #000',
+    boxShadow: 24,
+    p:4,
+    borderRadius:30
+    // padding: theme.spacing(2, 4, 3),
+  },
+}));
+
 
 const Login = ({login , loginUser , user}) => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+
+
+
+  function getModalStyle() {
+    const top = 50;
+    const left = 50;
+  
+    return {
+      top: `${top}%`,
+      left: `${left}%`,
+      transform: `translate(-${top}%, -${left}%)`,
+    };
+  }
+
+  const classes = useStyles();
+
+  const [modalStyle] = useState(getModalStyle);
+  const [openModal, setOpenModal] = useState(false);
+
+  const handleOpenModal = () => {
+    setOpenModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setOpenModal(false);
+  };
+
+  const body = (
+    <Box style={modalStyle} className={classes.paper} >
+    <SignUp/>
+    </Box>
+);
+
 
 
 
@@ -31,13 +83,16 @@ const Login = ({login , loginUser , user}) => {
   const onSubmit = (data) => {
     console.log("data", data)
     loginUser(data , navigate)
+    setOpenModal(false);
+    console.log("asas" , openModal)
+
   };
 
   useEffect(() => {
   }, []);
 
   return (
-    <div className="login-container">
+    <>
       <div className="login-wrapper">
         <h1 className="login-title">LOGIN</h1>
         {/* <h3>Please Login to Continue</h3> */}
@@ -77,10 +132,20 @@ const Login = ({login , loginUser , user}) => {
           {user == "error" && <a className="login-error">Email or Password is Incorrect</a>}
 
           <a className="login-link">DO NOT YOU REMEMBER THE PASSWORD?</a>
-          <a className="login-link" href='/sign-up'>CREATE A NEW ACCOUNT</a>
+          <a className="login-link"  onClick={handleOpenModal}>CREATE A NEW ACCOUNT</a>
         </form>
+        
       </div>
-    </div>
+      <Modal
+      open={openModal}
+      onClose={handleCloseModal}
+      aria-labelledby="simple-modal-title"
+      aria-describedby="simple-modal-description"
+    >
+  {body}
+    </Modal>
+    </>
+
   );
 };
 

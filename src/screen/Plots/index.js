@@ -76,7 +76,7 @@ const FormsTwo = ({
 											className="nav-link"
 											href=""
 											onClick={() => {
-												navigate("/home")
+												navigate("/")
 												PageRefresh()
 											}}
 										>

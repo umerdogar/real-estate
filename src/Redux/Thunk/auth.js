@@ -14,7 +14,7 @@ export const loginUser = (data, navigate) => {
 					login(res.data),
 					localStorage.setItem("token" , res.data.token)
 				)
-				navigate("/home")
+				navigate("/")
 				Notification("success" , "Login Successfull")
 
 			})
@@ -41,7 +41,7 @@ export const signUpUser = (data, navigate) => {
 				dispatch(
 					signUp(res.data)
 				)
-				navigate("/login")
+				navigate("/")
 		dispatch({ type: "STOP_LOADER" });
 		Notification("success" , "SignUp Successfull")
 

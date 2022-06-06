@@ -27,10 +27,28 @@ import { makeStyles } from '@material-ui/core/styles';
 import Popover from '@material-ui/core/Popover';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import Modal from '@material-ui/core/Modal';
+// import Box from "@material/material/Box";
+import Box from '@material-ui/core/Box';
+import Login from "../Login";
+
+
+
+
 
 const useStyles = makeStyles((theme) => ({
   typography: {
     padding: theme.spacing(2),
+  },
+  paper: {
+    position: 'absolute',
+    width: 600,
+    backgroundColor: theme.palette.background.paper,
+    // border: '2px solid #000',
+    boxShadow: 24,
+    p:4,
+    borderRadius:30
+    // padding: theme.spacing(2, 4, 3),
   },
 }));
 
@@ -47,7 +65,36 @@ const Home = ({
 }) => {
 
 
+
+  
+  function getModalStyle() {
+    const top = 50;
+    const left = 50;
+  
+    return {
+      top: `${top}%`,
+      left: `${left}%`,
+      transform: `translate(-${top}%, -${left}%)`,
+    };
+  }
+
   const classes = useStyles();
+
+  const [modalStyle] = useState(getModalStyle);
+  const [openModal, setOpenModal] = useState(false);
+
+  const handleOpenModal = () => {
+    setOpenModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setOpenModal(false);
+  };
+
+
+
+
+
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleClick = (event) => {
@@ -167,7 +214,11 @@ const Home = ({
 		setRerenderPage("H")
 		window.location.reload()
 	}
-
+  const body = (
+    <Box style={modalStyle} className={classes.paper} >
+    <Login/>
+    </Box>
+);
 
 	const handlePost = (e) => {
 		e.preventDefault()
@@ -214,37 +265,40 @@ console.log( "myprofile from comp roleeeee" , role)
 
 										<li className="nav-item active">
 										
-												<a className="nav-link1" href="" onClick={() => {
-                          navigate("/formsTwo/plot");
-                          PageRerender()
-
-                        }}>
+                    <Link to="/formsTwo/plot" state={{ quer: "Name" }}>
+												<a className="nav-link1" href="">
 													PLOTS
 												</a>
+											</Link>
 											
 										</li>
 
                     <li className="nav-item active">
-                        <a className="nav-link1" href="" onClick={() => {
+                        {/* <a className="nav-link1" href="" onClick={() => {
                           navigate("/formsTwo/commercial");
 												PageRerender()
 
                         }}>
                           COMMERCIAL
-                        </a>
+                        </a> */}
+                        <Link to="/formsTwo/commercial" state={{ quer: "Name" }}>
+												<a className="nav-link1" href="">
+													COMMERCIAL
+												</a>
+											</Link>
                     </li>
 
                     <li className="nav-item active">
-                      <Link to={"/formsTwo/" + "rent"}>
-                        <a className="nav-link1" href="">
-                          RENT
-                        </a>
-                      </Link>
+                      <Link to="/formsTwo/rent" state={{ quer: "Name" }}>
+												<a className="nav-link1" href="">
+													RENT
+												</a>
+											</Link>
                     </li>
                   </ul>
                   {/* {role == "Dealer" && <ul className="navbar-nav   mt-10"> */}
-                  { role == "Dealer" && <ul className="navbar-nav   mt-10">
-
+                   <ul className="navbar-nav   mt-10">
+                   {/* { role == "Dealer" &&
                     <li className="nav-item">
                       <a
                         className="nav-link text-white add-button"
@@ -257,6 +311,7 @@ console.log( "myprofile from comp roleeeee" , role)
                         Add Property
                       </a>
                     </li>
+} */}
                     <li className="nav-item margin-left-5">
                       <img
                         className="profile-icon"
@@ -278,15 +333,28 @@ console.log( "myprofile from comp roleeeee" , role)
           horizontal: 'center',
         }}
       >
-        <Typography className={classes.typography} onClick={()=>Clear()}>LogOut</Typography>
+      {user ? <Typography className={classes.typography} onClick={()=>Clear()}>LogOut</Typography>
+:
+        <Typography className={classes.typography} onClick={handleOpenModal}>Login</Typography>}
       </Popover>
+      
                     </li>
-                  </ul>}
+                  </ul>
                 </div>
               </nav>
             </div>
           </div>
         </div>
+
+    
+        <Modal
+        open={openModal}
+        onClose={handleCloseModal}
+        aria-labelledby="simple-modal-title"
+        aria-describedby="simple-modal-description"
+      >
+    {body}
+      </Modal>
 
         <div className="container">
           <div className="row">
@@ -914,7 +982,7 @@ const mapStateToProps = (state) => {
 	let PageRefresh = state.PageRefresherReducer.PageRefresher
 	let { popularCities } = state.popularCitiesReducers
 	let { Carousel_Data } = state.popularCitiesReducers
-  let {user} = state.authReducer.user
+  let {user} = state.authReducer
 	console.log("mapstate.....", user)
 	return {
 		popularCities,

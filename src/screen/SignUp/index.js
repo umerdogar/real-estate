@@ -8,11 +8,7 @@ import { signUpUser } from '../../Redux/Thunk/auth';
 import { useNavigate, Link } from "react-router-dom"
 
 
-const Login = ({login , signUpUser}) => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-
-
+const SignUp = ({login , signUpUser}) => {
 
 
   const handleLogin = (e) => {
@@ -29,16 +25,14 @@ const Login = ({login , signUpUser}) => {
 	let navigate = useNavigate()
 
   const onSubmit = (data) => {
-    console.log("data", navigate)
     signUpUser(data , navigate)
   };
 
  
   return (
-    <div className="login-container">
       <div className="login-wrapper">
         <h1 className="login-title">Sign Up</h1>
-        {/* <h3>Please Login to Continue</h3> */}
+        {/* <h3>Please SignUp to Continue</h3> */}
         <form className="login-form" onSubmit={handleSubmit(onSubmit)}>
         <Input
                           // label={"email"}
@@ -94,21 +88,14 @@ const Login = ({login , signUpUser}) => {
           <button className="login-button">
             Sign Up
           </button>
-          {/* { <a className="login-error">Something is wrong</a>} */}
-
-          {/* <a className="login-link">DO NOT YOU REMEMBER THE PASSWORD?</a>
-          <a className="login-link">CREATE A NEW ACCOUNT</a> */}
         </form>
       </div>
-    </div>
   );
 };
 
 
 
 const mapStateToProps = (state) => {
-	// let { popularCities } = state.popularCitiesReducers
-	console.log("mapstate for login", state)
 	return {
 	}
 }
@@ -117,4 +104,4 @@ const mapDispatchToProps = (dispatch) => {
 		signUpUser: (data , navigate) => dispatch(signUpUser(data, navigate)),
 	}
 }
-export default connect(mapStateToProps, mapDispatchToProps)(Login)
+export default connect(mapStateToProps, mapDispatchToProps)(SignUp)

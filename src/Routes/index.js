@@ -11,6 +11,7 @@ import SignUp from "../screen/SignUp";
 import PrivateRoute from "../components/PrivateRoute";
 import { connect } from "react-redux";
 
+
 const Routing = () => {
   let token = localStorage.getItem("token");
   
@@ -18,56 +19,56 @@ const Routing = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="/sign-up" element={<SignUp />} />
-        <Route exact path="*" element={token ? <Home /> : <Login />} />
+        {/* <Route path="/login" element={<Login />} /> */}
+        {/* <Route path="/sign-up" element={<SignUp />} /> */}
+        {/* <Route exact path="*" element={token ? <Home /> : <Login />} /> */}
 
         <Route
-          path="/home"
+          path="/"
           element={
-            <PrivateRoute>
+            // <PrivateRoute>
               <Home />
-            </PrivateRoute>
+            // </PrivateRoute>
           }
         />
            <Route
           path="/details"
           element={
-            <PrivateRoute>
+            // <PrivateRoute>
               <Details />
-            </PrivateRoute>
+            // </PrivateRoute>
           }
         />
         <Route
           path="/form"
           element={
-            <PrivateRoute>
+            // <PrivateRoute>
               <Forms />
-             </PrivateRoute>
+            //  </PrivateRoute>
           }
         />
         <Route
           path="/formsTwo"
           element={
-             <PrivateRoute>
+            //  <PrivateRoute>
               <FormsTwo />
-             </PrivateRoute>
+            //  </PrivateRoute>
           }
         />
         <Route
           path="/formsTwo/plot"
           element={
-           <PrivateRoute>
+          //  <PrivateRoute>
               <Plots />
-             </PrivateRoute>
+            //  </PrivateRoute>
           }
         />
         <Route
           path="/formsTwo/commercial"
           element={
-            <PrivateRoute>
+            // <PrivateRoute>
               <Commercial />
-            </PrivateRoute>
+            // </PrivateRoute>
           }
         />
         {/* <Route path="*" element={  <PrivateRoute>    <Home />  </PrivateRoute>}/> */}

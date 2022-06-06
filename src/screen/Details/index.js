@@ -115,7 +115,7 @@ const Details = ({ propertyDetail , allPropertiesList ,singleProperty , allPrope
 									<img
 										className="img-fluid w-100"
 										
-				src={singleProperty?.images.length !== 0 ? singleProperty?.images[0] : "https://thumbor.forbes.com/thumbor/fit-in/900x510/https://www.forbes.com/advisor/wp-content/uploads/2021/08/download-23.jpg"}
+				src={singleProperty.images && singleProperty.images.length !== 0 ? singleProperty?.images[0] : "https://thumbor.forbes.com/thumbor/fit-in/900x510/https://www.forbes.com/advisor/wp-content/uploads/2021/08/download-23.jpg"}
 
 										
 										alt="product-img"
@@ -588,7 +588,10 @@ const Details = ({ propertyDetail , allPropertiesList ,singleProperty , allPrope
 					</div>
 					<hr />
 					<div className="row">
+					{paginationData !== undefined && 
+
 						<PaginatedItems itemsPerPage={6} cardDetail={paginationData} type={"details"}/>
+					}
 					</div>
 				</div>
 				{/* <!-- Container End --> */}
