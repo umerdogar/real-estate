@@ -4,12 +4,10 @@ import Notification from "../../components/notification"
 
 
 export const loginUser = (data, navigate) => {
-	
-
 	return (dispatch) => {
 		console.log("property filter")
 		axios
-			.post(`http://52.220.87.52:8000/api/v1/user/login`, data)
+			.post(`http://52.77.156.101:8000/api/v1/user/login`, data)
 			.then((res) => {
 				console.log(" login response....??>>>??>>" ,res)
 				dispatch(
@@ -35,20 +33,27 @@ export const signUpUser = (data, navigate) => {
 	console.log("data input signup", data)
 	return (dispatch) => {
 		console.log("property filter")
+		dispatch({ type: "START_LOADER" , payload:"Signing Up User..."});
 		axios
-			.post(`http://52.220.87.52:8000/api/v1/user/signup`, data)
+			.post(`http://52.77.156.101:8000/api/v1/user/signup`, data)
 			.then((res) => {
 				console.log(res, " signup")
 				dispatch(
 					signUp(res.data)
 				)
 				navigate("/login")
-				Notification("success" , "SignUp Successfull")
+		dispatch({ type: "STOP_LOADER" });
+		Notification("success" , "SignUp Successfull")
+
+
 
 			})
 			.catch((error) => {
 				console.log("error" , error)
-				Notification("error" , "SignUp Failed")
+		dispatch({ type: "STOP_LOADER" });	
+		Notification("error" , "SignUp Failed")
+
+
 
 			})
 	}
@@ -61,7 +66,7 @@ console.log("asd" , token)
 	
 	return (dispatch) => {
 		axios
-			.get(`http://52.220.87.52:8000/api/v1/user/profile` , { headers: {"Authorization" : `Bearer ${token}`} })
+			.get(`http://52.77.156.101:8000/api/v1/user/profile` , { headers: {"Authorization" : `Bearer ${token}`} })
 			.then((res) => {
 				console.log(" myProfile" , res)
 				dispatch(

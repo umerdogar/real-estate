@@ -666,7 +666,9 @@ const FormsTwo = ({
 											<div className="row margin-bottom-15">
 												<div className="col-md-8 col-12">
 													<div className="row">
+														{plotsData !== undefined && 
 						<PaginatedItems itemsPerPage={6} cardDetail={plot} type={"plot"} func = {getPropertyDetail}/>
+					}
 
 													</div>
 												</div>

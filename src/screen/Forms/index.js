@@ -1,13 +1,17 @@
 import React , {useState} from "react"
 import Logo from "../../assets/logo.png"
 import ProfileIcon from "../../assets/profile-icon.png"
-import Input from "../../components/FromInput/Input"
 import { useForm } from "react-hook-form";
 import { useNavigate, Link } from "react-router-dom"
 import PropertyInput from "../../components/FromInput/PropertyInput"
+import {myProfileData} from "../../Redux/Thunk/auth"
+import { connect } from "react-redux"
 
 
-const Form = () => {
+
+
+const Form = ({user}) => {
+	console.log("user" , user)
 	const {
 		register,
 		handleSubmit,
@@ -17,19 +21,66 @@ const Form = () => {
 
 const navigate = useNavigate()
 const [check , setCheck] = useState(false);
-const [feature , setFeature] = useState("");
+const [propertyPurpose , setPropertyPurpose] = useState("");
+const [featuredProperty , setFeaturedProperty] = useState("");
+const [propertyType , setPropertyType] = useState("");
+const [propertySubType , setPropertySubType] = useState("");
+const [propertyLocationType , setPropertyLocationType] = useState("");
+const [status , setStatus] = useState("");
+const [price , setPrice] = useState();
+const [area , setArea] = useState();
+
+
+const [subType , setSubType] = useState([])
+
+const handleCheckProperty = (e) => {
+	if(e.target.checked){
+		subType.push(e.target.value)
+	}
+	else{
+		var newArray =  subType.filter((item)=>
+		{ return item != e.target.value })
+		setSubType(newArray)
+	}
+}
+
+let formData = new FormData();
+
+const handleImage = (e) => {
+	console.log(e.target.files[0])
+	if(e.target && e.target.files[0] ){
+		formData.append('file' , e.target.files[0])
+	}
+	console.log("formdata" , formData)
+}
 
 const handleCheck = (e) => {
 	setCheck(!check)
-	setFeature(e.target.value)
-	console.log("handlecheck" )
+	console.log(e.target.value)
+	{e.target.name == "propertyPurpose" && setPropertyPurpose(e.target.value) }
+	{e.target.name == "featuredProperty" && setFeaturedProperty(e.target.value) }
+	{e.target.name == "propertyType" && setPropertyType(e.target.value) }
+	{e.target.name == "propertySubType" && setPropertySubType(e.target.value) }
+	{e.target.name == "propertyLocationType" && setPropertyLocationType(e.target.value) }
+	{e.target.name == "status" && setStatus(e.target.value) }
+	{e.target.name == "price" && setPrice(parseInt(e.target.value)) }
+	{e.target.name == "area" && setArea(parseInt(e.target.value)) }
+
+
 }
 
-
-console.log("vallll" , feature )
-
 	  const onSubmit = (data) => {
-		  data["purpose"] = feature
+
+		  data["purpose"] = propertyPurpose
+		  data["featured"] = featuredProperty
+		  data["property_type"] = propertyType
+		  data["sub_type"] = propertySubType
+		  data["propertyLocationType"] = propertyLocationType
+		  data["status"] = status
+		  data["property_features"] = subType
+		  data["area"] = area
+		  data["price"] = price
+
 		console.log("data", data)
 	  };
 	return (
@@ -133,7 +184,6 @@ console.log("vallll" , feature )
 													<div className="checkbox-custom checkbox-inline1 checkbox-warning box-color">
 													<label for="buy" className="containerCheckBox" >
 														<input
-														
 															type="radio"
 															id="buy"
 															name="propertyPurpose"
@@ -149,14 +199,13 @@ console.log("vallll" , feature )
 													<div className="checkbox-custom checkbox-inline1 checkbox-warning box-color">
 													<label for="sell" className="containerCheckBox" >
 														<input
-														
 															type="radio"
 															id="sell"
 															name="propertyPurpose"
 															value="sell"
 															onChange={handleCheck}
 														/>
-														 Buy
+														 Sell
 														 <span class="checkmark"></span>
 														</label>
 													</div>
@@ -171,24 +220,32 @@ console.log("vallll" , feature )
 												</div>
 												<div className="col-md-2 col-4 margin-bottom-5">
 													<div className="checkbox-custom checkbox-inline1 checkbox-warning box-color">
+													<label for="hot" className="containerCheckBox" >
 														<input
-															type="checkbox"
-															id="444"
-															name="checkbox"
-															checked=""
+															type="radio"
+															id="hot"
+															name="featuredProperty"
+															value="hot"
+															onChange={handleCheck}
 														/>
-														<label for="444">Hot </label>
+														 Hot
+														 <span class="checkmark"></span>
+														</label>
 													</div>
 												</div>
 												<div className="col-md-2 col-4">
 													<div className="checkbox-custom checkbox-inline1 checkbox-warning box-color">
+													<label for="superHot" className="containerCheckBox" >
 														<input
-															type="checkbox"
-															id="444"
-															name="checkbox"
-															checked=""
+															type="radio"
+															id="superHot"
+															name="featuredProperty"
+															value="superHot"
+															onChange={handleCheck}
 														/>
-														<label for="444">Super Hot </label>
+														 Super Hot
+														 <span class="checkmark"></span>
+														</label>
 													</div>
 												</div>
 											</div>
@@ -200,36 +257,48 @@ console.log("vallll" , feature )
 													<div className="row">
 														<div className="col-md-2 col-3 margin-bottom-5">
 															<div className="checkbox-custom checkbox-inline1 checkbox-warning box-color">
-																<input
-																	type="checkbox"
-																	id="444"
-																	name="checkbox"
-																	checked=""
-																/>
-																<label for="444">Plot </label>
+															<label for="plot" className="containerCheckBox" >
+														<input
+															type="radio"
+															id="plot"
+															name="propertyType"
+															value="plot"
+															onChange={handleCheck}
+														/>
+														Plot
+														 <span class="checkmark"></span>
+														</label>
 															</div>
 														</div>
 
 														<div className="col-md-3 col-5 margin-bottom-5">
 															<div className="checkbox-custom checkbox-inline1 checkbox-warning box-color">
-																<input
-																	type="checkbox"
-																	id="444"
-																	name="checkbox"
-																	checked=""
-																/>
-																<label for="444">Commercial </label>
+															<label for="commercial" className="containerCheckBox" >
+														<input
+															type="radio"
+															id="commercial"
+															name="propertyType"
+															value="commercial"
+															onChange={handleCheck}
+														/>
+														Commercial
+														 <span class="checkmark"></span>
+														</label>
 															</div>
 														</div>
 														<div className="col-md-3 col-5 margin-bottom-5">
 															<div className="checkbox-custom checkbox-inline1 checkbox-warning box-color">
-																<input
-																	type="checkbox"
-																	id="444"
-																	name="checkbox"
-																	checked=""
-																/>
-																<label for="444">Farm House</label>
+															<label for="farmHouse" className="containerCheckBox" >
+														<input
+															type="radio"
+															id="farmHouse"
+															name="propertyType"
+															value="farmHouse"
+															onChange={handleCheck}
+														/>
+														Farm House
+														 <span class="checkmark"></span>
+														</label>
 															</div>
 														</div>
 													</div>
@@ -249,47 +318,66 @@ console.log("vallll" , feature )
 													>
 														<div className="col-md-2 col-3 margin-bottom-5">
 															<div className="checkbox-custom checkbox-inline1 checkbox-warning box-color">
-																<input
-																	type="checkbox"
-																	id="444"
-																	name="checkbox"
-																	checked=""
-																/>
-																<label for="444">File </label>
+															<label for="file" className="containerCheckBox" >
+														<input
+															type="radio"
+															id="file"
+															name="propertySubType"
+															value="file"
+															onChange={handleCheck}
+														/>
+														File
+														 <span class="checkmark"></span>
+														</label>
 															</div>
 														</div>
 
 														<div className="col-md-3 col-5 margin-bottom-5">
 															<div className="checkbox-custom checkbox-inline1 checkbox-warning box-color">
-																<input
-																	type="checkbox"
-																	id="444"
-																	name="checkbox"
-																	checked=""
-																/>
-																<label for="444">Commercial </label>
+															<label for="commercials" className="containerCheckBox" >
+														<input
+															type="radio"
+															id="commercials"
+															name="propertySubType"
+															value="commercial"
+															onChange={handleCheck}
+														/>
+														Commercial
+														 <span class="checkmark"></span>
+														</label>
+														
 															</div>
 														</div>
 														<div className="col-md-3 col-5 margin-bottom-5">
 															<div className="checkbox-custom checkbox-inline1 checkbox-warning box-color">
-																<input
-																	type="checkbox"
-																	id="444"
-																	name="checkbox"
-																	checked=""
-																/>
-																<label for="444">Resident</label>
+															<label for="resident" className="containerCheckBox" >
+														<input
+															type="radio"
+															id="resident"
+															name="propertySubType"
+															value="resident"
+															onChange={handleCheck}
+														/>
+														Resident
+														 <span class="checkmark"></span>
+														</label>
+														
 															</div>
 														</div>
 														<div className="col-md-3 col-5 margin-bottom-5">
 															<div className="checkbox-custom checkbox-inline1 checkbox-warning box-color">
-																<input
-																	type="checkbox"
-																	id="444"
-																	name="checkbox"
-																	checked=""
-																/>
-																<label for="444">Agricultural</label>
+															<label for="agriculture" className="containerCheckBox" >
+														<input
+															type="radio"
+															id="agriculture"
+															name="propertySubType"
+															value="agriculture"
+															onChange={handleCheck}
+														/>
+														Agriculture
+														 <span class="checkmark"></span>
+														</label>
+														
 															</div>
 														</div>
 													</div>
@@ -301,164 +389,129 @@ console.log("vallll" , feature )
 													Property Location
 												</h6>
 											</div>
-											{/* <div
-												className="row"
-												style={{ marginTop: "10px", marginBottom: "10px" }}
-											>
-												<div className="col-md-5 col-3  text-right">
-													<p style={{ marginTop: "15px" }}>Society </p>
-												</div>
-												<div className="col-md-4 col-7 margin-bottom-5">
-													<input
-														type="text"
-														placeholder=""
-														className="border  w-100 my-2 "
-														style={{
-															paddingTop: "8.5px",
-															paddingBottom: "8.5px",
-														}}
-													/>
-												</div>
-											</div> */}
 											   <PropertyInput
                           label={"Society"}
                           type="text"
                         //   placeholder={"password"}
-                          name="passsocietyword"
+                          name="society"
                           validation={{ required: true }}
                           error={errors.password}
                           register={register}
                           errorMessage={"Society Field is Empty"}
-            
                         />
+														   <PropertyInput
+                          label={"Phase"}
+                          type="text"
+                        //   placeholder={"password"}
+                          name="Phase"
+                          validation={{ required: true }}
+                          error={errors.password}
+                          register={register}
+                          errorMessage={"Phase Field is Empty"}
+                        />
+															   <PropertyInput
+                          label={"Block"}
+                          type="text"
+                        //   placeholder={"password"}
+                          name="block"
+                          validation={{ required: true }}
+                          error={errors.password}
+                          register={register}
+                          errorMessage={"Block Field is Empty"}
+                        />
+															   <PropertyInput
+                          label={"Sector"}
+                          type="text"
+                        //   placeholder={"password"}
+                          name="sector"
+                          validation={{ required: true }}
+                          error={errors.password}
+                          register={register}
+                          errorMessage={"Sector Field is Empty"}
+                        />
+															   <PropertyInput
+                          label={"Road"}
+                          type="text"
+                        //   placeholder={"password"}
+                          name="road"
+                          validation={{ required: true }}
+                          error={errors.password}
+                          register={register}
+                          errorMessage={"Road Field is Empty"}
+                        />
+															   <PropertyInput
+                          label={"Street"}
+                          type="text"
+                        //   placeholder={"password"}
+                          name="street"
+                          validation={{ required: true }}
+                          error={errors.password}
+                          register={register}
+                          errorMessage={"Street Field is Empty"}
+                        />
+															   <PropertyInput
+                          label={"Property Num"}
+                          type="text"
+                        //   placeholder={"password"}
+                          name="property_number"
+                          validation={{ required: true }}
+                          error={errors.password}
+                          register={register}
+                          errorMessage={"Property Number Field is Empty"}
+                        />
+
+
+
 											<div
 												className="row"
 												style={{ marginTop: "10px", marginBottom: "10px" }}
 											>
 												<div className="col-md-5 col-3  text-right">
-													<p style={{ marginTop: "15px" }}>Phase </p>
-												</div>
-												<div className="col-md-4 col-7 margin-bottom-5">
-													<input
-														type="text"
-														placeholder=""
-														className="border p-2 w-100 my-2"
-													/>
-												</div>
-											</div>
-											<div
-												className="row"
-												style={{ marginTop: "10px", marginBottom: "10px" }}
-											>
-												<div className="col-md-5 col-3  text-right">
-													<p style={{ marginTop: "15px" }}>Block </p>
-												</div>
-												<div className="col-md-4 col-7 margin-bottom-5">
-													<input
-														type="text"
-														placeholder=""
-														className="border p-2 w-100 my-2"
-													/>
-												</div>
-											</div>
-											<div
-												className="row"
-												style={{ marginTop: "10px", marginBottom: "10px" }}
-											>
-												<div className="col-md-5 col-3  text-right">
-													<p style={{ marginTop: "15px" }}>Sector </p>
-												</div>
-												<div className="col-md-4 col-7 margin-bottom-5">
-													<input
-														type="text"
-														placeholder=""
-														className="border p-2 w-100 my-2"
-													/>
-												</div>
-											</div>
-											<div
-												className="row"
-												style={{ marginTop: "10px", marginBottom: "10px" }}
-											>
-												<div className="col-md-5 col-3  text-right">
-													<p style={{ marginTop: "15px" }}>Road</p>
-												</div>
-												<div className="col-md-4 col-7 margin-bottom-5">
-													<input
-														type="text"
-														placeholder=""
-														className="border p-2 w-100 my-2"
-													/>
-												</div>
-											</div>
-											<div
-												className="row"
-												style={{ marginTop: "10px", marginBottom: "10px" }}
-											>
-												<div className="col-md-5 col-3  text-right">
-													<p style={{ marginTop: "15px" }}>Street </p>
-												</div>
-												<div className="col-md-4 col-7 margin-bottom-5">
-													<input
-														type="text"
-														placeholder=""
-														className="border p-2 w-100 my-2"
-													/>
-												</div>
-											</div>
-											<div
-												className="row"
-												style={{ marginTop: "10px", marginBottom: "10px" }}
-											>
-												<div className="col-md-5 col-3  text-right">
-													<p style={{ marginTop: "15px" }}>Property Number</p>
-												</div>
-												<div className="col-md-4 col-7 margin-bottom-5">
-													<input
-														type="text"
-														placeholder=""
-														className="border p-2 w-100 my-2"
-													/>
-												</div>
-											</div>
-											<div
-												className="row"
-												style={{ marginTop: "10px", marginBottom: "10px" }}
-											>
-												<div className="col-md-5 col-3  text-right">
-													<p style={{ marginTop: "7px" }}>Property</p>
+													<p style={{ marginTop: "7px" }}>Property Type</p>
 												</div>
 												<div className="col-md-2 col-3 margin-bottom-5">
 													<div className="checkbox-custom checkbox-inline1 checkbox-warning box-color">
+															<label for="pair" className="containerCheckBox" >
 														<input
-															type="checkbox"
-															id="444"
-															name="checkbox"
-															checked=""
+															type="radio"
+															id="pair"
+															name="propertyLocationType"
+															value="pair"
+															onChange={handleCheck}
 														/>
-														<label for="444">Pair</label>
+														Pair
+														 <span class="checkmark"></span>
+														</label>
 													</div>
 												</div>
 												<div className="col-md-2 col-3">
 													<div className="checkbox-custom checkbox-inline1 checkbox-warning box-color">
+													<label for="triple" className="containerCheckBox" >
 														<input
-															type="checkbox"
-															id="444"
-															name="checkbox"
-															checked=""
+															type="radio"
+															id="triple"
+															name="propertyLocationType"
+															value="triple"
+															onChange={handleCheck}
 														/>
-														<label for="444">Tripl </label>
+														Tripple
+														 <span class="checkmark"></span>
+														</label>
 													</div>
 												</div>
 												<div className="col-md-2 col-3">
 													<div className="checkbox-custom checkbox-inline1 checkbox-warning box-color">
+													<label for="tetra" className="containerCheckBox" >
 														<input
-															type="checkbox"
-															id="444"
-															name="checkbox"
-															checked=""
+															type="radio"
+															id="tetra"
+															name="propertyLocationType"
+															value="tetra"
+															onChange={handleCheck}
 														/>
-														<label for="444">Tetra</label>
+														Tetra
+														 <span class="checkmark"></span>
+														</label>
 													</div>
 												</div>
 											</div>
@@ -468,121 +521,132 @@ console.log("vallll" , feature )
 													Property Details
 												</h6>
 											</div>
+										
 											<div
 												className="row"
 												style={{ marginTop: "10px", marginBottom: "10px" }}
 											>
 												<div className="col-md-5 col-3  text-right">
-													<p style={{ marginTop: "15px" }}>Property Status </p>
+													<p style={{ marginTop: "7px" }}>Property</p>
 												</div>
-												<div className="col-md-4 col-7 margin-bottom-5">
-													<select className=" form-control p-2 w-100 my-2 border height-45">
-														<option>Active</option>
-														<option value="1">Inactive</option>
-													</select>
-												</div>
-											</div>
-											<div
-												className="row"
-												style={{ marginTop: "10px", marginBottom: "10px" }}
-											>
-												<div className="col-md-5 col-3  text-right">
-													<p style={{ marginTop: "15px" }}>Property Title </p>
-												</div>
-												<div className="col-md-4 col-7 margin-bottom-5">
-													<input
-														type="text"
-														placeholder=""
-														className="border p-2 w-100 my-2"
-													/>
-												</div>
-											</div>
-											<div
-												className="row"
-												style={{ marginTop: "10px", marginBottom: "10px" }}
-											>
-												<div className="col-md-5 col-3  text-right">
-													<p style={{ marginTop: "15px" }}>
-														Property Discreption{" "}
-													</p>
-												</div>
-												<div className="col-md-4 col-7 margin-bottom-5">
-													<input
-														type="text"
-														placeholder=""
-														className="border p-5 w-100 my-2"
-													/>
-												</div>
-											</div>
-											<div
-												className="row"
-												style={{ marginTop: "10px", marginBottom: "10px" }}
-											>
-												<div className="col-md-5 col-3  text-right">
-													<p style={{ marginTop: "15px" }}>Price </p>
-												</div>
-												<div className="col-md-4 col-9 margin-bottom-5">
-													<div className="filter-range">
-														<div className="filter-range-title">
-															<div className="">
-																<label className="min-price">
-																	<input
-																		className="slider-space1"
-																		type="number"
-																		name="min-price"
-																		value="0"
-																	/>
-																</label>
-																<lable className="padding-left-15 ">to</lable>
-																<label className="max-price padding-left-15">
-																	<input
-																		className="slider-space1 align-self-center"
-																		type="number"
-																		name="max-price"
-																		value="0"
-																	/>
-																</label>
-															</div>
-														</div>
+												<div className="col-md-2 col-3 margin-bottom-5">
+													<div className="checkbox-custom checkbox-inline1 checkbox-warning box-color">
+															<label for="active" className="containerCheckBox" >
+														<input
+															type="radio"
+															id="active"
+															name="status"
+															value="active"
+															onChange={handleCheck}
+														/>
+														Active
+														 <span class="checkmark"></span>
+														</label>
 													</div>
 												</div>
+												<div className="col-md-2 col-3">
+													<div className="checkbox-custom checkbox-inline1 checkbox-warning box-color">
+													<label for="inActive" className="containerCheckBox" >
+														<input
+															type="radio"
+															id="inActive"
+															name="status"
+															value="inActive"
+															onChange={handleCheck}
+														/>
+														In Active
+														 <span class="checkmark"></span>
+														</label>
+													</div>
+												</div>
+											
 											</div>
+											<PropertyInput
+                          label={"Property Title"}
+                          type="text"
+                        //   placeholder={"password"}
+                          name="property_title"
+                          validation={{ required: true }}
+                          error={errors.password}
+                          register={register}
+                          errorMessage={"Property Title Field is Empty"}
+                        />
 
-											<div
-												className="row"
-												style={{ marginTop: "10px", marginBottom: "10px" }}
-											>
-												<div className="col-md-5 col-3  text-right">
-													<p style={{ marginTop: "15px" }}>
-														Property Size(Marla){" "}
-													</p>
-												</div>
-												<div className="col-md-4 col-9 margin-bottom-5">
-													<div className="filter-range">
-														<div className="filter-range-title">
-															<div className="">
-																<label className="min-price">
-																	<input
-																		className="slider-space1"
-																		type="number"
-																		name="min-price"
-																		value="0"
-																	/>
-																</label>
-																<lable className="padding-left-15 ">to</lable>
-																<label className="max-price padding-left-15">
-																	<input
-																		className="slider-space1 align-self-center"
-																		type="number"
-																		name="max-price"
-																		value="0"
-																	/>
-																</label>
-															</div>
-														</div>
-													</div>
-												</div>
+<PropertyInput
+                          label={"Property Desc"}
+                          type="text"
+                        //   placeholder={"password"}
+                          name="description"
+                          validation={{ required: true }}
+                          error={errors.password}
+                          register={register}
+                          errorMessage={"Property Description Field is Empty"}
+                        />
+
+											 {/* <PropertyInput
+											 onChange={handleCheck}
+                          label={"Price"}
+                          type="number"
+                        //   placeholder={"password"}
+                          name="price"
+                          validation={{ required: true }}
+                          error={errors.password}
+                          register={register}
+                          errorMessage={"Price Field is Empty"}
+                        /> */}
+						<div
+											className="row"
+											style={{ marginTop: "10px", marginBottom: "10px" }}
+										>
+											<div className="col-md-5 col-3  text-right">
+												<p style={{ marginTop: "15px" }}>
+													Price
+												</p>
 											</div>
+											<div className="col-md-4 col-7 margin-bottom-5" style={{  marginLeft:"17px" }}>
+												<input
+													type="number"
+													onChange={handleCheck}
+													value={price}
+													name="price"
+													placeholder=""
+													className="border p-2 w-100 my-2"
+												/>
+											</div>
+										</div>
+
+										<div
+											className="row"
+											style={{ marginTop: "10px", marginBottom: "10px" }}
+										>
+											<div className="col-md-5 col-3  text-right">
+												<p style={{ marginTop: "15px" }}>
+													Area
+												</p>
+											</div>
+											<div className="col-md-4 col-7 margin-bottom-5" style={{  marginLeft:"17px" }}>
+												<input
+													type="number"
+													name="area"
+													onChange={handleCheck}
+													value={area}
+													placeholder=""
+													className="border p-2 w-100 my-2"
+												/>
+											</div>
+										</div>
+
+{/* <PropertyInput
+
+                          label={"Area"}
+                          type="number"
+                        //   placeholder={"password"}
+                          name="area"
+                          validation={{ required: true }}
+                          error={errors.password}
+                          register={register}
+                          errorMessage={"Area Field is Empty"}
+                        /> */}
 										</div>
 
 										<div className="row" style={{ marginBottom: "10px" }}>
@@ -596,137 +660,185 @@ console.log("vallll" , feature )
 												>
 													<div className="col-md-2 col-3 margin-bottom-5">
 														<div className="checkbox-custom checkbox-inline1 checkbox-warning box-color">
-															<input
-																type="checkbox"
-																id="444"
-																name="checkbox"
-																checked=""
-															/>
-															<label for="444">Gass </label>
+														<label for="gass" className="containerCheckBox" >
+														<input
+															type="checkbox"
+															id="gass"
+															name="propertyLocationType"
+															value="gass"
+															onChange={handleCheckProperty}
+														/>
+														Gass
+														 <span class="checkmark"></span>
+														</label>
 														</div>
 													</div>
 
 													<div className="col-md-3 col-5 margin-bottom-5">
 														<div className="checkbox-custom checkbox-inline1 checkbox-warning box-color">
-															<input
-																type="checkbox"
-																id="444"
-																name="checkbox"
-																checked=""
-															/>
-															<label for="444">Electricity</label>
+														<label for="electricity" className="containerCheckBox" >
+														<input
+															type="checkbox"
+															id="electricity"
+															name="propertyLocationType"
+															value="electricity"
+															onChange={handleCheckProperty}
+														/>
+														Electricity
+														 <span class="checkmark"></span>
+														</label>
 														</div>
 													</div>
 													<div className="col-md-3 col-5 margin-bottom-5">
 														<div className="checkbox-custom checkbox-inline1 checkbox-warning box-color">
-															<input
-																type="checkbox"
-																id="444"
-																name="checkbox"
-																checked=""
-															/>
-															<label for="444">Cornor</label>
+														<label for="corner" className="containerCheckBox" >
+														<input
+															type="checkbox"
+															id="corner"
+															name="propertyLocationType"
+															value="corner"
+															onChange={handleCheckProperty}
+														/>
+														Corner
+														 <span class="checkmark"></span>
+														</label>
 														</div>
 													</div>
 													<div className="col-md-3 col-5 margin-bottom-5">
 														<div className="checkbox-custom checkbox-inline1 checkbox-warning box-color">
-															<input
-																type="checkbox"
-																id="444"
-																name="checkbox"
-																checked=""
-															/>
-															<label for="444">Near Masjid</label>
+														<label for="nearMasjid" className="containerCheckBox" >
+														<input
+															type="checkbox"
+															id="nearMasjid"
+															name="propertyLocationType"
+															value="nearMasjid"
+															onChange={handleCheckProperty}
+														/>
+														Near Masjid
+														 <span class="checkmark"></span>
+														</label>
 														</div>
 													</div>
 													<div className="col-md-2 col-3 margin-bottom-5">
 														<div className="checkbox-custom checkbox-inline1 checkbox-warning box-color">
-															<input
-																type="checkbox"
-																id="444"
-																name="checkbox"
-																checked=""
-															/>
-															<label for="444">Lawn </label>
+														<label for="lawn" className="containerCheckBox" >
+														<input
+															type="checkbox"
+															id="lawn"
+															name="propertyLocationType"
+															value="lawn"
+															onChange={handleCheckProperty}
+														/>
+														Lawn
+														 <span class="checkmark"></span>
+														</label>
 														</div>
 													</div>
 
 													<div className="col-md-3 col-5 margin-bottom-5">
 														<div className="checkbox-custom checkbox-inline1 checkbox-warning box-color">
-															<input
-																type="checkbox"
-																id="444"
-																name="checkbox"
-																checked=""
-															/>
-															<label for="444">Near School</label>
+														<label for="nearSchool" className="containerCheckBox" >
+														<input
+															type="checkbox"
+															id="nearSchool"
+															name="propertyLocationType"
+															value="nearSchool"
+															onChange={handleCheckProperty}
+														/>
+														Near School
+														 <span class="checkmark"></span>
+														</label>
 														</div>
 													</div>
 													<div className="col-md-3 col-5 margin-bottom-5">
 														<div className="checkbox-custom checkbox-inline1 checkbox-warning box-color">
-															<input
-																type="checkbox"
-																id="444"
-																name="checkbox"
-																checked=""
-															/>
-															<label for="444">Tv Lounge</label>
+														<label for="tvLounge" className="containerCheckBox" >
+														<input
+															type="checkbox"
+															id="tvLounge"
+															name="propertyLocationType"
+															value="tvLounge"
+															onChange={handleCheckProperty}
+														/>
+														TV Lounge
+														 <span class="checkmark"></span>
+														</label>
 														</div>
 													</div>
 													<div className="col-md-3 col-5 margin-bottom-5">
 														<div className="checkbox-custom checkbox-inline1 checkbox-warning box-color">
-															<input
-																type="checkbox"
-																id="444"
-																name="checkbox"
-																checked=""
-															/>
-															<label for="444">Near Market</label>
+														<label for="nearMarket" className="containerCheckBox" >
+														<input
+															type="checkbox"
+															id="nearMarket"
+															name="propertyLocationType"
+															value="nearMarket"
+															onChange={handleCheckProperty}
+														/>
+														Near Market
+														 <span class="checkmark"></span>
+														</label>
 														</div>
 													</div>
 													<div className="col-md-2 col-3 margin-bottom-5">
 														<div className="checkbox-custom checkbox-inline1 checkbox-warning box-color">
-															<input
-																type="checkbox"
-																id="444"
-																name="checkbox"
-																checked=""
-															/>
-															<label for="444">Pool </label>
+														<label for="pool" className="containerCheckBox" >
+														<input
+															type="checkbox"
+															id="pool"
+															name="propertyLocationType"
+															value="pool"
+															onChange={handleCheckProperty}
+														/>
+														Pool
+														 <span class="checkmark"></span>
+														</label>
 														</div>
 													</div>
 
 													<div className="col-md-3 col-5 margin-bottom-5">
 														<div className="checkbox-custom checkbox-inline1 checkbox-warning box-color">
-															<input
-																type="checkbox"
-																id="444"
-																name="checkbox"
-																checked=""
-															/>
-															<label for="444">Balcony</label>
+														<label for="balcony" className="containerCheckBox" >
+														<input
+															type="checkbox"
+															id="balcony"
+															name="propertyLocationType"
+															value="balcony"
+															onChange={handleCheckProperty}
+														/>
+														Balcony
+														 <span class="checkmark"></span>
+														</label>
 														</div>
 													</div>
 													<div className="col-md-3 col-5 margin-bottom-5">
 														<div className="checkbox-custom checkbox-inline1 checkbox-warning box-color">
-															<input
-																type="checkbox"
-																id="444"
-																name="checkbox"
-																checked=""
-															/>
-															<label for="444">Kitchen</label>
+														<label for="kitchen" className="containerCheckBox" >
+														<input
+															type="checkbox"
+															id="kitchen"
+															name="propertyLocationType"
+															value="kitchen"
+															onChange={handleCheckProperty}
+														/>
+														Kitchen
+														 <span class="checkmark"></span>
+														</label>
 														</div>
 													</div>
 													<div className="col-md-3 col-5 margin-bottom-5">
 														<div className="checkbox-custom checkbox-inline1 checkbox-warning box-color">
-															<input
-																type="checkbox"
-																id="444"
-																name="checkbox"
-																checked=""
-															/>
-															<label for="444">Near Park</label>
+														<label for="nearPark" className="containerCheckBox" >
+														<input
+															type="checkbox"
+															id="nearPark"
+															name="propertyLocationType"
+															value="nearPark"
+															onChange={handleCheckProperty}
+														/>
+														Near Park
+														 <span class="checkmark"></span>
+														</label>
 														</div>
 													</div>
 												</div>
@@ -748,6 +860,7 @@ console.log("vallll" , feature )
 											<div className="col-md-4 col-7 margin-bottom-5">
 												<input
 													type="text"
+													value={user.name}
 													placeholder=""
 													className="border p-2 w-100 my-2"
 												/>
@@ -764,6 +877,7 @@ console.log("vallll" , feature )
 												<input
 													type="text"
 													placeholder=""
+													value={user.email}
 													className="border p-2 w-100 my-2"
 												/>
 											</div>
@@ -779,6 +893,7 @@ console.log("vallll" , feature )
 												<input
 													type="text"
 													placeholder=""
+													value={"Property Chowk"}
 													className="border p-2 w-100 my-2"
 												/>
 											</div>
@@ -793,6 +908,7 @@ console.log("vallll" , feature )
 											<div className="col-md-4 col-7 margin-bottom-5">
 												<input
 													type="text"
+													value={user.phone}
 													placeholder=""
 													className="border p-2 w-100 my-2"
 												/>
@@ -810,6 +926,7 @@ console.log("vallll" , feature )
 											<div className="col-md-4 col-7 margin-bottom-5">
 												<input
 													type="text"
+													value="none"
 													placeholder=""
 													className="border p-2 w-100 my-2"
 												/>
@@ -820,6 +937,9 @@ console.log("vallll" , feature )
 											<h6 style={{ color: "white", margin: "0px" }}>
 												Add Images
 											</h6>
+										</div>
+										<div className="bg-blue padding-15">
+											<input type= "file" name="file_upload" onChange={handleImage}/>
 										</div>
 										<div
 											className="buy d-flex  align-items-center"
@@ -879,4 +999,20 @@ console.log("vallll" , feature )
 	)
 }
 
-export default Form
+
+
+const mapStateToProps = (state) => {
+  let {user} = state.authReducer.user
+
+	return {
+    user,
+
+	}
+}
+const mapDispatchToProps = (dispatch) => {
+	return {
+    myProfileData: () => {dispatch(myProfileData())}
+	}
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Form)

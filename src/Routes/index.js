@@ -25,9 +25,9 @@ const Routing = () => {
         <Route
           path="/home"
           element={
-            // <PrivateRoute>
+            <PrivateRoute>
               <Home />
-            // </PrivateRoute>
+            </PrivateRoute>
           }
         />
            <Route
@@ -41,25 +41,25 @@ const Routing = () => {
         <Route
           path="/form"
           element={
-            // <PrivateRoute>
+            <PrivateRoute>
               <Forms />
-            // </PrivateRoute>
+             </PrivateRoute>
           }
         />
         <Route
           path="/formsTwo"
           element={
-            // <PrivateRoute>
+             <PrivateRoute>
               <FormsTwo />
-            // </PrivateRoute>
+             </PrivateRoute>
           }
         />
         <Route
           path="/formsTwo/plot"
           element={
-            // <PrivateRoute>
+           <PrivateRoute>
               <Plots />
-            // </PrivateRoute>
+             </PrivateRoute>
           }
         />
         <Route
@@ -76,16 +76,8 @@ const Routing = () => {
   );
 };
 
-const mapStateToProps = (state) => {
-  // let { token } = state.authReducer.user
-  // console.log("login reducer from asdfasdfadfadfasd", token)
-  return {};
-};
 
-// const mapDispatchToProps = {
 
-// };
+export default Routing
 
-// export default Routing
 
-export default connect(mapStateToProps)(Routing);

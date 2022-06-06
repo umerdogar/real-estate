@@ -23,6 +23,16 @@ import Loader from "../../components/Loader"
 import {myProfileData} from "../../Redux/Thunk/auth"
 
 
+import { makeStyles } from '@material-ui/core/styles';
+import Popover from '@material-ui/core/Popover';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+
+const useStyles = makeStyles((theme) => ({
+  typography: {
+    padding: theme.spacing(2),
+  },
+}));
 
 const Home = ({
 	popularCity,
@@ -32,9 +42,27 @@ const Home = ({
 	CarouselDataMaping,
 	Carousel_Data,
   myProfileData,
-  user,
+  // user,
   PageRefresh
 }) => {
+
+
+  const classes = useStyles();
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const open = Boolean(anchorEl);
+  const id = open ? 'simple-popover' : undefined;
+
+
+
 	let navigate = useNavigate()
 	var settings = {
 		dots: true,
@@ -74,6 +102,10 @@ const Home = ({
     myProfileData()
 	}, [])
 
+  const Clear = ()=>{
+    window.localStorage.clear()
+    window.location.reload()
+  }
   const handleSearchHomeCity = (e) => {
     setSearchHome({
       ...searchHome,
@@ -144,8 +176,8 @@ const Home = ({
 	}
 
 
-const role = user?.role;
-console.log( "myprofile from comp roleeeee" , role)
+// const role = user?.role;
+// console.log( "myprofile from comp roleeeee" , role)
 
 
   return (
@@ -210,7 +242,9 @@ console.log( "myprofile from comp roleeeee" , role)
                       </Link>
                     </li>
                   </ul>
-                  {role == "Dealer" && <ul className="navbar-nav   mt-10">
+                  {/* {role == "Dealer" && <ul className="navbar-nav   mt-10"> */}
+                  {<ul className="navbar-nav   mt-10">
+
                     <li className="nav-item">
                       <a
                         className="nav-link text-white add-button"
@@ -228,7 +262,24 @@ console.log( "myprofile from comp roleeeee" , role)
                         className="profile-icon"
                         src={ProfileIcon}
                         alt="product-img"
+                        aria-describedby={id} variant="contained" color="primary" onClick={handleClick}
                       />
+                       <Popover
+        id={id}
+        open={open}
+        anchorEl={anchorEl}
+        onClose={handleClose}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'center',
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'center',
+        }}
+      >
+        <Typography className={classes.typography} onClick={()=>Clear()}>LogOut</Typography>
+      </Popover>
                     </li>
                   </ul>}
                 </div>
@@ -863,12 +914,12 @@ const mapStateToProps = (state) => {
 	let PageRefresh = state.PageRefresherReducer.PageRefresher
 	let { popularCities } = state.popularCitiesReducers
 	let { Carousel_Data } = state.popularCitiesReducers
-  let {user} = state.authReducer.user
+  // let {user} = state.authReducer.user
 	console.log("mapstate.....", state)
 	return {
 		popularCities,
 		Carousel_Data,
-    user,
+    // user,
     PageRefresh
 	}
 }

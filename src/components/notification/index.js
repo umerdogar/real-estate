@@ -13,13 +13,8 @@ import { toast } from 'react-toastify';
        }
        const message =  (
         <div className="notification">
-            {/* <img className='icon' src={icons[type]} alt="icon" /> */}
-            {type == "error" && <ErrorIcon fontSize="large"/>}
-            {/* {type == "success" && <CheckCircleIcon fontSize="large" />} */}
-            {type == "success" && <CheckCircleIcon fontSize="large" />}
-
-           
-
+            {type == "error" && <ErrorIcon fontSize="large" style={{ fill: '#FF0000' }}/>}
+            {type == "success" && <CheckCircleIcon fontSize="large" style={{ fill: '#00FF00' }}/>}
             <p className='message'>{notify}</p>
         </div>
       )

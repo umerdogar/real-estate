@@ -11,7 +11,7 @@ export const popularCityStat = () => {
 	return (dispatch) => {
 		// console.log("GetUsers dispatch");
 		axios
-			.get(`http://52.220.87.52:8000/api/v1/property/popular/city`)
+			.get(`http://52.77.156.101:8000/api/v1/property/popular/city`)
 			.then((res) => {
 
 				dispatch(popularCity(res.data))
@@ -27,7 +27,7 @@ export const popularCityStat = () => {
 export const plotsDataFetch = () => {
 	return (dispatch) => {
 		axios
-			.get(`http://52.220.87.52:8000/api/v1/property/plot`)
+			.get(`http://52.77.156.101:8000/api/v1/property/plot`)
 			.then((res) => {
 				dispatch(plotsData(res.data))
 			})
@@ -40,7 +40,7 @@ export const plotsDataFetch = () => {
 export const commercialDataFetch = () => {
 	return (dispatch) => {
 		axios
-			.get(`http://52.220.87.52:8000/api/v1/property/home`)
+			.get(`http://52.77.156.101:8000/api/v1/property/home`)
 			.then((res) => {
 				dispatch(commercialData(res.data))
 			})
@@ -53,7 +53,7 @@ export const commercialDataFetch = () => {
 export const CarouselData = () => {
 	return (dispatch) => {
 		axios
-			.get(`http://52.220.87.52:8000/api/v1/admin/titanium-expert`)
+			.get(`http://52.77.156.101:8000/api/v1/admin/titanium-expert`)
 			.then((res) => {
 				dispatch(CarouselDataAction(res.data))
 				console.log("Get popular city from thunk CarouselData", res.data)

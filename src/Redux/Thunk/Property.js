@@ -12,14 +12,11 @@ import 'react-toastify/dist/ReactToastify.css';
 // import { useNavigate } from "react-router-dom";
 
 export const allPropertiesList = () => {
-	// console.log("loginUserTWo")
 	return (dispatch) => {
 		console.log("property dispatch")
 		axios
-			.get(`http://52.220.87.52:8000/api/v1/property`)
+			.get(`http://52.77.156.101:8000/api/v1/property`)
 			.then((res) => {
-				alert("asdfa")
-				toast.success("MY SUCCESS")
 				dispatch(allProperties(res.data))
 				console.log("Get all property thunk", res.data)
 			})
@@ -33,7 +30,7 @@ export const filterSingleProperty = (data, navigate, PageRerender) => {
 return (dispatch) => {
 		console.log("property filter")
 		axios
-			.post(`http://52.220.87.52:8000/api/v1/property/filter`, data)
+			.post(`http://52.77.156.101:8000/api/v1/property/filter`, data)
 			.then((res) => {
 				// dispatch(()=>{startLoader("hello")})
 				dispatch(
@@ -57,7 +54,7 @@ export const singlePropertyDetail = (id, navigate) => {
 
 	return (dispatch) => {
 		axios
-			.get(`http://52.220.87.52:8000/api/v1/property/${id}`)
+			.get(`http://52.77.156.101:8000/api/v1/property/${id}`)
 			.then((res) => {
 				dispatch(propertyDetail(res.data))
 				navigate("/details")
@@ -72,7 +69,7 @@ export const singlePropertyDetail = (id, navigate) => {
 export const allPropertiesDealerList = () => {
 	return (dispatch) => {
 		axios
-			.get(`http://52.220.87.52:8000/api/v1/dealer/property`)
+			.get(`http://52.77.156.101:8000/api/v1/dealer/property`)
 			.then((res) => {
 				dispatch(allPropertiesOfDealer(res.data))
 			})
