@@ -42,7 +42,7 @@ const Home = ({
 	CarouselDataMaping,
 	Carousel_Data,
   myProfileData,
-  // user,
+  user,
   PageRefresh
 }) => {
 
@@ -176,8 +176,8 @@ const Home = ({
 	}
 
 
-// const role = user?.role;
-// console.log( "myprofile from comp roleeeee" , role)
+const role = user?.role;
+console.log( "myprofile from comp roleeeee" , role)
 
 
   return (
@@ -243,7 +243,7 @@ const Home = ({
                     </li>
                   </ul>
                   {/* {role == "Dealer" && <ul className="navbar-nav   mt-10"> */}
-                  {<ul className="navbar-nav   mt-10">
+                  { role == "Dealer" && <ul className="navbar-nav   mt-10">
 
                     <li className="nav-item">
                       <a
@@ -914,12 +914,12 @@ const mapStateToProps = (state) => {
 	let PageRefresh = state.PageRefresherReducer.PageRefresher
 	let { popularCities } = state.popularCitiesReducers
 	let { Carousel_Data } = state.popularCitiesReducers
-  // let {user} = state.authReducer.user
-	console.log("mapstate.....", state)
+  let {user} = state.authReducer.user
+	console.log("mapstate.....", user)
 	return {
 		popularCities,
 		Carousel_Data,
-    // user,
+    user,
     PageRefresh
 	}
 }
