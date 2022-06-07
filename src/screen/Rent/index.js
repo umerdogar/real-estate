@@ -34,6 +34,7 @@ const FormsTwo = ({
 	useEffect(() => {
 		// plotsDataFetch()
         allRentProperties()
+		console.log("all rent properties")
 	}, [])
 
 	window.onpopstate = () => {
@@ -46,8 +47,10 @@ const FormsTwo = ({
 		singlePropertyDetail(id, navigate)
 		console.log("func caleeeed plots")
 	}
-	const rentProperty =  rentPropertyList?.data
+	const rentProperty = rentPropertyList && rentPropertyList.data
 	console.log("propertyDetail in FormsTwo data===", rentPropertyList && rentPropertyList)
+	console.log("asfadfadad in FormsTwo data===", rentProperty && rentProperty)
+
 
 
 	return (

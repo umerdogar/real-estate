@@ -31,9 +31,9 @@ export const allPropertiesList = () => {
 
 export const filterSingleProperty = (data, navigate, PageRerender) => {	
 return (dispatch) => {
-		console.log("property filter")
+		console.log("property filter ???????????????" , data)
 		axios
-			.post(`http://52.77.156.101:8000/api/v1/property/filter`, data)
+			.get(`http://52.77.156.101:8000/api/v1/property/ad/properties?${data}`)
 			.then((res) => {
 				// dispatch(()=>{startLoader("hello")})
 				dispatch(
@@ -45,7 +45,7 @@ return (dispatch) => {
 				)
 			
 				navigate("/formsTwo")
-				dispatch(()=>{stopLoader()})
+				// dispatch(()=>{stopLoader()})
 
 			})
 			.catch((error) => {

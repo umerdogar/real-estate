@@ -6,6 +6,9 @@ import Notification from "../../components/notification"
 export const loginUser = (data, navigate) => {
 	return (dispatch) => {
 		console.log("property filter")
+		
+		dispatch({ type: "START_LOADER" , payload:"Logging Up User..."});
+
 		axios
 			.post(`http://52.77.156.101:8000/api/v1/user/login`, data)
 			.then((res) => {
@@ -15,15 +18,19 @@ export const loginUser = (data, navigate) => {
 					localStorage.setItem("token" , res.data.token)
 				)
 				navigate("/")
-				Notification("success" , "Login Successfull")
+		dispatch({ type: "STOP_LOADER" });
+		Notification("success" , "Login Successfull")
 
+			    
 			})
 			.catch((error) => {
 				console.log(" errorr response" , error.message)
 				dispatch(
 					login("error")
 				)
+		dispatch({ type: "STOP_LOADER" });
 				Notification("error" , "Login Failed")
+
 
 			})
 	}

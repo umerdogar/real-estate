@@ -126,14 +126,14 @@ const Home = ({
 	console.log("thisi is city", popularCities && popularCities[0].image)
 	// console.log(searchHome, "searchHome")
 	const [searchHome, setSearchHome] = useState({
-		city: "islamabad",
+		city: "Islamabad",
 		society: "",
 		minPrice: null,
 		maxPrice: null,
 		minArea: null,
 		maxArea: null,
 		rooms: 1,
-		type: "home",
+		type: "Home",
 	})
 
 	// const [slides, setSlides] = useState([1, 2, 3, 4, 5, 6])
@@ -223,7 +223,7 @@ const Home = ({
 	const handlePost = (e) => {
 		e.preventDefault()
 		console.log("search home ", searchHome)
-		filterProperty(searchHome, navigate, PageRerender)
+		filterProperty(`city?${searchHome.city}&society?${searchHome.society}&minPrice?${searchHome.minPrice}&maxPrice?${searchHome.maxPrice}&minArea?${searchHome.minArea}&maxArea?${searchHome.maxArea}&rooms?${searchHome.rooms}&type?${searchHome.type}`, navigate, PageRerender)
 	}
 
 
@@ -333,7 +333,7 @@ console.log( "myprofile from comp roleeeee" , role)
           horizontal: 'center',
         }}
       >
-      {user ? <Typography className={classes.typography} onClick={()=>Clear()}>LogOut</Typography>
+      {user && user.token ? <Typography className={classes.typography} onClick={()=>Clear()}>LogOut</Typography>
 :
         <Typography className={classes.typography} onClick={handleOpenModal}>Login</Typography>}
       </Popover>
@@ -374,9 +374,15 @@ console.log( "myprofile from comp roleeeee" , role)
                           <li className="active">
                             <a>Home</a>
                           </li>
+                          
                           <li>
-                            <a href="property/sell">Sell</a>
+                            <a href="property/sell" >Sell</a>                 
                           </li>
+                            {/* <Link to="property/sell" state={{ quer: "Name" }}>
+												<a >
+													RENT
+												</a>
+											</Link> */}
                           <li>
                             <a href="property/rent">Rent</a>
                           </li>
@@ -392,8 +398,8 @@ console.log( "myprofile from comp roleeeee" , role)
                                 value={searchHome.city}
                                 onChange={handleSearchHomeCity}
                               >
-                                <option value="islamabad">Islamabad</option>
-                                <option value="rawalpindi">Rawalpindi</option>
+                                <option value="Islamabad">Islamabad</option>
+                                <option value="Rawalpindi">Rawalpindi</option>
                                 <option value="Lahore">Lahore</option>
                                 <option value="Karachi">Karachi</option>
                               </select>
@@ -995,6 +1001,7 @@ const mapDispatchToProps = (dispatch) => {
 		popularCity: () => dispatch(popularCityStat()),
 		filterProperty: (searchHome, navigate, PageRerender) =>
 			dispatch(filterSingleProperty(searchHome, navigate, PageRerender)),
+
 		PageRefresher: (response) => {
 			dispatch(PageRefresherAction(response))
 		},

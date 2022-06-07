@@ -35,15 +35,9 @@ const FormsTwo = ({
 	console.log(props, "Props from Home")
 	let navigate = useNavigate()
 	const [allProperty, setAllProperty] = useState()
-	const cardData = propertyDetail?.data
-	console.log("propertyDetail in FormsTwo", propertyDetail)
+	const cardData = propertyDetail
+	console.log("propertyDetail in FormsTwo", cardData)
 
-	let { type } = useParams()
-	// const location = useLocation()
-	// const productId = location.pathname.split("/")[2]
-	// console.log("type", productId)
-	// console.log("plots data from comp", plotsData && plotsData)
-	// console.log("commercial data from comp", commercialData && commercialData)
 
 	const plot = plotsData?.property
 	const commercial = commercialData?.property
@@ -679,11 +673,13 @@ const FormsTwo = ({
 											<div className="row margin-bottom-15">
 												<div className="col-md-8 col-12">
 													<div className="row">
-														{cardData.length !== 0 ? 
+														{cardData != undefined &&
 						<PaginatedItems itemsPerPage={6} cardDetail={cardData} type={"allProperties"} func = {getPropertyDetail}/>
-						:
-						<p style={{fontSize : "40px" , display :"flex" , marginTop:"50px"}}>No Data Available for this search</p>
+						// :
+
 					}
+
+					{/* {cardData.length == 0 && <p style={{fontSize : "40px" , display :"flex" , marginTop:"50px" , marginLeft:"50px"}}>No Data Available for this search</p>} */}
 							
 
 													</div>

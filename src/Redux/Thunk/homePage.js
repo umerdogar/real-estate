@@ -7,16 +7,12 @@ import Notification from "../../components/notification"
 
 
 export const popularCityStat = () => {
-	// console.log("loginUserTWo")
 	return (dispatch) => {
-		// console.log("GetUsers dispatch");
 		axios
 			.get(`http://52.77.156.101:8000/api/v1/property/popular/city`)
 			.then((res) => {
 
 				dispatch(popularCity(res.data))
-				console.log("Get popular city from thunk", res.data)
-				Notification("success" , "hello")
 			})
 			.catch((error) => {
 				console.log("error")

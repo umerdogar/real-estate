@@ -55,6 +55,7 @@ const Login = ({login , loginUser , user}) => {
   };
 
   const handleCloseModal = () => {
+    console.log("asdfaf")
     setOpenModal(false);
   };
 
@@ -81,15 +82,14 @@ const Login = ({login , loginUser , user}) => {
   } = useForm();
 
   const onSubmit = (data) => {
+    // setOpenModal(false);
     console.log("data", data)
     loginUser(data , navigate)
-    setOpenModal(false);
     console.log("asas" , openModal)
 
   };
 
-  useEffect(() => {
-  }, []);
+
 
   return (
     <>
@@ -126,7 +126,7 @@ const Login = ({login , loginUser , user}) => {
                         //     pattern: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,15}$/
                         // })}
                         />
-          <button className="login-button">
+          <button className="login-button" onClick={()=>{handleCloseModal()}}>
             LOGIN
           </button>
           {user == "error" && <a className="login-error">Email or Password is Incorrect</a>}
