@@ -52,7 +52,7 @@ const FormsTwo = ({
 				<div className="row">
 					<div className="col-md-12">
 						<nav className="navbar navbar-expand-lg navbar-light navigation">
-							<a className="navbar-brand" href="index.html">
+							<a className="navbar-brand" href="/">
 								<img src={Logo} alt="" />
 							</a>
 							<button

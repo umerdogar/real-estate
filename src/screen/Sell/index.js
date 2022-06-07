@@ -4,8 +4,8 @@ import ProfileIcon from "../../assets/profile-icon.png"
 import Image1 from "../../assets/image-1.png"
 import Footer from "../../components/Footer"
 import {
-	allPropertiesList,
 	singlePropertyDetail,
+	allSellProperties
 } from "../../Redux/Thunk/Property"
 import { connect, createDispatchHook } from "react-redux"
 import propertyReducer from "../../Redux/Reducers/propertyReducer"
@@ -14,42 +14,36 @@ import { plotsDataFetch, commercialDataFetch } from "../../Redux/Thunk/homePage"
 import PaginatedItems from "../../components/Pagination/PaginatedItems"
 
 
+// import { useLocation } from "react-router-dom"
 const FormsTwo = ({
-	allProperties,
-	propertyDetail,
 	plotsDataFetch,
-	commercialDataFetch,
 	plotsData,
-	commercialData,
 	singlePropertyDetail,
 	PageRefresh,
+	props,
+	allSellProperties,
+	sellPropertyList
+
 }) => {
 	let navigate = useNavigate()
-	const [allProperty, setAllProperty] = useState()
-	const cardData = propertyDetail?.data
-
-	const commercial = commercialData?.property && commercialData?.property
-
-	window.onpopstate = () => {
-		console.log("On pop stae")
-		PageRefresh()
-	}
-
-	window.onpopstate = () => {
-		console.log("On pop stae")
-		PageRefresh()
-	}
-
 	useEffect(() => {
-		console.log("commercial componoent api")
-		commercialDataFetch()
+		allSellProperties()
 	}, [])
 
-	const getPropertyDetail = (id) => {
-		console.log("id from func", id)
-		singlePropertyDetail(id, navigate)
-		console.log("func caleeeed")
+	window.onpopstate = () => {
+		console.log("On pop stae")
+		PageRefresh()
 	}
+
+	const getPropertyDetail = (id) => {
+		console.log("id from func plots", id)
+		singlePropertyDetail(id, navigate)
+		console.log("func caleeeed plots")
+	}
+	const plot = sellPropertyList?.data
+	console.log("propertyDetail in FormsTwo data===", plot && plot)
+
+
 	return (
 		<>
 			<div className="container">
@@ -93,6 +87,8 @@ const FormsTwo = ({
 											href=""
 											onClick={() => {
 												navigate("/formsTwo/plot")
+												PageRefresh()
+
 											}}
 										>
 											Plot
@@ -104,6 +100,8 @@ const FormsTwo = ({
 											href=""
 											onClick={() => {
 												navigate("/formsTwo/commercial")
+												PageRefresh()
+
 											}}
 										>
 											Commercial
@@ -113,9 +111,9 @@ const FormsTwo = ({
 										<a
 											className="nav-link"
 											href="#"
-											// onClick={() => {
-											// 	navigate("/formsTwo")
-											// }}
+											onClick={() => {
+												navigate("/formsTwo")
+											}}
 										>
 											Rent
 										</a>
@@ -666,168 +664,10 @@ const FormsTwo = ({
 											<div className="row margin-bottom-15">
 												<div className="col-md-8 col-12">
 													<div className="row">
-													{commercial !== undefined && 
+														{plotsData !== undefined && 
+						<PaginatedItems itemsPerPage={6} cardDetail={plot} type={"plot"} func = {getPropertyDetail}/>
+					}
 
-						<PaginatedItems itemsPerPage={6} cardDetail={commercial} type={"commercial"} func={getPropertyDetail}/>
-													}
-														{/* {commercial &&
-															commercial?.map((card) => (
-																<div className="col-md-4 margin-top-15 margin-bottom-15">
-																	<div className="card">
-																		<img
-																			className="card-img"
-																			src={card.image}
-																			alt="Vans"
-																		/>
-																		<div
-																			className="card-img-overlay  "
-																			style={{ padding: "0rem" }}
-																			onClick={() => {
-																				alert("asdf")
-																			}}
-																		>
-																			<a
-																				href="#"
-																				className="btn-small btn-danger mt-3"
-																				style={{ display: "inline" }}
-																			>
-																				{" "}
-																				{card?.propertyType?.featured}
-																			</a>
-																		</div>
-																		<div className=" d-flex ">
-																			<a
-																				href="#"
-																				className="btn-small btn-danger "
-																				style={{ marginTop: "-33px" }}
-																			>
-																				{" "}
-																				<span className="">
-																					{card?.rooms}
-																				</span>{" "}
-																				<i className="ri-camera-line"></i>
-																			</a>
-																		</div>
-																		<div className="card-img-overlay d-flex justify-content-end">
-																			<a
-																				href="#"
-																				className="card-link text-danger like"
-																			>
-																				<i className="ri-heart-line"></i>
-																			</a>
-																		</div>
-
-																		<div className="text-center">
-																			<a
-																				// href=""
-																				// className="btn-small btn-primary mt-3"
-																				className="stretched-link btn-small btn-primary mt-3"
-																				onClick={() => {
-																					getPropertyDetail(card?._id)
-																				}}
-																			>
-																				Detailss
-																			</a>
-																		</div>
-																		<div className="card-body">
-																			<h4 className="card-title">
-																				PKR 2.50 Crore
-																			</h4>
-																			<h6 className="card-subtitle mb-2 text-muted">
-																				I-8 Islamabad
-																			</h6>
-																			<ul className="list-inline margin-top-25">
-																				<li className="list-inline-item margin-right-5">
-																					<a>
-																						<i className="ri-hotel-bed-line"></i>
-																						<span className="margin-left-5 ">
-																							4
-																						</span>{" "}
-																					</a>
-																				</li>
-																				<li className="list-inline-item margin-right-5">
-																					<a>
-																						<i className="ri-heavy-showers-line"></i>{" "}
-																						<span className="margin-left-5 ">
-																							3
-																						</span>
-																					</a>
-																				</li>
-																				<li className="list-inline-item margin-right-5">
-																					<a>
-																						<i className="ri-fullscreen-fill"></i>
-																						<span className="margin-left-5 ">
-																							5987 sqft
-																						</span>
-																					</a>
-																				</li>
-																			</ul>
-																			<div
-																				className="card-img-overlay  "
-																				style={{
-																					padding: "0rem",
-																				}}
-																			>
-																				<a
-																					onClick={() => {
-																						navigate("/details")
-																					}}
-																					href="#"
-																					className="btn-small btn-primary mt-3"
-																				>
-																					{" "}
-																					Call
-																				</a>
-																				<a
-																					href="#"
-																					className="btn-small btn-primary mt-3"
-																				>
-																					{" "}
-																					Email
-																				</a>
-																			</div>
-																		</div>
-																	</div>
-																</div>
-															))} */}
-														
-{/* 
-														<div className="col-md-12 margin-top-30">
-															<nav aria-label="Page navigation example ">
-																<ul className="pagination justify-content-center">
-																	<li className="page-item active">
-																		<a className="page-link" href="#">
-																			1
-																		</a>
-																	</li>
-																	<li className="page-item">
-																		<a className="page-link" href="#">
-																			2
-																		</a>
-																	</li>
-																	<li className="page-item">
-																		<a className="page-link" href="#">
-																			3
-																		</a>
-																	</li>
-																	<li className="page-item">
-																		<a className="page-link" href="#">
-																			4
-																		</a>
-																	</li>
-																	<li className="page-item">
-																		<a className="page-link" href="#">
-																			5
-																		</a>
-																	</li>
-																	<li className="page-item">
-																		<a className="page-link" href="#">
-																			6
-																		</a>
-																	</li>
-																</ul>
-															</nav>
-														</div> */}
 													</div>
 												</div>
 												<div className="col-md-4 col-12">
@@ -883,25 +723,22 @@ const FormsTwo = ({
 }
 
 const mapStateToProps = (state) => {
-	let { propertyDetail } = state.propertyReducer
-	let { plotsData, commercialData } = state.popularCitiesReducers
 	let PageRefresh = state.PageRefresherReducer.PageRefresher
+	console.log(PageRefresh, "PageRefresh in Plots")
+	let { sellPropertyList } = state.propertyReducer
 
 	console.log("full state", state)
 	return {
-		propertyDetail,
-		plotsData,
-		commercialData,
+		sellPropertyList,
 		PageRefresh,
 	}
 }
 const mapDispatchToProps = (dispatch) => {
 	return {
+		allSellProperties: () => dispatch(allSellProperties()),
+		
 		singlePropertyDetail: (id, navigate) =>
 			dispatch(singlePropertyDetail(id, navigate)),
-		allProperties: () => dispatch(allPropertiesList()),
-		plotsDataFetch: () => dispatch(plotsDataFetch()),
-		commercialDataFetch: () => dispatch(commercialDataFetch()),
 	}
 }
 export default connect(mapStateToProps, mapDispatchToProps)(FormsTwo)

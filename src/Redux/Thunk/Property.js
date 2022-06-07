@@ -5,6 +5,9 @@ import {
 	filterProperty,
 	propertyDetail,
 	allPropertiesOfDealer,
+	addProperty,
+	sellProperty,
+	rentProperty,
 } from "../Actions/allProperties"
 import { startLoader , stopLoader } from "../Actions/auth"
 import { ToastContainer, toast } from 'react-toastify';
@@ -78,3 +81,79 @@ export const allPropertiesDealerList = () => {
 			})
 	}
 }
+
+
+
+export const addNewProperty = (data) => {	
+	let token = localStorage.getItem("token");
+
+	return (dispatch) => {
+			console.log("property new add" , data)
+			axios
+				.post(`http://52.77.156.101:8000/api/v1/property`, data ,  { headers: {"Authorization" : `Bearer ${token}`} })
+				.then((res) => {
+					// dispatch(
+					// 	addProperty(res.data)
+					// )
+					console.log("success" , res)
+
+	
+				})
+				.catch((error) => {
+					console.log("error" , error)
+				})
+		}
+	}
+
+
+	export const addImage = (data) => {	
+		// let token = localStorage.getItem("token");
+	
+		return (dispatch) => {
+				console.log("image from thunk" , data)
+				axios
+					.post(`http://52.77.156.101:8000/api/v1/property/upload`, data )
+					.then((res) => {
+						// dispatch(
+						// 	addProperty(res.data)
+						// )
+						console.log("success" , res)
+	
+		
+					})
+					.catch((error) => {
+						console.log("error" , error)
+					})
+			}
+		}
+
+
+		export const allSellProperties = () => {
+			return (dispatch) => {
+				console.log("property for sell")
+				axios
+					.get(`http://52.77.156.101:8000/api/v1/property/sell`)
+					.then((res) => {
+						dispatch(sellProperty(res.data))
+						console.log("Get all property thunk", res.data)
+					})
+					.catch((error) => {
+						console.log("error" , error)
+					})
+			}
+		}
+
+		export const allRentProperties = () => {
+			return (dispatch) => {
+				console.log("property of rent")
+				axios
+					.get(`http://52.77.156.101:8000/api/v1/property/rent`)
+					.then((res) => {
+						dispatch(rentProperty(res.data))
+						console.log("Get all rent property thunk", res.data)
+					})
+					.catch((error) => {
+						console.log("error" , error)
+					})
+			}
+		}

@@ -2,11 +2,14 @@ const INITIAL_STATE = {
 	property: null,
 	propertyDetail: null,
 	singlePropertyDetail: null,
+	sellPropertyList:null,
+	rentPropertyList:null,
+
+
 }
 export default function propertyReducer(state = INITIAL_STATE, action) {
 	switch (action.type) {
 		case "ALL_PROPERTIES":
-			// console.log("property reducer  property" , action.payload)
 			return {
 				...state,
 				allProperties: action.payload,
@@ -28,6 +31,18 @@ export default function propertyReducer(state = INITIAL_STATE, action) {
 				...state,
 				dealerPropertyDetail : action.payload,
 			}
+			case "SELL_PROPERTY" :
+				return{
+					...state,
+					sellPropertyList : action.payload
+				}
+				case "RENT_PROPERTY" :
+			console.log("property reducer  property" , action.payload)
+
+					return{
+						...state,
+						rentPropertyList : action.payload
+					}
 
 		default:
 			return state

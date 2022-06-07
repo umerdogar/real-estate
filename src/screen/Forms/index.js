@@ -6,11 +6,12 @@ import { useNavigate, Link } from "react-router-dom"
 import PropertyInput from "../../components/FromInput/PropertyInput"
 import {myProfileData} from "../../Redux/Thunk/auth"
 import { connect } from "react-redux"
+import { addNewProperty , addImage} from "../../Redux/Thunk/Property";
 
 
 
 
-const Form = ({user}) => {
+const Form = ({user , addNewProperty , addImage}) => {
 	console.log("user" , user)
 	const {
 		register,
@@ -29,6 +30,9 @@ const [propertyLocationType , setPropertyLocationType] = useState("");
 const [status , setStatus] = useState("");
 const [price , setPrice] = useState();
 const [area , setArea] = useState();
+const [imageState , setImageState] = useState();
+
+
 
 
 const [subType , setSubType] = useState([])
@@ -46,12 +50,16 @@ const handleCheckProperty = (e) => {
 
 let formData = new FormData();
 
-const handleImage = (e) => {
+const handleImage =	(e) => {
 	console.log(e.target.files[0])
 	if(e.target && e.target.files[0] ){
-		formData.append('file' , e.target.files[0])
+		setImageState(e.target.files[0])
+		formData.append('image' , e.target.files[0])
 	}
 	console.log("formdata" , formData)
+	console.log("formdata  state	" , imageState)
+   addImage(formData)
+
 }
 
 const handleCheck = (e) => {
@@ -80,9 +88,13 @@ const handleCheck = (e) => {
 		  data["property_features"] = subType
 		  data["area"] = area
 		  data["price"] = price
+		  data["image"] = imageState
 
 		console.log("data", data)
+		addNewProperty(data)
 	  };
+
+	//   const addNewPropertyUser  = 
 	return (
 		<>
 			<div>
@@ -90,7 +102,7 @@ const handleCheck = (e) => {
 					<div className="row">
 						<div className="col-md-12">
 							<nav className="navbar navbar-expand-lg navbar-light navigation">
-								<a className="navbar-brand" href="index.html">
+								<a className="navbar-brand" href="/">
 									<img src={Logo} alt="" />
 								</a>
 								<button
@@ -949,7 +961,7 @@ const handleCheck = (e) => {
 											}}
 										>
 											<a
-												href="#"
+												
 												className="btn btn-primary mt-3"
 												style={{ backgroundColor: "rgb(18, 88, 134)" }}
 											>
@@ -968,7 +980,7 @@ const handleCheck = (e) => {
 											style={{ justifyContent: "space-evenly" }}
 										>
 											<a
-												href="#"
+												
 												className="btn btn-primary mt-3"
 												style={{ backgroundColor: "rgb(18, 88, 134)" }}
 											>
@@ -983,7 +995,7 @@ const handleCheck = (e) => {
 										style={{ justifyContent: "space-evenly" }}
 									>
 										<button className="btn btn-primary mt-3 ">
-											{" "}
+	
 											Add Property
 										</button>
 									</div>
@@ -1011,7 +1023,9 @@ const mapStateToProps = (state) => {
 }
 const mapDispatchToProps = (dispatch) => {
 	return {
-    myProfileData: () => {dispatch(myProfileData())}
+    myProfileData: () => {dispatch(myProfileData())},
+	addNewProperty: (data) => {dispatch(addNewProperty(data))},
+	addImage : (data) => {dispatch(addImage(data))}
 	}
 }
 

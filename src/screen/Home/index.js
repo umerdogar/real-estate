@@ -14,7 +14,7 @@ import QR from "../../assets/products/qr.png"
 import { connect } from "react-redux"
 import { useForm } from "react-hook-form"
 import { popularCityStat } from "../../Redux/Thunk/homePage"
-import { filterSingleProperty } from "../../Redux/Thunk/Property"
+import { filterSingleProperty  } from "../../Redux/Thunk/Property"
 import { PageRefresherAction } from "../../Redux/Actions/PageRefreshAction"
 import { useNavigate, Link } from "react-router-dom"
 import Carousel from "react-elastic-carousel"
@@ -123,7 +123,7 @@ const Home = ({
 	const [selectCity, setSelectCity] = useState("Islamabad")
 	const [query, setQurey] = useState("Hamza")
 	const [rerenderPage, setRerenderPage] = useState(2)
-	console.log("thisi is city", popularCities && popularCities)
+	console.log("thisi is city", popularCities && popularCities[0].image)
 	// console.log(searchHome, "searchHome")
 	const [searchHome, setSearchHome] = useState({
 		city: "islamabad",
@@ -238,7 +238,7 @@ console.log( "myprofile from comp roleeeee" , role)
           <div className="row">
             <div className="col-md-12">
               <nav className="navbar navbar-expand-lg navbar-light navigation">
-                <a className="navbar-brand" href="index.html">
+                <a className="navbar-brand" href="/">
                   <img src={Logo} alt="" />
                 </a>
                 <button
@@ -372,13 +372,13 @@ console.log( "myprofile from comp roleeeee" , role)
                       <div className="container">
                         <ul className="nav nav-pills">
                           <li className="active">
-                            <a href="#">Home</a>
+                            <a>Home</a>
                           </li>
                           <li>
-                            <a href="#">Sell</a>
+                            <a href="property/sell">Sell</a>
                           </li>
                           <li>
-                            <a href="#">Rent</a>
+                            <a href="property/rent">Rent</a>
                           </li>
                         </ul>
 
@@ -680,18 +680,17 @@ console.log( "myprofile from comp roleeeee" , role)
           pagination={false}
           enableAutoPlay={true}
         >
-          {popularCities?.map((slide) => {
+          {popularCities && popularCities.map((slide) => {
             return (
               <div className="slickDiver">
                 <div>
                   <img
                     className="card-img-top img-fluid img-style"
                     src={
-                      slide?.items[0].images.length !== 0
-                        ? slide?.items[0].images[0]
+                      slide?.image
+                        ? slide?.image
                         : "https://thumbor.forbes.com/thumbor/fit-in/900x510/https://www.forbes.com/advisor/wp-content/uploads/2021/08/download-23.jpg"
                     }
-                    // src={slide?.items[0]?.cityImgUrl}
                     alt="Card image cap"
                   />
                   <div className="second-txt">

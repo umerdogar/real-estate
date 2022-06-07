@@ -39,7 +39,7 @@ const Details = ({ propertyDetail , allPropertiesList ,singleProperty , allPrope
 				<div className="row">
 					<div className="col-md-12">
 						<nav className="navbar navbar-expand-lg navbar-light navigation">
-							<a className="navbar-brand" href="index.html">
+							<a className="navbar-brand" href="/">
 								<img src={Logo} alt="" />
 							</a>
 							<button
@@ -60,7 +60,7 @@ const Details = ({ propertyDetail , allPropertiesList ,singleProperty , allPrope
 								<ul className="navbar-nav ml-auto main-nav ">
 									<li className="nav-item active">
 										<a className="nav-link" href="" onClick={() => {
-												navigate("/home")
+												navigate("/")
 											}}>
 											Home
 										</a>
@@ -73,7 +73,7 @@ const Details = ({ propertyDetail , allPropertiesList ,singleProperty , allPrope
 										</a>
 									</li>
 									<li className="nav-item ">
-										<a className="nav-link" href="" onClick={() => {
+										<a className="nav-link"  onClick={() => {
 												navigate("/formsTwo/commercial")
 											}}>
 											Commercial

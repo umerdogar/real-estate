@@ -40,3 +40,25 @@ export const allPropertiesOfDealer = (response) => {
 		payload: response,
 	}
 }
+
+export const addProperty = (data) => {
+	return {
+		type: "ADD_PROPERTY",
+		payload: data,
+	}
+}
+
+export const sellProperty = (data) => {
+	return {
+		type: "SELL_PROPERTY",
+		payload:data
+	}
+}
+
+export const rentProperty = (data) => {
+	return {
+		type: "RENT_PROPERTY",
+		payload:data
+
+	}
+}
