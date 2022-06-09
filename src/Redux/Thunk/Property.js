@@ -1,5 +1,4 @@
 import axios from "axios"
-import { Navigate, NavigationType } from "react-router-dom"
 import {
 	allProperties,
 	filterProperty,
@@ -8,11 +7,11 @@ import {
 	addProperty,
 	sellProperty,
 	rentProperty,
+	addImageUrl,
 } from "../Actions/allProperties"
-import { startLoader , stopLoader } from "../Actions/auth"
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-// import { useNavigate } from "react-router-dom";
+import Notification from "../../components/notification"
+
+
 
 export const allPropertiesList = () => {
 	return (dispatch) => {
@@ -31,11 +30,11 @@ export const allPropertiesList = () => {
 
 export const filterSingleProperty = (data, navigate, PageRerender) => {	
 return (dispatch) => {
-		console.log("property filter ???????????????" , data)
+		dispatch({ type: "START_LOADER" , payload:"Searching Properties..."});
+		console.log("Loader Checker")
 		axios
 			.get(`http://52.77.156.101:8000/api/v1/property/ad/properties?${data}`)
 			.then((res) => {
-				// dispatch(()=>{startLoader("hello")})
 				dispatch(
 					filterProperty(res.data, {
 						onDone: () => {
@@ -43,10 +42,9 @@ return (dispatch) => {
 						},
 					})
 				)
-			
+				dispatch({ type: "STOP_LOADER" });
+				console.log("filter single property")
 				navigate("/formsTwo")
-				// dispatch(()=>{stopLoader()})
-
 			})
 			.catch((error) => {
 				console.log("error" , error)
@@ -70,9 +68,11 @@ export const singlePropertyDetail = (id, navigate) => {
 
 
 export const allPropertiesDealerList = () => {
+	let token = localStorage.getItem("token");
+
 	return (dispatch) => {
 		axios
-			.get(`http://52.77.156.101:8000/api/v1/dealer/property`)
+			.get(`http://52.77.156.101:8000/api/v1/dealer/property` , { headers: {"Authorization" : `Bearer ${token}`} })
 			.then((res) => {
 				dispatch(allPropertiesOfDealer(res.data))
 			})
@@ -88,41 +88,43 @@ export const addNewProperty = (data) => {
 	let token = localStorage.getItem("token");
 
 	return (dispatch) => {
-			console.log("property new add" , data)
+		dispatch({ type: "START_LOADER" , payload:"Adding New Property..."});
 			axios
 				.post(`http://52.77.156.101:8000/api/v1/property`, data ,  { headers: {"Authorization" : `Bearer ${token}`} })
 				.then((res) => {
-					// dispatch(
-					// 	addProperty(res.data)
-					// )
+					dispatch(
+						addProperty(res.data)
+					)
 					console.log("success" , res)
+					dispatch({ type: "STOP_LOADER"});
+		Notification("success" , "Property Successfully Added")
 
-	
 				})
 				.catch((error) => {
 					console.log("error" , error)
+					dispatch({ type: "STOP_LOADER"});
+		            Notification("error" ,error.response.data.msg)
 				})
 		}
 	}
 
 
-	export const addImage = (data) => {	
-		// let token = localStorage.getItem("token");
-	
+	export const addImage = (data) => {		
 		return (dispatch) => {
-				console.log("image from thunk" , data)
+			dispatch({ type: "START_LOADER" , payload:"Adding Image..."});
 				axios
 					.post(`http://52.77.156.101:8000/api/v1/property/upload`, data )
 					.then((res) => {
-						// dispatch(
-						// 	addProperty(res.data)
-						// )
+						dispatch(
+							addImageUrl(res.data)
+						)
 						console.log("success" , res)
-	
-		
+		                dispatch({ type: "STOP_LOADER"});
 					})
 					.catch((error) => {
 						console.log("error" , error)
+		              dispatch({ type: "STOP_LOADER"});
+
 					})
 			}
 		}
@@ -130,12 +132,10 @@ export const addNewProperty = (data) => {
 
 		export const allSellProperties = () => {
 			return (dispatch) => {
-				console.log("property for sell")
 				axios
 					.get(`http://52.77.156.101:8000/api/v1/property/sell`)
 					.then((res) => {
 						dispatch(sellProperty(res.data))
-						console.log("Get all property thunk", res.data)
 					})
 					.catch((error) => {
 						console.log("error" , error)

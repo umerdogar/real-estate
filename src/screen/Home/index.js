@@ -222,13 +222,13 @@ const Home = ({
 
 	const handlePost = (e) => {
 		e.preventDefault()
-		console.log("search home ", searchHome)
 		filterProperty(`city?${searchHome.city}&society?${searchHome.society}&minPrice?${searchHome.minPrice}&maxPrice?${searchHome.maxPrice}&minArea?${searchHome.minArea}&maxArea?${searchHome.maxArea}&rooms?${searchHome.rooms}&type?${searchHome.type}`, navigate, PageRerender)
 	}
 
 
-const role = user?.role;
+const role = user && user.user && user.user.role ;
 console.log( "myprofile from comp roleeeee" , role)
+
 
 
   return (
@@ -298,7 +298,7 @@ console.log( "myprofile from comp roleeeee" , role)
                   </ul>
                   {/* {role == "Dealer" && <ul className="navbar-nav   mt-10"> */}
                    <ul className="navbar-nav   mt-10">
-                   {/* { role == "Dealer" &&
+                 { role == "Dealer" &&
                     <li className="nav-item">
                       <a
                         className="nav-link text-white add-button"
@@ -311,7 +311,7 @@ console.log( "myprofile from comp roleeeee" , role)
                         Add Property
                       </a>
                     </li>
-} */}
+} 
                     <li className="nav-item margin-left-5">
                       <img
                         className="profile-icon"

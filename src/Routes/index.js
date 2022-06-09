@@ -12,6 +12,7 @@ import PrivateRoute from "../components/PrivateRoute";
 import { connect } from "react-redux";
 import Sell from "../screen/Sell";
 import Rent from "../screen/Rent";
+import DealerProperties from "../screen/DealerProperties";
 
 
 const Routing = () => {
@@ -44,9 +45,9 @@ const Routing = () => {
         <Route
           path="/form"
           element={
-            // <PrivateRoute>
+            <PrivateRoute>
               <Forms />
-            //  </PrivateRoute>
+          </PrivateRoute>
           }
         />
         <Route
@@ -85,6 +86,14 @@ const Routing = () => {
           element={
             // <PrivateRoute>
               <Commercial />
+            // </PrivateRoute>
+          }
+        />
+             <Route
+          path="/dealerProperties"
+          element={
+            // <PrivateRoute>
+              <DealerProperties />
             // </PrivateRoute>
           }
         />

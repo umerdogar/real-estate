@@ -4,6 +4,7 @@ const INITIAL_STATE = {
 	singlePropertyDetail: null,
 	sellPropertyList:null,
 	rentPropertyList:null,
+	imageUrl:null,
 
 
 }
@@ -37,13 +38,18 @@ export default function propertyReducer(state = INITIAL_STATE, action) {
 					sellPropertyList : action.payload
 				}
 				case "RENT_PROPERTY" :
-			console.log("property reducer  property" , action.payload)
 
 					return{
 						...state,
 						rentPropertyList : action.payload
 					}
-
+					case "ADD_IMAGE" :
+						return{
+							...state,
+							imageUrl : action.payload
+						}
+						
+					
 		default:
 			return state
 	}

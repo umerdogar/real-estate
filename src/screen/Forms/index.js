@@ -11,7 +11,7 @@ import { addNewProperty , addImage} from "../../Redux/Thunk/Property";
 
 
 
-const Form = ({user , addNewProperty , addImage}) => {
+const Form = ({user , addNewProperty , addImage , url}) => {
 	console.log("user" , user)
 	const {
 		register,
@@ -73,8 +73,6 @@ const handleCheck = (e) => {
 	{e.target.name == "status" && setStatus(e.target.value) }
 	{e.target.name == "price" && setPrice(parseInt(e.target.value)) }
 	{e.target.name == "area" && setArea(parseInt(e.target.value)) }
-
-
 }
 
 	  const onSubmit = (data) => {
@@ -88,7 +86,7 @@ const handleCheck = (e) => {
 		  data["property_features"] = subType
 		  data["area"] = area
 		  data["price"] = price
-		  data["image"] = imageState
+		  data["image"] = url
 
 		console.log("data", data)
 		addNewProperty(data)
@@ -123,7 +121,7 @@ const handleCheck = (e) => {
 									<ul className="navbar-nav ml-auto main-nav ">
 										<li className="nav-item active">
 											<a className="nav-link" href="" onClick={() => {
-                          navigate("/home");
+                          navigate("/");
                         }}>
 												Home
 											</a>
@@ -407,7 +405,7 @@ const handleCheck = (e) => {
                         //   placeholder={"password"}
                           name="society"
                           validation={{ required: true }}
-                          error={errors.password}
+                          error={errors.society}
                           register={register}
                           errorMessage={"Society Field is Empty"}
                         />
@@ -417,7 +415,7 @@ const handleCheck = (e) => {
                         //   placeholder={"password"}
                           name="Phase"
                           validation={{ required: true }}
-                          error={errors.password}
+                          error={errors.Phase}
                           register={register}
                           errorMessage={"Phase Field is Empty"}
                         />
@@ -427,7 +425,7 @@ const handleCheck = (e) => {
                         //   placeholder={"password"}
                           name="block"
                           validation={{ required: true }}
-                          error={errors.password}
+                          error={errors.block}
                           register={register}
                           errorMessage={"Block Field is Empty"}
                         />
@@ -437,7 +435,7 @@ const handleCheck = (e) => {
                         //   placeholder={"password"}
                           name="sector"
                           validation={{ required: true }}
-                          error={errors.password}
+                          error={errors.sector}
                           register={register}
                           errorMessage={"Sector Field is Empty"}
                         />
@@ -447,7 +445,7 @@ const handleCheck = (e) => {
                         //   placeholder={"password"}
                           name="road"
                           validation={{ required: true }}
-                          error={errors.password}
+                          error={errors.road}
                           register={register}
                           errorMessage={"Road Field is Empty"}
                         />
@@ -457,7 +455,7 @@ const handleCheck = (e) => {
                         //   placeholder={"password"}
                           name="street"
                           validation={{ required: true }}
-                          error={errors.password}
+                          error={errors.street}
                           register={register}
                           errorMessage={"Street Field is Empty"}
                         />
@@ -467,7 +465,7 @@ const handleCheck = (e) => {
                         //   placeholder={"password"}
                           name="property_number"
                           validation={{ required: true }}
-                          error={errors.password}
+                          error={errors.property_number}
                           register={register}
                           errorMessage={"Property Number Field is Empty"}
                         />
@@ -579,7 +577,7 @@ const handleCheck = (e) => {
                         //   placeholder={"password"}
                           name="property_title"
                           validation={{ required: true }}
-                          error={errors.password}
+                          error={errors.property_title}
                           register={register}
                           errorMessage={"Property Title Field is Empty"}
                         />
@@ -590,7 +588,7 @@ const handleCheck = (e) => {
                         //   placeholder={"password"}
                           name="description"
                           validation={{ required: true }}
-                          error={errors.password}
+                          error={errors.description}
                           register={register}
                           errorMessage={"Property Description Field is Empty"}
                         />
@@ -950,9 +948,9 @@ const handleCheck = (e) => {
 												Add Images
 											</h6>
 										</div>
-										<div className="bg-blue padding-15">
+										{/* <div className="bg-blue padding-15">
 											<input type= "file" name="file_upload" onChange={handleImage}/>
-										</div>
+										</div> */}
 										<div
 											className="buy d-flex  align-items-center"
 											style={{
@@ -965,9 +963,11 @@ const handleCheck = (e) => {
 												className="btn btn-primary mt-3"
 												style={{ backgroundColor: "rgb(18, 88, 134)" }}
 											>
-												{" "}
+										<input type= "file" name="file_upload" onChange={handleImage}/>
+
 												Add Images
 											</a>
+
 										</div>
 										<div className="bg-blue padding-15">
 											<h6 style={{ color: "white", margin: "0px" }}>
@@ -1015,9 +1015,12 @@ const handleCheck = (e) => {
 
 const mapStateToProps = (state) => {
   let {user} = state.authReducer.user
+  let {url} = state.propertyReducer.imageUrl
+  console.log("asd state" , url)
 
 	return {
     user,
+	url
 
 	}
 }

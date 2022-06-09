@@ -59,6 +59,13 @@ export const rentProperty = (data) => {
 	return {
 		type: "RENT_PROPERTY",
 		payload:data
-
 	}
 }
+
+export const addImageUrl = (data) => {
+	return {
+		type: "ADD_IMAGE",
+		payload:data
+	}
+}
+

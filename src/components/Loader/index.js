@@ -1,13 +1,15 @@
 import React from 'react'
 import { connect } from "react-redux";
 import "./loader.css"
+import Logo from "../../assets/logo.png"
+
 
 const AppLoader = ({loadingMessage, loader}) => {
-  // console.log("---------" , loader)
+  
   return (
     <div hidden={!loader} className="loader-container">
     <div className="loader-content">
-     <img src="https://akru-images.s3.us-east-2.amazonaws.com/compressed/logo.png" alt="logo"/>
+     <img src={Logo} alt="logo"/>
      <div>
       <i style={{ color: "white" }} className="fa fa-spinner fa-spin fa-1x fa-fw"></i>
     {loadingMessage && (
@@ -22,9 +24,11 @@ const AppLoader = ({loadingMessage, loader}) => {
 }
 
 const mapStateToProps = (state) => {
-    const {loading} = state.authReducer
-    const {loadingMessage} = state.authReducer
-    console.log("loader///" , loading)
+    const {loading} = state.loaderReducer
+    const {loadingMessage} = state.loaderReducer
+    console.log("loader/////" , loading)
+    console.log("loader/////" , state)
+
 
     return {
         loader: loading,
