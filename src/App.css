@@ -3392,3 +3392,24 @@ height: 50px;
 	-ms-transform: rotate(45deg);
 	transform: rotate(45deg);
   }
+
+  .image-select-top{
+	  display: flex;
+	  flex-direction: row;
+	  justify-content: center;
+	  align-items: center;
+	  margin-left: 80px;
+
+  }
+  .image-preview-style{
+	  width: 60px;
+	  height: 60px;
+	  border-radius: 12px;
+	  margin-left: 20px;
+  }
+  .login-text{
+	  font-size: 15px;
+	  font-weight: 500;
+	  padding:10px 12px 10px 12px;
+	  margin:0px;
+  }

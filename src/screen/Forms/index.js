@@ -1,4 +1,4 @@
-import React , {useState} from "react"
+import React , {useState , useRef} from "react"
 import Logo from "../../assets/logo.png"
 import ProfileIcon from "../../assets/profile-icon.png"
 import { useForm } from "react-hook-form";
@@ -11,7 +11,7 @@ import { addNewProperty , addImage} from "../../Redux/Thunk/Property";
 
 
 
-const Form = ({user , addNewProperty , addImage , url}) => {
+const Form = ({user , addNewProperty , addImage , propertyReducer}) => {
 	console.log("user" , user)
 	const {
 		register,
@@ -32,7 +32,13 @@ const [price , setPrice] = useState();
 const [area , setArea] = useState();
 const [imageState , setImageState] = useState();
 
+const hiddenFileInput = useRef(null);
+  
+const handleClick = (e) => {
+  hiddenFileInput.current.click();
+};
 
+console.log("hidden file input" , hiddenFileInput)
 
 
 const [subType , setSubType] = useState([])
@@ -53,7 +59,8 @@ let formData = new FormData();
 const handleImage =	(e) => {
 	console.log(e.target.files[0])
 	if(e.target && e.target.files[0] ){
-		setImageState(e.target.files[0])
+		// setImageState(e.target.files[0])
+		setImageState(URL.createObjectURL(e.target.files[0]));
 		formData.append('image' , e.target.files[0])
 	}
 	console.log("formdata" , formData)
@@ -74,6 +81,8 @@ const handleCheck = (e) => {
 	{e.target.name == "price" && setPrice(parseInt(e.target.value)) }
 	{e.target.name == "area" && setArea(parseInt(e.target.value)) }
 }
+
+const url = propertyReducer &&  propertyReducer.imageUrl && propertyReducer.imageUrl.url
 
 	  const onSubmit = (data) => {
 
@@ -948,27 +957,37 @@ const handleCheck = (e) => {
 												Add Images
 											</h6>
 										</div>
-										{/* <div className="bg-blue padding-15">
-											<input type= "file" name="file_upload" onChange={handleImage}/>
-										</div> */}
+										
+										<div className="image-select-top">
 										<div
 											className="buy d-flex  align-items-center"
 											style={{
 												justifyContent: "space-evenly",
 												marginBottom: "15px",
 											}}
+											onClick={handleClick}
+
 										>
 											<a
 												
 												className="btn btn-primary mt-3"
 												style={{ backgroundColor: "rgb(18, 88, 134)" }}
 											>
-										<input type= "file" name="file_upload" onChange={handleImage}/>
 
 												Add Images
 											</a>
-
 										</div>
+										<div>
+										<input type= "file" name="file_upload" ref={hiddenFileInput} onChange={handleImage} style={{display:'none'}}/>
+										
+										<img src={imageState} className="image-preview-style" />
+										</div>
+										</div>
+										
+
+
+
+
 										<div className="bg-blue padding-15">
 											<h6 style={{ color: "white", margin: "0px" }}>
 												Add Videos
@@ -1015,12 +1034,11 @@ const handleCheck = (e) => {
 
 const mapStateToProps = (state) => {
   let {user} = state.authReducer.user
-  let {url} = state.propertyReducer.imageUrl
-  console.log("asd state" , url)
+  let {propertyReducer} = state
 
 	return {
     user,
-	url
+	propertyReducer
 
 	}
 }

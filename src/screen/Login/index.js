@@ -82,7 +82,7 @@ const Login = ({login , loginUser , user}) => {
   } = useForm();
 
   const onSubmit = (data) => {
-    // setOpenModal(false);
+    setOpenModal(false);
     console.log("data", data)
     loginUser(data , navigate)
     console.log("asas" , openModal)

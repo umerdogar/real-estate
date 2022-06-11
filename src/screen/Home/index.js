@@ -333,9 +333,9 @@ console.log( "myprofile from comp roleeeee" , role)
           horizontal: 'center',
         }}
       >
-      {user && user.token ? <Typography className={classes.typography} onClick={()=>Clear()}>LogOut</Typography>
+      {user && user.token ? <p className="login-text" onClick={()=>Clear()}>LogOut</p>
 :
-        <Typography className={classes.typography} onClick={handleOpenModal}>Login</Typography>}
+        <p className="login-text" onClick={handleOpenModal}>Login</p>}
       </Popover>
       
                     </li>
