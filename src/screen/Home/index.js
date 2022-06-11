@@ -22,6 +22,11 @@ import { CarouselData } from "../../Redux/Thunk/homePage"
 import Loader from "../../components/Loader"
 import {myProfileData} from "../../Redux/Thunk/auth"
 
+// login
+import Input from "../../components/FromInput/Input"
+import { loginUser , signUpUser } from '../../Redux/Thunk/auth';
+
+
 
 import { makeStyles } from '@material-ui/core/styles';
 import Popover from '@material-ui/core/Popover';
@@ -52,6 +57,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+
+
+
 const Home = ({
 	popularCity,
 	popularCities,
@@ -61,11 +69,20 @@ const Home = ({
 	Carousel_Data,
   myProfileData,
   user,
-  PageRefresh
+  PageRefresh,
+  loginUser,
+  signUpUser
 }) => {
 
 
-
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm();
+  
+  
   
   function getModalStyle() {
     const top = 50;
@@ -82,6 +99,16 @@ const Home = ({
 
   const [modalStyle] = useState(getModalStyle);
   const [openModal, setOpenModal] = useState(false);
+  const [  openModalSignUp , setopenModalSignUp] = useState(false);
+
+
+  const handleOpenModalSignUp = () => {
+    setopenModalSignUp(true);
+  };
+  const handleCloseModalSignUp = () => {
+    setopenModalSignUp(false);
+  };
+
 
   const handleOpenModal = () => {
     setOpenModal(true);
@@ -92,6 +119,17 @@ const Home = ({
   };
 
 
+  const onSubmit = (data) => {
+    loginUser(data)
+    setOpenModal(false);
+  };
+
+  const onSubmitSignup = (data) => {
+    signUpUser(data)
+    setopenModalSignUp(false);
+    // setOpenModal(false);
+
+  };
 
 
 
@@ -107,8 +145,6 @@ const Home = ({
 
   const open = Boolean(anchorEl);
   const id = open ? 'simple-popover' : undefined;
-
-
 
 	let navigate = useNavigate()
 	var settings = {
@@ -214,11 +250,9 @@ const Home = ({
 		setRerenderPage("H")
 		window.location.reload()
 	}
-  const body = (
-    <Box style={modalStyle} className={classes.paper} >
-    <Login/>
-    </Box>
-);
+//   const body = (
+ 
+// );
 
 	const handlePost = (e) => {
 		e.preventDefault()
@@ -353,7 +387,122 @@ console.log( "myprofile from comp roleeeee" , role)
         aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description"
       >
-    {body}
+       <Box style={modalStyle} className={classes.paper} >
+    <div className="login-wrapper">
+        <h1 className="login-title">LOGIN</h1>
+        {/* <h3>Please Login to Continue</h3> */}
+        <form className="login-form" onSubmit={handleSubmit(onSubmit)}>
+        <Input
+                          // label={"email"}
+                          type="text"
+                          placeholder={"Email"}
+                          name="email"
+                          validation={{ required: true }}
+                          error={errors.email}
+                          register={register}
+                          errorMessage={"Email is required"}
+                          {...register("email", 
+                        { 
+                            required: true,  
+                            pattern: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/ 
+                        })}
+                        />
+                          <Input
+                          // label={"password"}
+                          type="password"
+                          placeholder={"password"}
+                          name="password"
+                          validation={{ required: true }}
+                          error={errors.password}
+                          register={register}
+                          errorMessage={"Password Field is Empty"}
+                        //   {...register("password", {
+                        //     required: true,
+                        //     pattern: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,15}$/
+                        // })}
+                        />
+          <button className="login-button">
+            LOGIN
+          </button>
+          {user == "error" && <a className="login-error">Email or Password is Incorrect</a>}
+
+          <a className="login-link">DO NOT YOU REMEMBER THE PASSWORD?</a>
+          <a className="login-link"  onClick={handleOpenModalSignUp}>CREATE A NEW ACCOUNT</a>
+        </form>
+        
+      </div>
+    </Box>
+      </Modal>
+
+      <Modal
+       open={openModalSignUp}
+       onClose={handleCloseModalSignUp}
+       aria-labelledby="simple-modal-title"
+       aria-describedby="simple-modal-description">
+
+<Box style={modalStyle} className={classes.paper} >
+
+<div className="login-wrapper">
+        <h1 className="login-title">Sign Up</h1>
+        {/* <h3>Please SignUp to Continue</h3> */}
+        <form className="login-form" onSubmit={handleSubmit(onSubmitSignup)}>
+        <Input
+                          // label={"email"}
+                          type="text"
+                          placeholder={"name"}
+                          name="name"
+                          validation={{ required: true }}
+                          error={errors.name}
+                          register={register}
+                          errorMessage={"Name is required"}
+                        />
+                          <Input
+                          // label={"password"}
+                          type="text"
+                          placeholder={"email"}
+                          name="email"
+                          validation={{ required: true }}
+                          error={errors.email}
+                          register={register}
+                          errorMessage={"Email Field is Empty"}
+                        />
+
+<Input
+                          // label={"password"}
+                          type="password"
+                          placeholder={"password"}
+                          name="password"
+                          validation={{ required: true }}
+                          error={errors.password}
+                          register={register}
+                          errorMessage={"Password Field is Empty"}
+                        />
+                         <Input
+                          // label={"password"}
+                          type="text"
+                          placeholder={"realestate"}
+                          name="realestate"
+                          validation={{ required: true }}
+                          error={errors.realestate}
+                          register={register}
+                          errorMessage={"Realestate Field is Empty"}
+                        />
+                           <Input
+                          // label={"password"}
+                          type="number"
+                          placeholder={"phone"}
+                          name="phone"
+                          validation={{ required: true }}
+                          error={errors.phone}
+                          register={register}
+                          errorMessage={"Phone Field is Empty"}
+                        />
+          <button className="login-button">
+            Sign Up
+          </button>
+        </form>
+      </div>
+      </Box>
       </Modal>
 
         <div className="container">
@@ -988,6 +1137,7 @@ const mapStateToProps = (state) => {
 	let { popularCities } = state.popularCitiesReducers
 	let { Carousel_Data } = state.popularCitiesReducers
   let {user} = state.authReducer
+
 	console.log("mapstate.....", user)
 	return {
 		popularCities,
@@ -1010,7 +1160,10 @@ const mapDispatchToProps = (dispatch) => {
 		},
     myProfileData: () => {
       dispatch(myProfileData())
-    }
+    },
+    loginUser: (data) => dispatch(loginUser(data)),
+		signUpUser: (data , navigate) => dispatch(signUpUser(data, navigate)),
+
 	}
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Home)

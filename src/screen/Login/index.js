@@ -153,7 +153,6 @@ const Login = ({login , loginUser , user}) => {
 
 const mapStateToProps = (state) => {
 	let { user } = state.authReducer
-	console.log("login reducer from comp for login", user)
 	return {
     user
 	}

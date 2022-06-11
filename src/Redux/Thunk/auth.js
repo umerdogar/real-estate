@@ -3,7 +3,7 @@ import { login , signUp , myProfile} from "../Actions/auth"
 import Notification from "../../components/notification"
 
 
-export const loginUser = (data, navigate) => {
+export const loginUser = (data) => {
 	return (dispatch) => {
 		console.log("property filter")
 		
@@ -18,7 +18,6 @@ export const loginUser = (data, navigate) => {
 					localStorage.setItem("token" , res.data.token)
 				)
 		dispatch({ type: "STOP_LOADER" });
-				navigate("/")
 		Notification("success" , "Login Successfull")
 
 			    
@@ -36,7 +35,7 @@ export const loginUser = (data, navigate) => {
 	}
 }
 
-export const signUpUser = (data, navigate) => {
+export const signUpUser = (data) => {
 	console.log("data input signup", data)
 	return (dispatch) => {
 		console.log("property filter")
@@ -49,7 +48,6 @@ export const signUpUser = (data, navigate) => {
 					signUp(res.data)
 				)
 		dispatch({ type: "STOP_LOADER" });
-				navigate("/")
 		Notification("success" , "SignUp Successfull")
 
 
