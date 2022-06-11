@@ -12,8 +12,6 @@ import {
 } from "../Actions/allProperties"
 import Notification from "../../components/notification"
 
-
-
 export const allPropertiesList = () => {
 	return (dispatch) => {
 		console.log("property dispatch")
@@ -43,17 +41,16 @@ return (dispatch) => {
 						},
 					})
 				)
-				dispatch({ type: "STOP_LOADER" });
+				dispatch({ type: "STOP_LOADER" })
 				console.log("filter single property")
 				navigate("/formsTwo")
 			})
 			.catch((error) => {
-				console.log("error" , error)
+				console.log("error", error)
 			})
 	}
 }
 export const singlePropertyDetail = (id, navigate) => {
-
 	return (dispatch) => {
 		axios
 			.get(`http://52.77.156.101:8000/api/v1/property/${id}`)
@@ -67,19 +64,20 @@ export const singlePropertyDetail = (id, navigate) => {
 	}
 }
 
-
 export const allPropertiesDealerList = () => {
-	let token = localStorage.getItem("token");
+	let token = localStorage.getItem("token")
 
 	return (dispatch) => {
 		axios
-			.get(`http://52.77.156.101:8000/api/v1/dealer/property` , { headers: {"Authorization" : `Bearer ${token}`} })
+			.get(`http://52.77.156.101:8000/api/v1/dealer/property`, {
+				headers: { Authorization: `Bearer ${token}` },
+			})
 			.then((res) => {
 				dispatch(allPropertiesOfDealer(res.data))
 				console.log("all properties of dealer" , res.data)
 			})
 			.catch((error) => {
-				console.log("error" , error)
+				console.log("error", error)
 			})
 	}
 }
@@ -111,26 +109,24 @@ export const addNewProperty = (data , navigate) => {
 	}
 
 
-	export const addImage = (data) => {		
-		return (dispatch) => {
-			dispatch({ type: "START_LOADER" , payload:"Adding Image..."});
-				axios
-					.post(`http://52.77.156.101:8000/api/v1/property/upload`, data )
-					.then((res) => {
-						dispatch(
-							addImageUrl(res.data)
-						)
-						console.log("success" , res)
-		                dispatch({ type: "STOP_LOADER"});
-					})
-					.catch((error) => {
-						console.log("error" , error)
-		              dispatch({ type: "STOP_LOADER"});
+export const addImage = (data) => {
+	return (dispatch) => {
+		dispatch({ type: "START_LOADER", payload: "Adding Image..." })
+		axios
+			.post(`http://52.77.156.101:8000/api/v1/property/upload`, data)
+			.then((res) => {
+				dispatch(addImageUrl(res.data))
+				console.log("success", res)
+				dispatch({ type: "STOP_LOADER" })
+			})
+			.catch((error) => {
+				console.log("error", error)
+				dispatch({ type: "STOP_LOADER" })
+			})
+	}
+}
 
-					})
-			}
-		}
-
+	
 
 		export const allSellProperties = () => {
 			return (dispatch) => {
