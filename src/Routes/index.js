@@ -35,7 +35,7 @@ const Routing = () => {
           }
         />
            <Route
-          path="/details"
+          path="/details/:id"
           element={
             // <PrivateRoute>
               <Details />

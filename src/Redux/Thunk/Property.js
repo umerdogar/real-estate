@@ -8,6 +8,7 @@ import {
 	sellProperty,
 	rentProperty,
 	addImageUrl,
+	favouriteProperty
 } from "../Actions/allProperties"
 import Notification from "../../components/notification"
 
@@ -31,7 +32,7 @@ export const allPropertiesList = () => {
 export const filterSingleProperty = (data, navigate, PageRerender) => {	
 return (dispatch) => {
 		dispatch({ type: "START_LOADER" , payload:"Searching Properties..."});
-		console.log("Loader Checker")
+		console.log("filter property data isngle", data)
 		axios
 			.get(`http://52.77.156.101:8000/api/v1/property/ad/properties?${data}`)
 			.then((res) => {
@@ -58,7 +59,7 @@ export const singlePropertyDetail = (id, navigate) => {
 			.get(`http://52.77.156.101:8000/api/v1/property/${id}`)
 			.then((res) => {
 				dispatch(propertyDetail(res.data))
-				navigate("/details")
+				navigate(`/details/${id}`)
 			})
 			.catch((error) => {
 				console.log("error")
@@ -75,6 +76,7 @@ export const allPropertiesDealerList = () => {
 			.get(`http://52.77.156.101:8000/api/v1/dealer/property` , { headers: {"Authorization" : `Bearer ${token}`} })
 			.then((res) => {
 				dispatch(allPropertiesOfDealer(res.data))
+				console.log("all properties of dealer" , res.data)
 			})
 			.catch((error) => {
 				console.log("error" , error)
@@ -84,7 +86,7 @@ export const allPropertiesDealerList = () => {
 
 
 
-export const addNewProperty = (data) => {	
+export const addNewProperty = (data , navigate) => {	
 	let token = localStorage.getItem("token");
 
 	return (dispatch) => {
@@ -97,8 +99,8 @@ export const addNewProperty = (data) => {
 					)
 					console.log("success" , res)
 					dispatch({ type: "STOP_LOADER"});
-		Notification("success" , "Property Successfully Added")
-
+					navigate('/')
+		            Notification("success" , "Property Successfully Added")
 				})
 				.catch((error) => {
 					console.log("error" , error)
@@ -157,3 +159,23 @@ export const addNewProperty = (data) => {
 					})
 			}
 		}
+
+		export const favPropertyThunk = (id) => {	
+			let token = localStorage.getItem("token");
+		
+			return (dispatch) => {
+					axios
+						.post(`http://52.77.156.101:8000/api/v1/property/fav-unfav/${id}`,  { headers: {"Authorization" : `Bearer ${token}`} })
+						.then((res) => {
+							dispatch(
+								favouriteProperty(res.data)
+							)
+							console.log("success" , res)
+							Notification("success" , "Property Added To")
+						})
+						.catch((error) => {
+							console.log("error" , error)
+							Notification("error" ,"error")
+						})
+				}
+			}

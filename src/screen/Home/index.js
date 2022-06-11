@@ -128,7 +128,6 @@ const Home = ({
     signUpUser(data)
     setopenModalSignUp(false);
     // setOpenModal(false);
-
   };
 
 
@@ -164,10 +163,10 @@ const Home = ({
 	const [searchHome, setSearchHome] = useState({
 		city: "Islamabad",
 		society: "",
-		minPrice: null,
-		maxPrice: null,
-		minArea: null,
-		maxArea: null,
+		minPrice: "",
+		maxPrice: "",
+		minArea: "",
+		maxArea: "",
 		rooms: 1,
 		type: "Home",
 	})
@@ -256,7 +255,7 @@ const Home = ({
 
 	const handlePost = (e) => {
 		e.preventDefault()
-		filterProperty(`city?${searchHome.city}&society?${searchHome.society}&minPrice?${searchHome.minPrice}&maxPrice?${searchHome.maxPrice}&minArea?${searchHome.minArea}&maxArea?${searchHome.maxArea}&rooms?${searchHome.rooms}&type?${searchHome.type}`, navigate, PageRerender)
+		filterProperty(`city=${searchHome.city}&society=${searchHome.society}&minPrice=${searchHome.minPrice}&maxPrice=${searchHome.maxPrice}&minArea=${searchHome.minArea}&maxArea=${searchHome.maxArea}&rooms=${searchHome.rooms}&type=${searchHome.type}`, navigate, PageRerender)
 	}
 
 
@@ -323,7 +322,7 @@ console.log( "myprofile from comp roleeeee" , role)
                     </li>
 
                     <li className="nav-item active">
-                      <Link to="/formsTwo/rent" state={{ quer: "Name" }}>
+                      <Link to="/property/rent" state={{ quer: "Name" }}>
 												<a className="nav-link1" href="">
 													RENT
 												</a>

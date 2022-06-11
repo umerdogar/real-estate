@@ -31,8 +31,8 @@ const DealerProperties = ({
 		// singlePropertyDetail(id, navigate)
 		console.log("func caleeeed plots")
 	}
-	const plot = dealerPropertyDetail 
-	console.log("propertyDetail in dealerr", plot)
+	const dealerPropertyList = dealerPropertyDetail 
+	console.log("propertyDetail in dealerr", dealerPropertyList)
 
 
 	return (
@@ -139,9 +139,9 @@ const DealerProperties = ({
 											<div className="row margin-bottom-15">
 												<div className="col-md-8 col-12">
 													<div className="row">
-														{/* {dealerPropertyDetail !== undefined && 
-						<PaginatedItems itemsPerPage={6} cardDetail={plot} type={"dealerProperty"} func = {getPropertyDetail}/>
-					} */}
+														{dealerPropertyDetail !== undefined && 
+						<PaginatedItems itemsPerPage={6} cardDetail={dealerPropertyList} type={"dealerProperty"} func = {getPropertyDetail}/>
+					}
 
 													</div>
 												</div>

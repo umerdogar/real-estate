@@ -69,3 +69,10 @@ export const addImageUrl = (data) => {
 	}
 }
 
+
+export const favouriteProperty = (id) => {
+	return {
+		type: "FAVOURITE_PROPERTY",
+		payload:id
+	}
+}

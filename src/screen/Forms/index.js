@@ -98,7 +98,7 @@ const url = propertyReducer &&  propertyReducer.imageUrl && propertyReducer.imag
 		  data["image"] = url
 
 		console.log("data", data)
-		addNewProperty(data)
+		addNewProperty(data , navigate)
 	  };
 
 	//   const addNewPropertyUser  = 
@@ -1045,7 +1045,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
 	return {
     myProfileData: () => {dispatch(myProfileData())},
-	addNewProperty: (data) => {dispatch(addNewProperty(data))},
+	addNewProperty: (data , navigate) => {dispatch(addNewProperty(data , navigate))},
 	addImage : (data) => {dispatch(addImage(data))}
 	}
 }

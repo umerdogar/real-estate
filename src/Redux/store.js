@@ -16,7 +16,7 @@ const logger = createLogger()
 const persistConfig = {
 	key: "reducer-key",
 	storage: storage,
-	blacklist: ['loaderReducer', 'homePageReducer']
+	blacklist: ['loaderReducer', 'popularCitiesReducer']
 }
 const pReducer = persistReducer(persistConfig, RootReducers)
 const middleware = applyMiddleware(thunk, logger)

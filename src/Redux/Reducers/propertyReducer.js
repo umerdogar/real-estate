@@ -48,6 +48,11 @@ export default function propertyReducer(state = INITIAL_STATE, action) {
 							...state,
 							imageUrl : action.payload
 						}
+						case "FAVOURITE_PROPERTY" :
+						return{
+							...state,
+							favProperty : action.payload
+						}
 						
 					
 		default:
