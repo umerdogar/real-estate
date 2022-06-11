@@ -1,38 +1,99 @@
-import React from "react"
+import { React } from "react"
 import Logo from "../../assets/logo.png"
 import ProfileIcon from "../../assets/profile-icon.png"
 import Footer from "../../components/Footer"
 import { connect } from "react-redux"
 import PaginatedItems from "../../components/Pagination/PaginatedItems"
-import {allPropertiesList} from "../../Redux/Thunk/Property"
-
-
-
+import { allPropertiesList } from "../../Redux/Thunk/Property"
+import axios from "axios"
 import {
 	BrowserRouter as Router,
 	Switch,
 	Route,
 	useParams,
-	useLocation,useNavigate
-  } from "react-router-dom";
-import { useEffect } from "react"
+	useLocation,
+	useNavigate,
+} from "react-router-dom"
+import { useEffect, useState } from "react"
 
-
-const Details = ({ propertyDetail , allPropertiesList ,singleProperty , allProperties}) => {
-	
+const Details = ({
+	propertyDetail,
+	allPropertiesList,
+	singleProperty,
+	allProperties,
+	props,
+	route,
+}) => {
 	const navigate = useNavigate()
-	console.log("property detail from detail comp", allProperties && allProperties.property)
-	console.log("property detail from detail com atitleppp", singleProperty && singleProperty)
+	console.log(
+		"property detail from detail comp",
+		allProperties && allProperties.property
+	)
+	console.log(route?.params, "route.params")
+	console.log(
+		"property detail from detail com atitleppp",
+		singleProperty && singleProperty
+	)
 
 	const paginationData = allProperties && allProperties?.property
 
-	useEffect(()=>{
+	useEffect(() => {
 		allPropertiesList()
 	}, [])
- 
 
+	const APICall = () => {
+		axios
+			.post(`http://52.77.156.101:8000//api/v1/property/send/mail/`, UserInfo)
+			.then((res) => {
+				console.log(" login response....??>>>??>>", res)
 
-	
+				// Notification("success", "Login Successfull")
+				// window.location.reload()
+			})
+			.catch((error) => {
+				console.log(" errorr response", error.message)
+
+				// Notification("error", "Login Failed")
+			})
+	}
+
+	const [UserInfo, setUserInfo] = useState({
+		Name: "",
+		email: "",
+		PhoneNumber: "",
+		message: "",
+	})
+
+	const handlerForName = (e) => {
+		setUserInfo({
+			...UserInfo,
+			Name: e.target.value,
+		})
+	}
+	const handlerForEmail = (e) => {
+		setUserInfo({
+			...UserInfo,
+			email: e.target.value,
+		})
+	}
+	const handlerForPhoneNumber = (e) => {
+		setUserInfo({
+			...UserInfo,
+			PhoneNumber: e.target.value,
+		})
+	}
+	const handlerFormessage = (e) => {
+		setUserInfo({
+			...UserInfo,
+			message: e.target.value,
+		})
+	}
+
+	const handlePost = (e) => {
+		e.preventDefault()
+		console.log(UserInfo, "UserInfo in handle post ")
+		APICall()
+	}
 	return (
 		<>
 			<div className="container">
@@ -59,23 +120,34 @@ const Details = ({ propertyDetail , allPropertiesList ,singleProperty , allPrope
 							>
 								<ul className="navbar-nav ml-auto main-nav ">
 									<li className="nav-item active">
-										<a className="nav-link" href="" onClick={() => {
+										<a
+											className="nav-link"
+											href=""
+											onClick={() => {
 												navigate("/")
-											}}>
+											}}
+										>
 											Home
 										</a>
 									</li>
 									<li className="nav-item ">
-										<a className="nav-link" href="" onClick={() => {
+										<a
+											className="nav-link"
+											href=""
+											onClick={() => {
 												navigate("/formsTwo/plot")
-											}}>
+											}}
+										>
 											Plot
 										</a>
 									</li>
 									<li className="nav-item ">
-										<a className="nav-link"  onClick={() => {
+										<a
+											className="nav-link"
+											onClick={() => {
 												navigate("/formsTwo/commercial")
-											}}>
+											}}
+										>
 											Commercial
 										</a>
 									</li>
@@ -107,17 +179,20 @@ const Details = ({ propertyDetail , allPropertiesList ,singleProperty , allPrope
 						{/* <!-- Left sidebar --> */}
 						<div className="col-md-8">
 							<div className="product-details">
-							
-								<h1 className="product-title">{singleProperty && singleProperty.property_title}</h1>
-								
+								<h1 className="product-title">
+									{singleProperty && singleProperty.property_title}
+								</h1>
+
 								{/* <!-- product slider --> */}
 								<div className="margin-top-30">
 									<img
 										className="img-fluid w-100"
-										
-				src={singleProperty.images && singleProperty.images.length !== 0 ? singleProperty?.images[0] : "https://thumbor.forbes.com/thumbor/fit-in/900x510/https://www.forbes.com/advisor/wp-content/uploads/2021/08/download-23.jpg"}
-
-										
+										src={
+											singleProperty.images &&
+											singleProperty.images.length !== 0
+												? singleProperty?.images[0]
+												: "https://thumbor.forbes.com/thumbor/fit-in/900x510/https://www.forbes.com/advisor/wp-content/uploads/2021/08/download-23.jpg"
+										}
 										alt="product-img"
 									/>
 									<ul className="list-inline margin-top-25">
@@ -442,19 +517,16 @@ const Details = ({ propertyDetail , allPropertiesList ,singleProperty , allPrope
 																	<td> Agent Name</td>
 																	{/* <td>{singleProperty && singleProperty?.agent?.name}</td> */}
 																	<td>Jack Aniston</td>
-
 																</tr>
 																<tr>
 																	<td> Agent Phone No</td>
 																	{/* <td> {singleProperty && singleProperty?.agent?.phone}</td> */}
 																	<td> +92 989 898 7</td>
-
 																</tr>
 																<tr>
 																	<td> Email</td>
 																	{/* <td>{singleProperty && singleProperty?.agent?.email}</td> */}
 																	<td>zack@gmail.com</td>
-
 																</tr>
 															</tbody>
 														</table>
@@ -515,24 +587,32 @@ const Details = ({ propertyDetail , allPropertiesList ,singleProperty , allPrope
 									</button>
 
 									<div className="">
-										<form action="#">
+										<form onSubmit={handlePost}>
 											<fieldset className="input-left">
 												<input
+													value={UserInfo.Name}
+													onChange={handlerForName}
 													type="text"
 													placeholder="Name"
 													className="border p-3 w-100 my-2 py-4"
 												/>
 												<input
+													value={UserInfo.Email}
+													onChange={handlerForEmail}
 													type="text"
 													placeholder="Email"
 													className="border p-3 w-100 my-2 py-4"
 												/>
 												<input
+													value={UserInfo.PhoneNumber}
+													onChange={handlerForPhoneNumber}
 													type="phone"
 													placeholder="Phone Number"
 													className="border p-3 w-100 my-2 py-4"
 												/>
 												<input
+													value={UserInfo.message}
+													onChange={handlerFormessage}
 													type="text"
 													placeholder="Message"
 													className="border p-3 w-100 my-2 py-4"
@@ -588,10 +668,13 @@ const Details = ({ propertyDetail , allPropertiesList ,singleProperty , allPrope
 					</div>
 					<hr />
 					<div className="row">
-					{paginationData !== undefined && 
-
-						<PaginatedItems itemsPerPage={6} cardDetail={paginationData} type={"details"}/>
-					}
+						{paginationData !== undefined && (
+							<PaginatedItems
+								itemsPerPage={6}
+								cardDetail={paginationData}
+								type={"details"}
+							/>
+						)}
 					</div>
 				</div>
 				{/* <!-- Container End --> */}
@@ -605,18 +688,18 @@ const Details = ({ propertyDetail , allPropertiesList ,singleProperty , allPrope
 // export default Details
 
 const mapStateToProps = (state) => {
-	let { propertyDetail , singleProperty , allProperties } = state.propertyReducer
+	let { propertyDetail, singleProperty, allProperties } = state.propertyReducer
 
 	return {
 		propertyDetail,
 		singleProperty,
-		allProperties
+		allProperties,
 	}
 }
 const mapDispatchToProps = (dispatch) => {
 	return {
 		// popularCity: () => dispatch(popularCityStat()),
-		allPropertiesList : () => dispatch(allPropertiesList())
+		allPropertiesList: () => dispatch(allPropertiesList()),
 	}
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Details)

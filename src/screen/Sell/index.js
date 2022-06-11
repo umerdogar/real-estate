@@ -5,14 +5,14 @@ import Image1 from "../../assets/image-1.png"
 import Footer from "../../components/Footer"
 import {
 	singlePropertyDetail,
-	allSellProperties
+	allSellProperties,
 } from "../../Redux/Thunk/Property"
 import { connect, createDispatchHook } from "react-redux"
 import propertyReducer from "../../Redux/Reducers/propertyReducer"
 import { useNavigate, useParams, useLocation } from "react-router-dom"
 import { plotsDataFetch, commercialDataFetch } from "../../Redux/Thunk/homePage"
 import PaginatedItems from "../../components/Pagination/PaginatedItems"
-
+import Plots from "../Plots"
 
 // import { useLocation } from "react-router-dom"
 const FormsTwo = ({
@@ -22,8 +22,7 @@ const FormsTwo = ({
 	PageRefresh,
 	props,
 	allSellProperties,
-	sellPropertyList
-
+	sellPropertyList,
 }) => {
 	let navigate = useNavigate()
 	useEffect(() => {
@@ -42,8 +41,7 @@ const FormsTwo = ({
 	}
 	const plot = sellPropertyList?.data
 	console.log("propertyDetail in FormsTwo data===", plot && plot)
-
-
+	console.log(plot, "plotssss")
 	return (
 		<>
 			<div className="container">
@@ -88,7 +86,6 @@ const FormsTwo = ({
 											onClick={() => {
 												navigate("/formsTwo/plot")
 												PageRefresh()
-
 											}}
 										>
 											Plot
@@ -101,7 +98,6 @@ const FormsTwo = ({
 											onClick={() => {
 												navigate("/formsTwo/commercial")
 												PageRefresh()
-
 											}}
 										>
 											Commercial
@@ -664,10 +660,14 @@ const FormsTwo = ({
 											<div className="row margin-bottom-15">
 												<div className="col-md-8 col-12">
 													<div className="row">
-														{plotsData !== undefined && 
-						<PaginatedItems itemsPerPage={6} cardDetail={plot} type={"plot"} func = {getPropertyDetail}/>
-					}
-
+														{plot !== undefined && (
+															<PaginatedItems
+																itemsPerPage={6}
+																cardDetail={plot}
+																type={"plot"}
+																func={getPropertyDetail}
+															/>
+														)}
 													</div>
 												</div>
 												<div className="col-md-4 col-12">
@@ -736,7 +736,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
 	return {
 		allSellProperties: () => dispatch(allSellProperties()),
-		
+
 		singlePropertyDetail: (id, navigate) =>
 			dispatch(singlePropertyDetail(id, navigate)),
 	}

@@ -6,14 +6,13 @@ import Footer from "../../components/Footer"
 import {
 	allPropertiesList,
 	singlePropertyDetail,
-    allRentProperties
+	allRentProperties,
 } from "../../Redux/Thunk/Property"
 import { connect, createDispatchHook } from "react-redux"
 import propertyReducer from "../../Redux/Reducers/propertyReducer"
 import { useNavigate, useParams, useLocation } from "react-router-dom"
 import { plotsDataFetch, commercialDataFetch } from "../../Redux/Thunk/homePage"
 import PaginatedItems from "../../components/Pagination/PaginatedItems"
-
 
 // import { useLocation } from "react-router-dom"
 const FormsTwo = ({
@@ -27,13 +26,13 @@ const FormsTwo = ({
 	data,
 	PageRefresh,
 	props,
-    allRentProperties,
-    rentPropertyList,
+	allRentProperties,
+	rentPropertyList,
 }) => {
 	let navigate = useNavigate()
 	useEffect(() => {
 		// plotsDataFetch()
-        allRentProperties()
+		allRentProperties()
 		console.log("all rent properties")
 	}, [])
 
@@ -48,10 +47,11 @@ const FormsTwo = ({
 		console.log("func caleeeed plots")
 	}
 	const rentProperty = rentPropertyList && rentPropertyList.data
-	console.log("propertyDetail in FormsTwo data===", rentPropertyList && rentPropertyList)
+	console.log(
+		"propertyDetail in FormsTwo data===",
+		rentPropertyList && rentPropertyList
+	)
 	console.log("asfadfadad in FormsTwo data===", rentProperty && rentProperty)
-
-
 
 	return (
 		<>
@@ -97,7 +97,6 @@ const FormsTwo = ({
 											onClick={() => {
 												navigate("/formsTwo/plot")
 												PageRefresh()
-
 											}}
 										>
 											Plot
@@ -110,7 +109,6 @@ const FormsTwo = ({
 											onClick={() => {
 												navigate("/formsTwo/commercial")
 												PageRefresh()
-
 											}}
 										>
 											Commercial
@@ -673,10 +671,14 @@ const FormsTwo = ({
 											<div className="row margin-bottom-15">
 												<div className="col-md-8 col-12">
 													<div className="row">
-														{rentPropertyList !== undefined && 
-						<PaginatedItems itemsPerPage={6} cardDetail={rentProperty} type={"rentPropertyList"} func = {getPropertyDetail}/>
-					}
-
+														{rentProperty !== undefined && (
+															<PaginatedItems
+																itemsPerPage={6}
+																cardDetail={rentProperty}
+																type={"rentPropertyList"}
+																func={getPropertyDetail}
+															/>
+														)}
 													</div>
 												</div>
 												<div className="col-md-4 col-12">
