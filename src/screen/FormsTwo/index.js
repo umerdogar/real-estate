@@ -42,8 +42,6 @@ const FormsTwo = ({
 	const plot = plotsData?.property
 	const commercial = commercialData?.property
 	window.onpopstate = () => {
-		console.log("On pop stae")
-		console.log("Hamza")
 		onDone.onDone()
 	}
 
@@ -737,8 +735,8 @@ const FormsTwo = ({
 }
 
 const mapStateToProps = (state) => {
-	let propertyDetail = state.propertyReducer.propertyDetail[0]
-	let onDone = state.propertyReducer.propertyDetail[1]
+	let propertyDetail = state.propertyReducer.propertyDetail
+	let onDone = state.propertyReducer.propertyDetail
 	console.log(onDone, "propertyDetailmapStateToProps")
 	let { plotsData } = state.popularCitiesReducers
 	let { commercialData } = state.popularCitiesReducers

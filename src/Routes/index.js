@@ -13,6 +13,7 @@ import { connect } from "react-redux";
 import Sell from "../screen/Sell";
 import Rent from "../screen/Rent";
 import DealerProperties from "../screen/DealerProperties";
+import Fav_Properties from "../screen/Fav_Properties";
 
 
 const Routing = () => {
@@ -97,6 +98,16 @@ const Routing = () => {
             // </PrivateRoute>
           }
         />
+        <Route
+          path="/fav/properties"
+          element={
+            <PrivateRoute>
+              <Fav_Properties />
+             </PrivateRoute>
+          }
+         
+        />
+         
         {/* <Route path="*" element={  <PrivateRoute>    <Home />  </PrivateRoute>}/> */}
       </Routes>
     </BrowserRouter>

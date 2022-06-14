@@ -27,13 +27,10 @@ const Details = ({
 }) => {
 	const navigate = useNavigate()
 	console.log(
-		"property detail from detail comp",
-		allProperties && allProperties.property
-	)
-	console.log(
 		"property detail from detail com atitleppp",
-		singleProperty && singleProperty
+		singleProperty && singleProperty.property
 	)
+	const data = singleProperty && singleProperty.property
 
 	const paginationData = allProperties && allProperties?.property
 
@@ -181,7 +178,7 @@ const Details = ({
 						<div className="col-md-8">
 							<div className="product-details">
 								<h1 className="product-title">
-									{singleProperty && singleProperty.property_title}
+									{data.property_title}
 								</h1>
 
 								{/* <!-- product slider --> */}
@@ -189,9 +186,9 @@ const Details = ({
 									<img
 										className="img-fluid w-100"
 										src={
-											singleProperty.images &&
-											singleProperty.images.length !== 0
-												? singleProperty?.images[0]
+											data.images &&
+											data.images.length !== 0
+												? data.images[0]
 												: "https://thumbor.forbes.com/thumbor/fit-in/900x510/https://www.forbes.com/advisor/wp-content/uploads/2021/08/download-23.jpg"
 										}
 										alt="product-img"
@@ -201,7 +198,7 @@ const Details = ({
 											<a>
 												<i className="ri-hotel-bed-line"></i>
 												<span className="margin-left-5 margin-right-15">
-													4
+													{data.bedrooms}
 												</span>{" "}
 											</a>
 										</li>
@@ -215,7 +212,7 @@ const Details = ({
 											<a>
 												<i className="ri-fullscreen-fill"></i>
 												<span className="margin-left-5 margin-right-15">
-													5987 sqft
+													{data.calculating_area} sqft
 												</span>
 											</a>
 										</li>
@@ -230,19 +227,13 @@ const Details = ({
 											<h3 className="tab-title">Overview</h3>
 											<div className="bg-blue padding-15">
 												<h6 style={{ color: "white", margin: "0px" }}>
-													Discreption
+													Description
 												</h6>
 											</div>
 											<div className="padding-15">
-												<h6>Miller Real Estate</h6>
+												<h6>{data.property_title}</h6>
 												<p>
-													Lorem ipsum dolor sit amet, consectetur adipisicing
-													elit. Officia laudantium beatae quod perspiciatis,
-													neque dolores eos rerum, ipsa iste cum culpa numquam
-													amet provident eveniet pariatur, sunt repellendus quas
-													voluptate dolor cumque autem molestias. Ab quod
-													quaerat molestias culpa eius, perferendis facere vitae
-													commodi ?
+												{data.description}
 												</p>
 											</div>
 											<div className="bg-blue padding-15">
@@ -260,15 +251,15 @@ const Details = ({
 															<tbody>
 																<tr>
 																	<td> Property Type</td>
-																	<td> House</td>
+																	<td> {data.property_type}</td>
 																</tr>
 																<tr>
 																	<td> City</td>
-																	<td> Islamabad</td>
+																	<td> {data.city}</td>
 																</tr>
 																<tr>
 																	<td> Area</td>
-																	<td> 1 kanal</td>
+																	<td> {data.area} {data.area_type}</td>
 																</tr>
 																<tr>
 																	<td> Floor</td>
@@ -297,11 +288,11 @@ const Details = ({
 																</tr>
 																<tr>
 																	<td> Property Title</td>
-																	<td> Prime</td>
+																	<td> {data.property_title}</td>
 																</tr>
 																<tr>
 																	<td> Property number</td>
-																	<td> 22423</td>
+																	<td> {data.property_number}</td>
 																</tr>
 															</tbody>
 														</table>
@@ -315,18 +306,19 @@ const Details = ({
 											</div>
 											<div className="padding-15">
 												<div className="row">
-													<div className="col-md-6">
+													<div >
 														<table
-															className="table margin-bottom-0 table-bordered1     table-condensed   "
+															// className="table margin-bottom-0 table-bordered1     table-condensed   "
 															style={{ fontSize: "11px" }}
 														>
 															<tbody>
-																<tr>
-																	{/* {singleProperty && singleProperty?.propertyType?.Features?.map(()=>(
+																
+																	{data.property_features.map((detail)=>(
+																		// <tr>
 																		<td>
 																		<div
 																			className="checkbox-custom checkbox-inline1 checkbox-warning"
-																			style={{ fontSize: "2.5em" }}
+																			style={{ fontSize: "2.5em" ,display:"flex" , minWidth:"130px" , width:"50%"}}
 																		>
 																			<input
 																				type="checkbox"
@@ -334,11 +326,13 @@ const Details = ({
 																				name="checkbox"
 																				checked=""
 																			/>
-																			<label for="444">Gass</label>
+																			<label for="444">{detail}</label>
 																		</div>
 																	</td>
-																	))} */}
-																	<td>
+																	// </tr>
+																	))}
+																	
+																	{/* <td>
 																		<div
 																			className="checkbox-custom checkbox-inline1 checkbox-warning"
 																			style={{ fontSize: "2.5em" }}
@@ -426,11 +420,11 @@ const Details = ({
 																			<label for="444">TV Lounge </label>
 																		</div>
 																	</td>
-																</tr>
+																</tr> */}
 															</tbody>
 														</table>
 													</div>
-													<div className="col-md-6">
+													{/* <div className="col-md-6">
 														<table
 															className="table margin-bottom-0 table-bordered1     table-condensed   "
 															style={{ fontSize: "11px" }}
@@ -498,7 +492,7 @@ const Details = ({
 																</tr>
 															</tbody>
 														</table>
-													</div>
+													</div> */}
 												</div>
 											</div>
 											<div className="bg-blue padding-15">

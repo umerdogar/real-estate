@@ -363,6 +363,9 @@ const Home = ({
 														LogOut
 													</p>
 												)}
+													<p className="login-text" onClick={()=>{navigate("/fav/properties")}}>
+														Favourite Properties
+													</p>
 											</Popover>
 										</li>
 									</ul>

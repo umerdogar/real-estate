@@ -53,7 +53,11 @@ export default function propertyReducer(state = INITIAL_STATE, action) {
 							...state,
 							favProperty : action.payload
 						}
-						
+						case "FAVOURITE_PROPERTY_LISTING":
+							return{
+								...state,
+								favPropertyListing:action.payload
+							}
 					
 		default:
 			return state

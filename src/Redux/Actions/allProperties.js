@@ -76,3 +76,10 @@ export const favouriteProperty = (id) => {
 		payload:id
 	}
 }
+
+export const favouritePropertyListing = (id) => {
+	return {
+		type: "FAVOURITE_PROPERTY_LISTING",
+		payload:id
+	}
+}
