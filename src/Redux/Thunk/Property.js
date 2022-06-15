@@ -36,6 +36,7 @@ return (dispatch) => {
 		axios
 			.get(`http://52.77.156.101:8000/api/v1/property/or-property-search?${data}`)
 			.then((res) => {
+				console.log("res.data", res.data.data)
 				dispatch(
 					filterProperty(res.data, {
 						onDone: () => {

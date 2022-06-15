@@ -2,11 +2,23 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { connect } from "react-redux";
 import {favPropertyThunk} from "../../Redux/Thunk/Property"
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+import FavoriteIcon from '@material-ui/icons/Favorite';
 
 
-function Items({ currentItems, type, func , favPropertyThunk }) {
+function Items({ currentItems, type, func , favPropertyThunk , favProperty }) {
   const navigate = useNavigate();
   console.log("current itemss ", currentItems && currentItems);
+  console.log("fav prop ", currentItems && currentItems[0].fav && currentItems[0].fav.favproperty);
+
+const [state , setState] = useState(1)
+
+const favPropertyfunc = (id) => {
+  console.log("fav.property", id)
+  favPropertyThunk(id)
+  setState(state+1)
+}
+console.log("state" , favProperty)
 
   return (
     <>
@@ -44,11 +56,26 @@ function Items({ currentItems, type, func , favPropertyThunk }) {
                   <i className="ri-camera-line"></i>
                 </a>
               </div>
+
+
+
+{card.fav.favproperty ? 
               <div className="card-img-overlay d-flex justify-content-end">
-                <a onClick={()=>favPropertyThunk(card._id)} className="card-link text-danger like">
-                  <i className="ri-heart-line"></i>
-                </a>
-              </div>
+                <a onClick={()=>favPropertyfunc(card._id)} className="card-link text-danger like">
+                {/* <i class="ri-heart-3-fill"></i> */}
+                <FavoriteIcon/>
+              </a>
+            </div>
+            :
+            <div className="card-img-overlay d-flex justify-content-end">
+            <a onClick={()=>favPropertyfunc(card._id)} className="card-link text-danger like">
+            {/* <i className="ri-heart-line"></i> */}
+            <FavoriteBorderIcon/>
+
+          </a>
+        </div>
+              }
+          
 
               <div className="second text-center">
                 <a
@@ -313,7 +340,7 @@ function Items({ currentItems, type, func , favPropertyThunk }) {
         ))}
 
       {type == "allProperties" &&
-        currentItems[0].data?.map((card) => (
+        currentItems.map((card) => (
           <div className="col-md-4 margin-top-15 margin-bottom-15">
             <div className="card">
               <img
@@ -840,9 +867,9 @@ function Items({ currentItems, type, func , favPropertyThunk }) {
 
 
 const mapStateToProps = (state) => {
-
+    let{favProperty} = state.propertyReducer
 	return {
-	
+    favProperty
 	}
 }
 const mapDispatchToProps = (dispatch) => {

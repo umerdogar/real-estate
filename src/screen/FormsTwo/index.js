@@ -35,8 +35,9 @@ const FormsTwo = ({
 	console.log(props, "Props from Home")
 	let navigate = useNavigate()
 	const [allProperty, setAllProperty] = useState()
-	const cardData = propertyDetail
-	console.log("propertyDetail in FormsTwo", cardData)
+	const cardData = propertyDetail[0] && propertyDetail[0]?.data
+	console.log("propertyDetail in ", cardData)
+	
 
 
 	const plot = plotsData?.property
@@ -671,7 +672,7 @@ const FormsTwo = ({
 											<div className="row margin-bottom-15">
 												<div className="col-md-8 col-12">
 													<div className="row">
-														{cardData != undefined &&
+														{cardData !== undefined &&
 						<PaginatedItems itemsPerPage={6} cardDetail={cardData} type={"allProperties"} func = {getPropertyDetail}/>
 						// :
 
@@ -737,11 +738,11 @@ const FormsTwo = ({
 const mapStateToProps = (state) => {
 	let propertyDetail = state.propertyReducer.propertyDetail
 	let onDone = state.propertyReducer.propertyDetail
-	console.log(onDone, "propertyDetailmapStateToProps")
+	
 	let { plotsData } = state.popularCitiesReducers
 	let { commercialData } = state.popularCitiesReducers
 
-	console.log("full state", state)
+	console.log("full state",propertyDetail[0].data)
 	return {
 		propertyDetail,
 		plotsData,
